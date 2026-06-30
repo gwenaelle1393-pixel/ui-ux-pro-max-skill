@@ -3,1391 +3,1100 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Elite Coach — Transforme ton Corps, Libère ton Potentiel</title>
-<meta name="description" content="Coach sportif certifié. Programmes personnalisés, suivi nutrition, résultats garantis. Réservez votre séance découverte gratuite.">
+<title>Maxime Laurent — Coach Sportif Elite</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,700;0,800;0,900;1,800;1,900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = {
-  theme: {
-    extend: {
-      fontFamily: {
-        heading: ['Barlow Condensed', 'sans-serif'],
-        body: ['Barlow', 'sans-serif'],
-      },
-      colors: {
-        bg: '#080D16',
-        card: '#0F1623',
-        'card-hover': '#161E2E',
-        orange: { DEFAULT: '#F97316', dark: '#EA580C', light: '#FB923C' },
-        green: { DEFAULT: '#22C55E', dark: '#16A34A' },
-        slate: {
-          900: '#0F172A', 800: '#1E293B', 700: '#334155',
-          600: '#475569', 500: '#64748B', 400: '#94A3B8',
-          300: '#CBD5E1', 200: '#E2E8F0', 100: '#F1F5F9',
-        },
-      },
-      animation: {
-        'fade-up': 'fadeUp 0.6s ease-out forwards',
-        'fade-in': 'fadeIn 0.4s ease-out forwards',
-        'pulse-slow': 'pulse 3s cubic-bezier(0.4,0,0.6,1) infinite',
-      },
-      keyframes: {
-        fadeUp: { '0%': { opacity: '0', transform: 'translateY(30px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
-        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
-      },
-    }
-  }
-}
-</script>
 <style>
-  *, *::before, *::after { box-sizing: border-box; }
-  html { font-family: 'Barlow', sans-serif; background: #080D16; color: #F1F5F9; }
-  h1, h2, h3, h4, h5 { font-family: 'Barlow Condensed', sans-serif; }
+:root {
+  --orange: #F97316;
+  --orange-dim: rgba(249,115,22,0.15);
+  --black: #080808;
+  --black2: #0f0f0f;
+  --white: #FAFAFA;
+  --muted: #6B7280;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { background: var(--black); color: var(--white); font-family: 'Barlow', sans-serif; overflow-x: hidden; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--orange); }
+:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
 
-  /* Scrollbar */
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: #080D16; }
-  ::-webkit-scrollbar-thumb { background: #F97316; border-radius: 3px; }
+/* ── Typography ── */
+.display { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; text-transform: uppercase; line-height: .92; letter-spacing: -.02em; }
+.display-outline { -webkit-text-stroke: 2px var(--white); color: transparent; }
+.display-outline-orange { -webkit-text-stroke: 2px var(--orange); color: transparent; }
+.label { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: .2em; font-size: .7rem; color: var(--orange); }
 
-  /* Glow effects */
-  .glow-orange { box-shadow: 0 0 30px rgba(249,115,22,0.3); }
-  .glow-orange-sm { box-shadow: 0 0 15px rgba(249,115,22,0.2); }
-  .text-glow { text-shadow: 0 0 40px rgba(249,115,22,0.4); }
+/* ── Marquee ── */
+.marquee-wrap { overflow: hidden; border-top: 1px solid rgba(255,255,255,.07); border-bottom: 1px solid rgba(255,255,255,.07); }
+.marquee-track { display: flex; width: max-content; animation: marquee 28s linear infinite; }
+.marquee-track:hover { animation-play-state: paused; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-  /* Gradient text */
-  .gradient-text {
-    background: linear-gradient(135deg, #F97316 0%, #FB923C 50%, #FBBF24 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  }
+/* ── Scroll reveal ── */
+[data-reveal] { opacity: 0; transform: translateY(44px); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
+[data-reveal].on { opacity: 1; transform: none; }
+[data-reveal][data-delay="1"] { transition-delay: .1s; }
+[data-reveal][data-delay="2"] { transition-delay: .2s; }
+[data-reveal][data-delay="3"] { transition-delay: .3s; }
+[data-reveal][data-delay="4"] { transition-delay: .4s; }
 
-  /* Hero background */
-  .hero-bg {
-    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(249,115,22,0.08) 0%, transparent 60%),
-                radial-gradient(ellipse 40% 40% at 80% 50%, rgba(249,115,22,0.05) 0%, transparent 50%),
-                #080D16;
-  }
+/* ── Buttons ── */
+.btn-solid { display: inline-flex; align-items: center; gap: 10px; background: var(--orange); color: #fff; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; padding: 18px 40px; border-radius: 4px; cursor: pointer; border: none; transition: all .2s; }
+.btn-solid:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(249,115,22,.35); }
+.btn-ghost { display: inline-flex; align-items: center; gap: 10px; background: transparent; color: var(--white); font-family: 'Barlow Condensed', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; padding: 17px 40px; border-radius: 4px; cursor: pointer; border: 1.5px solid rgba(255,255,255,.2); transition: all .2s; }
+.btn-ghost:hover { border-color: var(--orange); color: var(--orange); }
 
-  /* Grid lines */
-  .grid-lines {
-    background-image: linear-gradient(rgba(249,115,22,0.03) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(249,115,22,0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-  }
+/* ── Nav ── */
+#nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; transition: background .3s, backdrop-filter .3s; }
+#nav.scrolled { background: rgba(8,8,8,.9); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,.05); }
 
-  /* Animate on scroll */
-  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-  .reveal-delay-1 { transition-delay: 0.1s; }
-  .reveal-delay-2 { transition-delay: 0.2s; }
-  .reveal-delay-3 { transition-delay: 0.3s; }
-  .reveal-delay-4 { transition-delay: 0.4s; }
+/* ── Hero ── */
+.hero-grid { display: grid; grid-template-columns: 1fr 440px; gap: 0; align-items: end; min-height: 100dvh; padding-top: 88px; }
+@media (max-width: 1024px) { .hero-grid { grid-template-columns: 1fr; } }
+.hero-text { font-size: clamp(5.5rem, 11vw, 11rem); }
+.hero-sub-text { font-size: clamp(4rem, 8vw, 8rem); }
+.hero-visual { height: 100%; min-height: 480px; position: relative; background: #111; overflow: hidden; }
+.hero-visual-inner { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 40px; }
+.athlete-silhouette { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80%; opacity: .12; }
 
-  /* Navbar blur */
-  .navbar-blur { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+/* ── Stats band ── */
+.stat-num { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(3.5rem, 6vw, 5.5rem); line-height: 1; color: var(--white); }
 
-  /* Card styles */
-  .glass-card {
-    background: rgba(15,22,35,0.8);
-    border: 1px solid rgba(249,115,22,0.1);
-    backdrop-filter: blur(10px);
-  }
-  .glass-card:hover { border-color: rgba(249,115,22,0.3); }
+/* ── Program cards ── */
+.prog-card { position: relative; overflow: hidden; aspect-ratio: 3/4; background: #111; cursor: pointer; }
+.prog-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 30%, rgba(8,8,8,.95) 100%); z-index: 1; transition: opacity .4s; }
+.prog-card:hover .prog-thumb { transform: scale(1.06); }
+.prog-thumb { position: absolute; inset: 0; transition: transform .6s cubic-bezier(.16,1,.3,1); }
+.prog-body { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; padding: 32px; }
+.prog-line { width: 0; height: 2px; background: var(--orange); transition: width .4s cubic-bezier(.16,1,.3,1); }
+.prog-card:hover .prog-line { width: 48px; }
 
-  /* Button styles */
-  .btn-primary {
-    background: linear-gradient(135deg, #F97316, #EA580C);
-    transition: all 0.2s ease;
-  }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(249,115,22,0.4); }
-  .btn-primary:active { transform: translateY(0); }
+/* ── Quote mark ── */
+.big-quote { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 8rem; line-height: .8; color: var(--orange); opacity: .3; }
 
-  .btn-outline {
-    border: 1px solid rgba(249,115,22,0.5);
-    color: #F97316;
-    transition: all 0.2s ease;
-  }
-  .btn-outline:hover { background: rgba(249,115,22,0.1); border-color: #F97316; }
+/* ── Pricing ── */
+.price-card { border: 1px solid rgba(255,255,255,.07); background: #0f0f0f; border-radius: 2px; padding: 40px 32px; }
+.price-card.featured { border-color: var(--orange); background: #111; position: relative; }
+.price-card.featured::before { content: 'POPULAIRE'; position: absolute; top: -12px; left: 32px; background: var(--orange); color: #fff; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: .15em; font-size: .65rem; padding: 4px 12px; border-radius: 2px; }
 
-  /* Stats counter */
-  .stat-number { font-variant-numeric: tabular-nums; }
+/* ── Calendar ── */
+.cal-day { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 2px; font-size: .8rem; cursor: pointer; transition: all .15s; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; }
+.cal-day:not(.disabled):not(.empty):hover { background: rgba(249,115,22,.15); color: var(--orange); }
+.cal-day.selected { background: var(--orange) !important; color: #fff !important; }
+.cal-day.disabled { opacity: .22; cursor: not-allowed; }
+.cal-day.today { border: 1px solid rgba(249,115,22,.4); }
 
-  /* Pricing card */
-  .pricing-popular {
-    background: linear-gradient(135deg, rgba(249,115,22,0.15), rgba(234,88,12,0.08));
-    border: 1px solid rgba(249,115,22,0.4);
-  }
+.slot { border: 1px solid rgba(255,255,255,.08); padding: 10px 14px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: .05em; font-size: .85rem; cursor: pointer; transition: all .15s; border-radius: 2px; }
+.slot:hover:not(.taken) { border-color: var(--orange); color: var(--orange); }
+.slot.chosen { background: var(--orange); border-color: var(--orange); color: #fff; }
+.slot.taken { opacity: .22; cursor: not-allowed; text-decoration: line-through; }
 
-  /* Calendar styles */
-  .cal-day { transition: all 0.15s ease; }
-  .cal-day:hover:not(.disabled):not(.empty) { background: rgba(249,115,22,0.2); cursor: pointer; }
-  .cal-day.selected { background: #F97316 !important; color: white !important; }
-  .cal-day.today { border: 1px solid rgba(249,115,22,0.5); }
-  .cal-day.disabled { opacity: 0.25; cursor: not-allowed; }
-  .cal-day.available { color: #F1F5F9; }
+/* ── Form ── */
+.field { width: 100%; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); color: var(--white); padding: 14px 18px; font-family: 'Barlow', sans-serif; font-size: .9rem; transition: border-color .2s; border-radius: 2px; outline: none; }
+.field:focus { border-color: var(--orange); }
+.field::placeholder { color: #555; }
+.field-err { display: none; font-size: .75rem; color: #f87171; margin-top: 4px; }
 
-  /* Time slot */
-  .time-slot { transition: all 0.15s ease; cursor: pointer; }
-  .time-slot:hover:not(.booked) { border-color: #F97316; background: rgba(249,115,22,0.1); }
-  .time-slot.selected { background: #F97316; border-color: #F97316; color: white; }
-  .time-slot.booked { opacity: 0.3; cursor: not-allowed; text-decoration: line-through; }
+/* ── Step dots ── */
+.sdot { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,.15); display: flex; align-items: center; justify-content: center; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: .75rem; color: #555; transition: all .3s; }
+.sdot.active { border-color: var(--orange); color: var(--orange); }
+.sdot.done { border-color: #22c55e; background: rgba(34,197,94,.12); color: #22c55e; }
+.sline { flex: 1; height: 1px; background: rgba(255,255,255,.08); }
+.sline.done { background: var(--orange); }
 
-  /* Progress bar */
-  .step-bar { transition: width 0.4s ease; }
+/* ── FAQ ── */
+.faq-ans { display: none; }
+.faq-trigger[aria-expanded="true"] + .faq-ans { display: block; }
+.faq-trigger[aria-expanded="true"] .faq-arr { transform: rotate(180deg); }
+.faq-arr { transition: transform .25s; }
 
-  /* Modal */
-  .modal-overlay { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+/* ── Testimonial carousel ── */
+.tcard { min-width: 380px; }
+@media (max-width: 640px) { .tcard { min-width: calc(100vw - 48px); } }
+.ttrack { display: flex; gap: 20px; transition: transform .5s cubic-bezier(.16,1,.3,1); }
 
-  /* Testimonial */
-  .testimonial-track { display: flex; transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94); }
+/* ── Modal ── */
+#modal { display: none; position: fixed; inset: 0; z-index: 200; align-items: center; justify-content: center; }
+#modal.open { display: flex; }
+#modal-bg { position: absolute; inset: 0; background: rgba(0,0,0,.8); backdrop-filter: blur(12px); }
+#modal-box { position: relative; z-index: 1; background: #111; border: 1px solid rgba(249,115,22,.3); border-radius: 4px; padding: 56px 48px; max-width: 480px; width: calc(100% - 32px); text-align: center; }
 
-  /* Parallax subtle */
-  @media (prefers-reduced-motion: reduce) {
-    .reveal { transition: none; opacity: 1; transform: none; }
-    .btn-primary:hover, .btn-outline:hover { transform: none; }
-  }
+/* ── Dividers ── */
+.slash { clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%); }
+.slash-rev { clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%); }
 
-  /* Focus visible */
-  :focus-visible { outline: 2px solid #F97316; outline-offset: 3px; border-radius: 4px; }
-
-  /* Mobile menu */
-  #mobile-menu { transform: translateX(100%); transition: transform 0.3s ease; }
-  #mobile-menu.open { transform: translateX(0); }
-
-  /* Number counter animation */
-  @keyframes countUp { from { opacity: 0; } to { opacity: 1; } }
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1; transform: none; transition: none; }
+  .marquee-track { animation: none; }
+  .btn-solid:hover, .btn-ghost:hover { transform: none; }
+}
 </style>
 </head>
-<body class="bg-bg text-slate-100 font-body antialiased overflow-x-hidden">
+<body>
 
-<!-- ============================================================
-     NAVBAR
-============================================================ -->
-<header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-  <div class="navbar-blur bg-bg/80 border-b border-white/5">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16 lg:h-20">
-
-        <!-- Logo -->
-        <a href="#hero" class="flex items-center gap-3 group cursor-pointer">
-          <div class="w-9 h-9 rounded-lg bg-orange flex items-center justify-center glow-orange-sm group-hover:scale-105 transition-transform">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M6.5 6.5h11M6.5 17.5h11M3 12h18"/>
-              <circle cx="12" cy="12" r="3"/>
-            </svg>
-          </div>
-          <span class="font-heading font-800 text-xl tracking-wide text-white">ELITE<span class="text-orange">COACH</span></span>
-        </a>
-
-        <!-- Desktop Nav -->
-        <nav class="hidden lg:flex items-center gap-8">
-          <a href="#programs" class="text-slate-400 hover:text-orange transition-colors duration-200 text-sm font-medium tracking-wide">Programmes</a>
-          <a href="#about" class="text-slate-400 hover:text-orange transition-colors duration-200 text-sm font-medium tracking-wide">À propos</a>
-          <a href="#results" class="text-slate-400 hover:text-orange transition-colors duration-200 text-sm font-medium tracking-wide">Résultats</a>
-          <a href="#pricing" class="text-slate-400 hover:text-orange transition-colors duration-200 text-sm font-medium tracking-wide">Tarifs</a>
-          <a href="#booking" class="btn-primary text-white font-heading font-700 text-sm tracking-widest uppercase px-6 py-2.5 rounded-lg cursor-pointer">
-            Réserver →
-          </a>
-        </nav>
-
-        <!-- Mobile burger -->
-        <button id="burger" class="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 cursor-pointer" aria-label="Menu">
-          <span class="w-6 h-0.5 bg-white transition-all duration-300" id="b1"></span>
-          <span class="w-6 h-0.5 bg-white transition-all duration-300" id="b2"></span>
-          <span class="w-4 h-0.5 bg-white transition-all duration-300 self-start" id="b3"></span>
-        </button>
-      </div>
+<!-- ═══════════════════════════════ NAV ═══════════════════════════════ -->
+<nav id="nav">
+  <div style="max-width:1400px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:72px;">
+    <a href="#" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.4rem;text-transform:uppercase;letter-spacing:.08em;color:var(--white);text-decoration:none;">
+      MAXIME<span style="color:var(--orange);">.</span>
+    </a>
+    <div style="display:flex;align-items:center;gap:40px;" id="nav-links">
+      <a href="#programmes" style="color:#888;font-size:.82rem;text-transform:uppercase;letter-spacing:.12em;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#F97316'" onmouseout="this.style.color='#888'">Programmes</a>
+      <a href="#coach" style="color:#888;font-size:.82rem;text-transform:uppercase;letter-spacing:.12em;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#F97316'" onmouseout="this.style.color='#888'">Coach</a>
+      <a href="#tarifs" style="color:#888;font-size:.82rem;text-transform:uppercase;letter-spacing:.12em;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#F97316'" onmouseout="this.style.color='#888'">Tarifs</a>
+      <a href="#reservation" class="btn-solid" style="padding:12px 28px;font-size:.8rem;">Réserver →</a>
     </div>
+    <!-- Mobile burger -->
+    <button id="burger" aria-label="Menu" style="display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;">
+      <span style="width:24px;height:1.5px;background:var(--white);display:block;transition:all .3s;" id="b1"></span>
+      <span style="width:24px;height:1.5px;background:var(--white);display:block;transition:all .3s;" id="b2"></span>
+      <span style="width:16px;height:1.5px;background:var(--white);display:block;transition:all .3s;" id="b3"></span>
+    </button>
   </div>
-</header>
+</nav>
 
-<!-- Mobile Menu -->
-<div id="mobile-menu" class="fixed top-0 right-0 bottom-0 w-72 z-50 bg-card border-l border-white/10 flex flex-col p-8 pt-20">
-  <button id="close-menu" class="absolute top-5 right-5 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-white cursor-pointer" aria-label="Fermer">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
-  </button>
-  <nav class="flex flex-col gap-6">
-    <a href="#programs" class="text-slate-300 hover:text-orange font-heading text-2xl font-700 tracking-wide mobile-link">Programmes</a>
-    <a href="#about" class="text-slate-300 hover:text-orange font-heading text-2xl font-700 tracking-wide mobile-link">À propos</a>
-    <a href="#results" class="text-slate-300 hover:text-orange font-heading text-2xl font-700 tracking-wide mobile-link">Résultats</a>
-    <a href="#pricing" class="text-slate-300 hover:text-orange font-heading text-2xl font-700 tracking-wide mobile-link">Tarifs</a>
-  </nav>
-  <a href="#booking" class="mt-auto btn-primary text-white font-heading font-700 text-base tracking-widest uppercase px-6 py-4 rounded-xl text-center mobile-link cursor-pointer">
-    Réserver ma séance →
-  </a>
+<!-- Mobile nav -->
+<div id="mnav" style="position:fixed;inset:0;z-index:90;background:var(--black);transform:translateX(100%);transition:transform .35s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:36px;">
+  <a href="#programmes" class="mobile-link" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:3rem;text-transform:uppercase;color:var(--white);text-decoration:none;">Programmes</a>
+  <a href="#coach" class="mobile-link" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:3rem;text-transform:uppercase;color:var(--white);text-decoration:none;">Coach</a>
+  <a href="#tarifs" class="mobile-link" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:3rem;text-transform:uppercase;color:var(--white);text-decoration:none;">Tarifs</a>
+  <a href="#reservation" class="mobile-link btn-solid" style="font-size:1.1rem;margin-top:8px;">Réserver →</a>
 </div>
-<div id="menu-backdrop" class="fixed inset-0 z-40 bg-black/60 hidden"></div>
 
-<!-- ============================================================
-     HERO
-============================================================ -->
-<section id="hero" class="relative min-h-dvh flex flex-col items-center justify-center hero-bg grid-lines overflow-hidden pt-20">
+<!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+<section id="hero" style="min-height:100dvh;display:grid;grid-template-columns:1fr 420px;position:relative;overflow:hidden;" id="hero-grid">
 
-  <!-- Decorative orb -->
-  <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-orange/5 blur-[120px] pointer-events-none"></div>
-  <div class="absolute bottom-0 right-0 w-80 h-80 rounded-full bg-orange/3 blur-[80px] pointer-events-none"></div>
+  <!-- Left -->
+  <div style="display:flex;flex-direction:column;justify-content:flex-end;padding:0 48px 64px;padding-top:120px;position:relative;z-index:2;">
+    <div class="label" style="margin-bottom:24px;" data-reveal>Coach Sportif Certifié · Paris</div>
 
-  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-0 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center w-full">
+    <h1 data-reveal data-delay="1">
+      <div class="display display-outline" style="font-size:clamp(5rem,10vw,10.5rem);">FORGE</div>
+      <div class="display" style="font-size:clamp(5rem,10vw,10.5rem);">TON</div>
+      <div class="display" style="font-size:clamp(5rem,10vw,10.5rem);color:var(--orange);">CORPS.</div>
+    </h1>
 
-    <!-- Left content -->
-    <div class="text-center lg:text-left">
-      <!-- Badge -->
-      <div class="inline-flex items-center gap-2 bg-orange/10 border border-orange/20 rounded-full px-4 py-1.5 mb-6 reveal">
-        <span class="w-2 h-2 rounded-full bg-green animate-pulse-slow"></span>
-        <span class="text-orange text-xs font-medium tracking-widest uppercase">3 places disponibles ce mois-ci</span>
-      </div>
+    <p style="color:#999;font-size:1.05rem;line-height:1.7;max-width:420px;margin-top:28px;margin-bottom:40px;" data-reveal data-delay="2">
+      Coaching personnalisé. Résultats mesurables.<br>
+      <strong style="color:var(--white);">Garanti en 12 semaines</strong> ou remboursé.
+    </p>
 
-      <h1 class="font-heading font-900 text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-none tracking-tight text-white mb-6 reveal reveal-delay-1">
-        TRANSFORME<br>
-        TON CORPS.<br>
-        <span class="gradient-text text-glow">LIBÈRE TON</span><br>
-        <span class="gradient-text text-glow">POTENTIEL.</span>
-      </h1>
-
-      <p class="text-slate-400 text-lg lg:text-xl leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0 reveal reveal-delay-2">
-        Coaching sportif personnalisé, suivi nutritionnel et mentalité de champion.
-        Résultats garantis en <strong class="text-white">12 semaines</strong> ou remboursé.
-      </p>
-
-      <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10 reveal reveal-delay-3">
-        <a href="#booking" class="btn-primary text-white font-heading font-700 text-base tracking-widest uppercase px-8 py-4 rounded-xl cursor-pointer inline-flex items-center justify-center gap-2">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-          Séance Découverte Gratuite
-        </a>
-        <a href="#results" class="btn-outline font-heading font-700 text-base tracking-wider uppercase px-8 py-4 rounded-xl cursor-pointer inline-flex items-center justify-center gap-2">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          Voir les résultats
-        </a>
-      </div>
-
-      <!-- Trust signals -->
-      <div class="flex flex-wrap items-center gap-x-6 gap-y-3 justify-center lg:justify-start reveal reveal-delay-4">
-        <div class="flex items-center gap-2 text-slate-400 text-sm">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="#22C55E" stroke="#22C55E" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          Certifié BPJEPS
-        </div>
-        <div class="flex items-center gap-2 text-slate-400 text-sm">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="#22C55E" stroke="#22C55E" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          +200 clients transformés
-        </div>
-        <div class="flex items-center gap-2 text-slate-400 text-sm">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="#22C55E" stroke="#22C55E" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          Satisfait ou remboursé
-        </div>
-      </div>
+    <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:56px;" data-reveal data-delay="3">
+      <a href="#reservation" class="btn-solid">Séance gratuite →</a>
+      <a href="#programmes" class="btn-ghost">Voir les programmes</a>
     </div>
 
-    <!-- Right: Stats cards -->
-    <div class="grid grid-cols-2 gap-4 lg:gap-5 reveal reveal-delay-2">
-      <div class="glass-card rounded-2xl p-6 col-span-2 flex items-center gap-5">
-        <div class="w-14 h-14 rounded-xl bg-orange/20 flex items-center justify-center shrink-0">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <div>
-          <div class="font-heading font-900 text-4xl text-white stat-number" data-target="247">0</div>
-          <div class="text-slate-400 text-sm mt-0.5">Clients transformés depuis 2018</div>
-        </div>
+    <!-- Mini stats row -->
+    <div style="display:flex;gap:40px;border-top:1px solid rgba(255,255,255,.06);padding-top:32px;" data-reveal data-delay="4">
+      <div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.2rem;line-height:1;" data-count="247">0</div>
+        <div style="font-size:.78rem;color:#666;margin-top:4px;text-transform:uppercase;letter-spacing:.1em;">Clients</div>
       </div>
-      <div class="glass-card rounded-2xl p-6">
-        <div class="font-heading font-900 text-4xl text-orange stat-number" data-target="98">0<span class="text-2xl">%</span></div>
-        <div class="text-slate-400 text-sm mt-1">Taux de satisfaction</div>
+      <div style="width:1px;background:rgba(255,255,255,.06);"></div>
+      <div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.2rem;line-height:1;color:var(--orange);" data-count="98">0<span style="font-size:1.3rem;">%</span></div>
+        <div style="font-size:.78rem;color:#666;margin-top:4px;text-transform:uppercase;letter-spacing:.1em;">Satisfaction</div>
       </div>
-      <div class="glass-card rounded-2xl p-6">
-        <div class="font-heading font-900 text-4xl text-white stat-number"><span data-target="12">0</span><span class="text-2xl text-orange">sem.</span></div>
-        <div class="text-slate-400 text-sm mt-1">Pour voir les résultats</div>
-      </div>
-      <div class="glass-card rounded-2xl p-6">
-        <div class="font-heading font-900 text-4xl text-white stat-number" data-target="6">0<span class="text-2xl text-orange">+</span></div>
-        <div class="text-slate-400 text-sm mt-1">Années d'expérience</div>
-      </div>
-      <div class="glass-card rounded-2xl p-6">
-        <div class="flex items-center gap-1 mb-1">
-          <span class="font-heading font-900 text-4xl text-white">4.9</span>
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="#F97316" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        </div>
-        <div class="text-slate-400 text-sm">Note Google (127 avis)</div>
+      <div style="width:1px;background:rgba(255,255,255,.06);"></div>
+      <div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.2rem;line-height:1;">6<span style="font-size:1.3rem;color:var(--orange);">ans</span></div>
+        <div style="font-size:.78rem;color:#666;margin-top:4px;text-transform:uppercase;letter-spacing:.1em;">Expérience</div>
       </div>
     </div>
   </div>
 
-  <!-- Scroll indicator -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-600 animate-bounce">
-    <span class="text-xs tracking-widest uppercase">Découvrir</span>
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  <!-- Right visual panel -->
+  <div style="background:#0e0e0e;position:relative;overflow:hidden;border-left:1px solid rgba(255,255,255,.04);">
+    <!-- Gradient bg -->
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 50% 80%,rgba(249,115,22,.18) 0%,transparent 70%);"></div>
+    <!-- BIG bg text -->
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:14rem;line-height:.85;color:rgba(255,255,255,.03);text-transform:uppercase;white-space:nowrap;user-select:none;">ML</div>
+    <!-- Athlete silhouette SVG -->
+    <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:340px;">
+      <svg viewBox="0 0 200 380" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;opacity:.55;">
+        <!-- Simplified runner silhouette -->
+        <ellipse cx="100" cy="38" rx="22" ry="22" fill="#F97316" opacity=".7"/>
+        <path d="M100 60 L88 110 L72 160 L60 220" stroke="#F97316" stroke-width="8" stroke-linecap="round" opacity=".5"/>
+        <path d="M100 60 L112 110 L128 160 L140 220" stroke="#F97316" stroke-width="8" stroke-linecap="round" opacity=".5"/>
+        <path d="M88 110 L112 110 L108 170 L100 200 L92 170 Z" fill="#F97316" opacity=".35"/>
+        <path d="M100 200 L85 270 L75 340" stroke="#F97316" stroke-width="10" stroke-linecap="round" opacity=".4"/>
+        <path d="M100 200 L115 270 L125 340" stroke="#F97316" stroke-width="10" stroke-linecap="round" opacity=".4"/>
+        <path d="M60 220 L40 240 L25 265" stroke="#F97316" stroke-width="7" stroke-linecap="round" opacity=".4"/>
+        <path d="M140 220 L160 240 L175 265" stroke="#F97316" stroke-width="7" stroke-linecap="round" opacity=".4"/>
+      </svg>
+    </div>
+    <!-- Orange line bottom accent -->
+    <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--orange);"></div>
+    <!-- Badge -->
+    <div style="position:absolute;top:32px;right:32px;background:rgba(8,8,8,.7);border:1px solid rgba(249,115,22,.25);backdrop-filter:blur(12px);padding:16px 20px;border-radius:4px;">
+      <div class="label" style="margin-bottom:6px;">Prochain créneau</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.05rem;">Lundi · 09h00</div>
+      <div style="display:flex;align-items:center;gap:6px;margin-top:6px;">
+        <span style="width:6px;height:6px;border-radius:50%;background:#22c55e;display:inline-block;"></span>
+        <span style="font-size:.75rem;color:#22c55e;">Disponible</span>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ============================================================
-     PROGRAMS / SERVICES
-============================================================ -->
-<section id="programs" class="py-24 lg:py-32 relative">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- ═══════════════════ MARQUEE ═══════════════════ -->
+<div class="marquee-wrap" style="padding:18px 0;background:var(--black);">
+  <div class="marquee-track">
+    <div style="display:flex;gap:64px;padding-right:64px;white-space:nowrap;">
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:#333;">Prise de masse</span>
+      <span style="color:var(--orange);">✦</span>
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:#333;">Perte de graisse</span>
+      <span style="color:var(--orange);">✦</span>
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:#333;">Performance sportive</span>
+      <span style="color:var(--orange);">✦</span>
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:#333;">Remise en forme</span>
+      <span style="color:var(--orange);">✦</span>
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:#333;">Nutrition sur mesure</span>
+      <span style="color:var(--orange);">✦</span>
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:#333;">Coaching mental</span>
+      <span style="color:var(--orange);">✦</span>
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:#333;">Préparation compétition</span>
+      <span style="color:var(--orange);">✦</span>
+    </div>
+    <div style="display:flex;gap:64px;padding-right:64px;white-space:nowrap;" aria-hidden="true">
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:#333;">Prise de masse</span>
+      <span style="color:var(--orange);">✦</span>
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:#333;">Perte de graisse</span>
+      <span style="color:var(--orange);">✦</span>
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:#333;">Performance sportive</span>
+      <span style="color:var(--orange);">✦</span>
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:#333;">Remise en forme</span>
+      <span style="color:var(--orange);">✦</span>
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:#333;">Nutrition sur mesure</span>
+      <span style="color:var(--orange);">✦</span>
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:#333;">Coaching mental</span>
+      <span style="color:var(--orange);">✦</span>
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:#333;">Préparation compétition</span>
+      <span style="color:var(--orange);">✦</span>
+    </div>
+  </div>
+</div>
 
-    <div class="text-center mb-16 reveal">
-      <span class="text-orange text-sm font-medium tracking-widest uppercase mb-4 block">Mes programmes</span>
-      <h2 class="font-heading font-900 text-5xl lg:text-6xl text-white leading-tight">UN PROGRAMME<br><span class="gradient-text">TAILLÉ POUR TOI</span></h2>
-      <p class="text-slate-400 text-lg mt-4 max-w-2xl mx-auto">Chaque programme est 100% personnalisé selon ton corps, tes objectifs et ton emploi du temps.</p>
+<!-- ═══════════════════ PROGRAMMES ═══════════════════ -->
+<section id="programmes" style="padding:120px 0;background:var(--black2);">
+  <div style="max-width:1400px;margin:0 auto;padding:0 24px;">
+
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:64px;flex-wrap:wrap;gap:24px;">
+      <div data-reveal>
+        <div class="label" style="margin-bottom:16px;">Mes programmes</div>
+        <h2 class="display" style="font-size:clamp(3.5rem,6vw,6rem);">Choisir<br>son camp.</h2>
+      </div>
+      <p style="color:#666;max-width:340px;line-height:1.7;font-size:.9rem;" data-reveal data-delay="2">Chaque programme est construit autour de <em style="color:#999;font-style:normal;">tes</em> objectifs, ton corps et ton emploi du temps. Zéro générique.</p>
     </div>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- 3 cards -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.04);" data-reveal>
 
       <!-- Card 1 -->
-      <div class="glass-card rounded-2xl p-8 group cursor-pointer transition-all duration-300 hover:-translate-y-1 reveal reveal-delay-1">
-        <div class="w-14 h-14 rounded-xl bg-orange/15 flex items-center justify-center mb-6 group-hover:bg-orange/25 transition-colors">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6.5 6.5h11M6.5 17.5h11"/><rect x="2" y="6" width="2" height="12" rx="1"/><rect x="20" y="6" width="2" height="12" rx="1"/>
-          </svg>
+      <div class="prog-card">
+        <div class="prog-thumb" style="background:linear-gradient(135deg,#111 0%,#1a1208 100%);">
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.06;">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:11rem;color:#F97316;text-transform:uppercase;">I</span>
+          </div>
         </div>
-        <h3 class="font-heading font-800 text-2xl text-white mb-3">Remise en Forme</h3>
-        <p class="text-slate-400 leading-relaxed mb-6">Idéal pour débutants. Reconstruction progressive, cardio adapté et fondations solides pour toute ta vie.</p>
-        <ul class="space-y-2 mb-6">
-          <li class="flex items-center gap-2 text-sm text-slate-300"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 3 séances/semaine</li>
-          <li class="flex items-center gap-2 text-sm text-slate-300"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Plan nutrition inclus</li>
-          <li class="flex items-center gap-2 text-sm text-slate-300"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Suivi WhatsApp</li>
-        </ul>
-        <a href="#booking" class="text-orange font-medium text-sm flex items-center gap-1 hover:gap-2 transition-all cursor-pointer">Réserver →</a>
+        <div class="prog-body">
+          <div class="label" style="margin-bottom:12px;">Niveau débutant</div>
+          <div class="prog-line" style="margin-bottom:16px;"></div>
+          <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.4rem;text-transform:uppercase;line-height:1;margin-bottom:12px;">Remise<br>en Forme</h3>
+          <p style="color:#777;font-size:.85rem;line-height:1.6;margin-bottom:20px;">Reconstruction progressive, cardio adapté, bases solides. 3 séances/semaine.</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2rem;color:var(--orange);">89€<span style="font-size:1rem;color:#555;">/mois</span></span>
+            <a href="#reservation" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:.75rem;color:#888;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#F97316'" onmouseout="this.style.color='#888'">Choisir →</a>
+          </div>
+        </div>
       </div>
 
       <!-- Card 2 (featured) -->
-      <div class="relative rounded-2xl p-8 group cursor-pointer transition-all duration-300 hover:-translate-y-1 reveal reveal-delay-2"
-           style="background: linear-gradient(135deg, rgba(249,115,22,0.12), rgba(234,88,12,0.06)); border: 1px solid rgba(249,115,22,0.35);">
-        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange text-white text-xs font-heading font-700 tracking-widest uppercase px-4 py-1 rounded-full">Plus populaire</div>
-        <div class="w-14 h-14 rounded-xl bg-orange/25 flex items-center justify-center mb-6">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2" stroke-linecap="round">
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-          </svg>
+      <div class="prog-card" style="border-top:3px solid var(--orange);">
+        <div class="prog-thumb" style="background:linear-gradient(135deg,#150e05 0%,#1f1006 100%);">
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 50% 100%,rgba(249,115,22,.15) 0%,transparent 70%);"></div>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.06;">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:11rem;color:#F97316;text-transform:uppercase;">II</span>
+          </div>
         </div>
-        <h3 class="font-heading font-800 text-2xl text-white mb-3">Transformation Totale</h3>
-        <p class="text-slate-400 leading-relaxed mb-6">Le programme phare. Perte de graisse, gain musculaire et mental d'acier en 12 semaines intensives.</p>
-        <ul class="space-y-2 mb-6">
-          <li class="flex items-center gap-2 text-sm text-slate-300"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 5 séances/semaine</li>
-          <li class="flex items-center gap-2 text-sm text-slate-300"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Nutrition & macros personnalisés</li>
-          <li class="flex items-center gap-2 text-sm text-slate-300"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Suivi quotidien</li>
-          <li class="flex items-center gap-2 text-sm text-slate-300"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Accès app exclusive</li>
-        </ul>
-        <a href="#booking" class="btn-primary text-white font-heading font-700 text-sm tracking-widest uppercase px-6 py-3 rounded-xl cursor-pointer inline-flex items-center gap-2">
-          Commencer maintenant →
-        </a>
+        <div class="prog-body">
+          <div class="label" style="margin-bottom:12px;color:var(--orange);">★ Plus populaire</div>
+          <div class="prog-line" style="margin-bottom:16px;width:48px;"></div>
+          <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.4rem;text-transform:uppercase;line-height:1;margin-bottom:12px;">Trans&shy;formation<br>Totale</h3>
+          <p style="color:#777;font-size:.85rem;line-height:1.6;margin-bottom:20px;">5 séances/semaine. Nutrition + macros personnalisés. Suivi quotidien. Résultats en 12 semaines.</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2rem;color:var(--orange);">197€<span style="font-size:1rem;color:#555;">/mois</span></span>
+            <a href="#reservation" class="btn-solid" style="padding:10px 20px;font-size:.75rem;">Commencer →</a>
+          </div>
+        </div>
       </div>
 
       <!-- Card 3 -->
-      <div class="glass-card rounded-2xl p-8 group cursor-pointer transition-all duration-300 hover:-translate-y-1 reveal reveal-delay-3">
-        <div class="w-14 h-14 rounded-xl bg-orange/15 flex items-center justify-center mb-6 group-hover:bg-orange/25 transition-colors">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2" stroke-linecap="round">
-            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-          </svg>
+      <div class="prog-card">
+        <div class="prog-thumb" style="background:linear-gradient(135deg,#0d0d12 0%,#0e0d1a 100%);">
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.06;">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:11rem;color:#F97316;text-transform:uppercase;">III</span>
+          </div>
         </div>
-        <h3 class="font-heading font-800 text-2xl text-white mb-3">Performance Elite</h3>
-        <p class="text-slate-400 leading-relaxed mb-6">Pour sportifs confirmés. Optimisation des performances, périodisation avancée et préparation compétition.</p>
-        <ul class="space-y-2 mb-6">
-          <li class="flex items-center gap-2 text-sm text-slate-300"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Programme sur mesure</li>
-          <li class="flex items-center gap-2 text-sm text-slate-300"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Analyse vidéo des mouvements</li>
-          <li class="flex items-center gap-2 text-sm text-slate-300"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Suivi 24h/24 prioritaire</li>
-        </ul>
-        <a href="#booking" class="text-orange font-medium text-sm flex items-center gap-1 hover:gap-2 transition-all cursor-pointer">Réserver →</a>
+        <div class="prog-body">
+          <div class="label" style="margin-bottom:12px;">Niveau avancé</div>
+          <div class="prog-line" style="margin-bottom:16px;"></div>
+          <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.4rem;text-transform:uppercase;line-height:1;margin-bottom:12px;">Performance<br>Elite</h3>
+          <p style="color:#777;font-size:.85rem;line-height:1.6;margin-bottom:20px;">Sportifs confirmés. Périodisation avancée, analyse vidéo, préparation compétition.</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2rem;color:var(--orange);">349€<span style="font-size:1rem;color:#555;">/mois</span></span>
+            <a href="#reservation" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:.75rem;color:#888;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#F97316'" onmouseout="this.style.color='#888'">Choisir →</a>
+          </div>
+        </div>
       </div>
 
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     ABOUT
-============================================================ -->
-<section id="about" class="py-24 lg:py-32" style="background: radial-gradient(ellipse 60% 50% at 100% 50%, rgba(249,115,22,0.05) 0%, transparent 60%), #080D16;">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-16 items-center">
+<!-- ═══════════════════ COACH ═══════════════════ -->
+<section id="coach" style="background:var(--black);overflow:hidden;">
+  <div style="max-width:1400px;margin:0 auto;padding:120px 24px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
 
-    <!-- Visual side -->
-    <div class="relative reveal">
-      <div class="aspect-[4/5] rounded-3xl overflow-hidden relative" style="background: linear-gradient(135deg, #0F1623 0%, #161E2E 100%); border: 1px solid rgba(249,115,22,0.15);">
-        <!-- Placeholder athlete visual -->
-        <div class="absolute inset-0 flex flex-col items-center justify-center">
-          <div class="w-32 h-32 rounded-full bg-orange/20 flex items-center justify-center mb-4 glow-orange">
-            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="1.5" stroke-linecap="round">
-              <circle cx="12" cy="7" r="4"/><path d="M5.5 20a7 7 0 0 1 13 0"/>
-            </svg>
+    <!-- Left: visual -->
+    <div style="position:relative;" data-reveal>
+      <div style="aspect-ratio:3/4;background:#0f0f0f;border:1px solid rgba(255,255,255,.05);position:relative;overflow:hidden;border-radius:2px;">
+        <!-- Big letter background -->
+        <div style="position:absolute;bottom:-20px;left:-10px;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20rem;line-height:1;color:rgba(249,115,22,.04);user-select:none;">M</div>
+        <!-- Gradient overlay -->
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 80%,rgba(249,115,22,.12) 0%,transparent 70%);"></div>
+        <!-- Center figure -->
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;">
+          <div style="width:80px;height:80px;border-radius:50%;border:2px solid rgba(249,115,22,.3);display:flex;align-items:center;justify-content:center;background:rgba(249,115,22,.08);">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="1.5"><circle cx="12" cy="7" r="4"/><path d="M5.5 20a7 7 0 0 1 13 0"/></svg>
           </div>
-          <p class="text-orange/60 text-sm tracking-widest uppercase font-heading">Photo du coach</p>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:.7rem;text-transform:uppercase;letter-spacing:.2em;color:#444;">Photo du coach</span>
         </div>
-        <!-- Orange corner accent -->
-        <div class="absolute bottom-0 right-0 w-24 h-24 bg-orange/20 rounded-tl-3xl"></div>
-        <div class="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-orange/30 rounded-tl-2xl"></div>
+        <!-- Orange bottom bar -->
+        <div style="position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,transparent,var(--orange),transparent);"></div>
       </div>
-
-      <!-- Floating badge -->
-      <div class="absolute -bottom-6 -right-4 glass-card rounded-2xl px-5 py-4 glow-orange-sm">
-        <div class="font-heading font-900 text-3xl text-white">BPJEPS</div>
-        <div class="text-orange text-xs font-medium tracking-widest uppercase">Certifié</div>
-      </div>
-      <div class="absolute -top-4 -left-4 glass-card rounded-2xl px-5 py-4">
-        <div class="font-heading font-900 text-3xl text-orange">6<span class="text-xl text-white">ans</span></div>
-        <div class="text-slate-400 text-xs">d'expérience</div>
+      <!-- Floating cert badge -->
+      <div style="position:absolute;bottom:-24px;right:-24px;background:#0f0f0f;border:1px solid rgba(249,115,22,.25);padding:20px 24px;border-radius:2px;">
+        <div class="label" style="margin-bottom:4px;">Certifié</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.6rem;">BPJEPS</div>
+        <div style="font-size:.75rem;color:#555;margin-top:2px;">Activités Physiques</div>
       </div>
     </div>
 
-    <!-- Text side -->
-    <div class="reveal reveal-delay-2">
-      <span class="text-orange text-sm font-medium tracking-widest uppercase mb-4 block">À propos du coach</span>
-      <h2 class="font-heading font-900 text-5xl lg:text-6xl text-white leading-tight mb-6">
-        MAXIME LAURENT,<br><span class="gradient-text">TON COACH ÉLITE</span>
+    <!-- Right: text -->
+    <div data-reveal data-delay="2">
+      <div class="label" style="margin-bottom:20px;">À propos</div>
+      <h2 class="display" style="font-size:clamp(3rem,5vw,5.5rem);margin-bottom:32px;">
+        Maxime<br>
+        <span style="color:var(--orange);">Laurent.</span>
       </h2>
-      <p class="text-slate-400 text-lg leading-relaxed mb-6">
-        Ancien athlète de compétition et coach certifié BPJEPS depuis 6 ans, j'ai accompagné plus de 247 clients vers leurs objectifs — qu'il s'agisse de perdre du poids, de gagner en masse musculaire ou de préparer une compétition.
+      <p style="color:#999;line-height:1.8;font-size:.95rem;margin-bottom:20px;">
+        Ancien athlète de compétition, coach certifié BPJEPS depuis 6 ans. J'ai accompagné <strong style="color:var(--white);">247 clients</strong> vers leurs objectifs — perte de poids, prise de masse, préparation compétition.
       </p>
-      <p class="text-slate-400 leading-relaxed mb-8">
-        Ma philosophie : <strong class="text-white">pas de programme générique</strong>. Chaque client est unique. Je construis chaque plan d'entraînement et nutrition sur mesure, avec un suivi rigoureux et une disponibilité totale.
+      <p style="color:#666;line-height:1.8;font-size:.9rem;margin-bottom:40px;">
+        Ma méthode : écoute, rigueur et adaptation permanente. Pas de programme copié-collé. Chaque plan est construit pour <em style="color:#888;font-style:normal;">toi</em>, autour de <em style="color:#888;font-style:normal;">ta vie</em>.
       </p>
 
       <!-- Certifications -->
-      <div class="grid grid-cols-2 gap-4 mb-8">
-        <div class="flex items-center gap-3">
-          <div class="w-8 h-8 rounded-lg bg-green/20 flex items-center justify-center shrink-0">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <span class="text-slate-300 text-sm">BPJEPS Activités Physiques</span>
+      <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:40px;">
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;border:1px solid rgba(255,255,255,.06);border-radius:2px;">
+          <span style="color:#22c55e;font-size:1.1rem;">✓</span>
+          <span style="font-size:.88rem;color:#999;">BPJEPS Activités Physiques & Sportives</span>
         </div>
-        <div class="flex items-center gap-3">
-          <div class="w-8 h-8 rounded-lg bg-green/20 flex items-center justify-center shrink-0">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <span class="text-slate-300 text-sm">Coach Nutrition Certifié</span>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;border:1px solid rgba(255,255,255,.06);border-radius:2px;">
+          <span style="color:#22c55e;font-size:1.1rem;">✓</span>
+          <span style="font-size:.88rem;color:#999;">Certification Coaching Nutritionnel</span>
         </div>
-        <div class="flex items-center gap-3">
-          <div class="w-8 h-8 rounded-lg bg-green/20 flex items-center justify-center shrink-0">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <span class="text-slate-300 text-sm">Préparation Mentale INSEP</span>
-        </div>
-        <div class="flex items-center gap-3">
-          <div class="w-8 h-8 rounded-lg bg-green/20 flex items-center justify-center shrink-0">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <span class="text-slate-300 text-sm">Secouriste PSC1</span>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;border:1px solid rgba(255,255,255,.06);border-radius:2px;">
+          <span style="color:#22c55e;font-size:1.1rem;">✓</span>
+          <span style="font-size:.88rem;color:#999;">Préparation Mentale — Formation INSEP</span>
         </div>
       </div>
 
-      <a href="#booking" class="btn-primary text-white font-heading font-700 text-sm tracking-widest uppercase px-8 py-4 rounded-xl cursor-pointer inline-flex items-center gap-2">
-        Travailler avec Maxime →
-      </a>
+      <a href="#reservation" class="btn-solid">Travailler avec Maxime →</a>
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     RESULTS / TESTIMONIALS
-============================================================ -->
-<section id="results" class="py-24 lg:py-32 overflow-hidden">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- ═══════════════════ RÉSULTATS ═══════════════════ -->
+<section style="padding:120px 0;background:var(--black2);overflow:hidden;">
+  <div style="max-width:1400px;margin:0 auto;padding:0 24px 0;">
 
-    <div class="text-center mb-16 reveal">
-      <span class="text-orange text-sm font-medium tracking-widest uppercase mb-4 block">Résultats réels</span>
-      <h2 class="font-heading font-900 text-5xl lg:text-6xl text-white leading-tight">ILS ONT<br><span class="gradient-text">TOUT CHANGÉ</span></h2>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:64px;flex-wrap:wrap;gap:24px;">
+      <div data-reveal>
+        <div class="label" style="margin-bottom:16px;">Témoignages</div>
+        <h2 class="display" style="font-size:clamp(3.5rem,6vw,6rem);">Ils ont<br>tout changé.</h2>
+      </div>
+      <div style="display:flex;gap:12px;" data-reveal data-delay="2">
+        <button id="tprev" aria-label="Précédent" style="width:44px;height:44px;border:1px solid rgba(255,255,255,.1);background:none;color:#666;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;border-radius:2px;" onmouseover="this.style.borderColor='#F97316';this.style.color='#F97316'" onmouseout="this.style.borderColor='rgba(255,255,255,.1)';this.style.color='#666'">←</button>
+        <button id="tnext" aria-label="Suivant" style="width:44px;height:44px;border:1px solid rgba(255,255,255,.1);background:none;color:#666;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;border-radius:2px;" onmouseover="this.style.borderColor='#F97316';this.style.color='#F97316'" onmouseout="this.style.borderColor='rgba(255,255,255,.1)';this.style.color='#666'">→</button>
+      </div>
     </div>
 
-    <!-- Testimonials carousel -->
-    <div class="relative overflow-hidden" id="testimonials-wrapper">
-      <div class="testimonial-track flex gap-6" id="testimonial-track">
+    <div style="overflow:hidden;" id="twrap">
+      <div class="ttrack" id="ttrack">
 
-        <!-- T1 -->
-        <div class="glass-card rounded-2xl p-8 min-w-[320px] lg:min-w-[380px] flex-shrink-0">
-          <div class="flex items-center gap-1 mb-4">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          </div>
-          <p class="text-slate-300 leading-relaxed mb-6 italic">"En 3 mois avec Maxime, j'ai perdu 14 kg et gagné une confiance en moi que je n'aurais jamais crue possible. Son suivi est incomparable."</p>
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-orange/30 flex items-center justify-center font-heading font-700 text-orange">S</div>
+        <div class="tcard" style="background:#111;border:1px solid rgba(255,255,255,.06);padding:40px;border-radius:2px;flex-shrink:0;">
+          <div class="big-quote">"</div>
+          <p style="color:#bbb;line-height:1.8;font-size:.95rem;margin-bottom:28px;">En 3 mois avec Maxime, j'ai perdu 14 kg et retrouvé une confiance en moi que je n'aurais jamais crue possible. Son suivi quotidien fait toute la différence.</p>
+          <div style="display:flex;align-items:center;gap:14px;border-top:1px solid rgba(255,255,255,.06);padding-top:24px;">
+            <div style="width:42px;height:42px;border-radius:50%;background:rgba(249,115,22,.2);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.1rem;color:var(--orange);">S</div>
             <div>
-              <div class="text-white font-medium text-sm">Sophie M.</div>
-              <div class="text-slate-500 text-xs">Programme Transformation Totale · -14 kg</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;">Sophie M.</div>
+              <div style="font-size:.75rem;color:#555;margin-top:2px;">Programme Transformation · −14 kg</div>
             </div>
+            <div style="margin-left:auto;color:var(--orange);font-size:.9rem;">★★★★★</div>
           </div>
         </div>
 
-        <!-- T2 -->
-        <div class="glass-card rounded-2xl p-8 min-w-[320px] lg:min-w-[380px] flex-shrink-0">
-          <div class="flex items-center gap-1 mb-4">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          </div>
-          <p class="text-slate-300 leading-relaxed mb-6 italic">"Maxime m'a préparé pour mon premier marathon en 16 semaines. Sa méthode de périodisation est redoutable. J'ai terminé en 3h42, au-delà de mes espérances."</p>
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-orange/30 flex items-center justify-center font-heading font-700 text-orange">T</div>
+        <div class="tcard" style="background:#111;border:1px solid rgba(255,255,255,.06);padding:40px;border-radius:2px;flex-shrink:0;">
+          <div class="big-quote">"</div>
+          <p style="color:#bbb;line-height:1.8;font-size:.95rem;margin-bottom:28px;">Maxime m'a préparé pour mon premier marathon en 16 semaines. Sa méthode de périodisation est redoutable. 3h42 au finish — au-delà de mes espérances.</p>
+          <div style="display:flex;align-items:center;gap:14px;border-top:1px solid rgba(255,255,255,.06);padding-top:24px;">
+            <div style="width:42px;height:42px;border-radius:50%;background:rgba(249,115,22,.2);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.1rem;color:var(--orange);">T</div>
             <div>
-              <div class="text-white font-medium text-sm">Thomas B.</div>
-              <div class="text-slate-500 text-xs">Programme Performance Elite · Marathon 3h42</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;">Thomas B.</div>
+              <div style="font-size:.75rem;color:#555;margin-top:2px;">Performance Elite · Marathon 3h42</div>
             </div>
+            <div style="margin-left:auto;color:var(--orange);font-size:.9rem;">★★★★★</div>
           </div>
         </div>
 
-        <!-- T3 -->
-        <div class="glass-card rounded-2xl p-8 min-w-[320px] lg:min-w-[380px] flex-shrink-0">
-          <div class="flex items-center gap-1 mb-4">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          </div>
-          <p class="text-slate-300 leading-relaxed mb-6 italic">"J'avais essayé plusieurs coachs avant. Aucun ne m'avait donné de vrais résultats. Avec Maxime : +8 kg de muscle en 5 mois. Les chiffres parlent d'eux-mêmes."</p>
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-orange/30 flex items-center justify-center font-heading font-700 text-orange">A</div>
+        <div class="tcard" style="background:#111;border:1px solid rgba(255,255,255,.06);padding:40px;border-radius:2px;flex-shrink:0;">
+          <div class="big-quote">"</div>
+          <p style="color:#bbb;line-height:1.8;font-size:.95rem;margin-bottom:28px;">J'avais essayé plusieurs coachs avant. Aucun vrai résultat. Avec Maxime : +8 kg de muscle en 5 mois. Les chiffres parlent d'eux-mêmes.</p>
+          <div style="display:flex;align-items:center;gap:14px;border-top:1px solid rgba(255,255,255,.06);padding-top:24px;">
+            <div style="width:42px;height:42px;border-radius:50%;background:rgba(249,115,22,.2);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.1rem;color:var(--orange);">A</div>
             <div>
-              <div class="text-white font-medium text-sm">Alexandre D.</div>
-              <div class="text-slate-500 text-xs">Programme Transformation Totale · +8 kg muscle</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;">Alexandre D.</div>
+              <div style="font-size:.75rem;color:#555;margin-top:2px;">Transformation · +8 kg muscle</div>
             </div>
+            <div style="margin-left:auto;color:var(--orange);font-size:.9rem;">★★★★★</div>
           </div>
         </div>
 
-        <!-- T4 -->
-        <div class="glass-card rounded-2xl p-8 min-w-[320px] lg:min-w-[380px] flex-shrink-0">
-          <div class="flex items-center gap-1 mb-4">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          </div>
-          <p class="text-slate-300 leading-relaxed mb-6 italic">"Après ma grossesse, je ne me reconnaissais plus. Maxime a su adapter le programme à ma réalité. Aujourd'hui je suis en meilleure forme qu'avant !"</p>
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-orange/30 flex items-center justify-center font-heading font-700 text-orange">C</div>
+        <div class="tcard" style="background:#111;border:1px solid rgba(255,255,255,.06);padding:40px;border-radius:2px;flex-shrink:0;">
+          <div class="big-quote">"</div>
+          <p style="color:#bbb;line-height:1.8;font-size:.95rem;margin-bottom:28px;">Après ma grossesse, je ne me reconnaissais plus. Maxime a adapté chaque séance à ma réalité. Aujourd'hui je suis en meilleure forme qu'avant.</p>
+          <div style="display:flex;align-items:center;gap:14px;border-top:1px solid rgba(255,255,255,.06);padding-top:24px;">
+            <div style="width:42px;height:42px;border-radius:50%;background:rgba(249,115,22,.2);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.1rem;color:var(--orange);">C</div>
             <div>
-              <div class="text-white font-medium text-sm">Camille R.</div>
-              <div class="text-slate-500 text-xs">Programme Remise en Forme · Post-partum</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;">Camille R.</div>
+              <div style="font-size:.75rem;color:#555;margin-top:2px;">Remise en Forme · Post-partum</div>
             </div>
+            <div style="margin-left:auto;color:var(--orange);font-size:.9rem;">★★★★★</div>
           </div>
         </div>
 
       </div>
-
-      <!-- Carousel controls -->
-      <div class="flex items-center justify-center gap-4 mt-8">
-        <button id="prev-btn" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:border-orange hover:text-orange transition-colors cursor-pointer" aria-label="Précédent">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-        </button>
-        <div id="carousel-dots" class="flex gap-2"></div>
-        <button id="next-btn" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:border-orange hover:text-orange transition-colors cursor-pointer" aria-label="Suivant">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-        </button>
-      </div>
     </div>
-
   </div>
 </section>
 
-<!-- ============================================================
-     HOW IT WORKS
-============================================================ -->
-<section class="py-24 lg:py-32" style="background: linear-gradient(180deg, #080D16 0%, #0D1220 50%, #080D16 100%);">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-    <div class="text-center mb-16 reveal">
-      <span class="text-orange text-sm font-medium tracking-widest uppercase mb-4 block">La méthode</span>
-      <h2 class="font-heading font-900 text-5xl lg:text-6xl text-white leading-tight">COMMENT ÇA<br><span class="gradient-text">FONCTIONNE ?</span></h2>
+<!-- ═══════════════════ BIG NUMBERS ═══════════════════ -->
+<section style="background:var(--black);padding:80px 0;border-top:1px solid rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.04);">
+  <div style="max-width:1400px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.05);">
+    <div style="background:var(--black);padding:48px 40px;text-align:center;" data-reveal>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(3.5rem,6vw,5.5rem);line-height:1;" data-count="247">0</div>
+      <div class="label" style="margin-top:10px;color:#555;">Clients transformés</div>
     </div>
-
-    <div class="grid md:grid-cols-3 gap-8 relative">
-      <!-- Connecting line (desktop) -->
-      <div class="hidden md:block absolute top-10 left-[20%] right-[20%] h-px bg-gradient-to-r from-orange/30 via-orange to-orange/30"></div>
-
-      <div class="text-center reveal reveal-delay-1">
-        <div class="w-20 h-20 rounded-full border-2 border-orange/40 flex items-center justify-center mx-auto mb-6 glass-card relative z-10">
-          <span class="font-heading font-900 text-3xl gradient-text">01</span>
-        </div>
-        <h3 class="font-heading font-800 text-2xl text-white mb-3">Séance Découverte</h3>
-        <p class="text-slate-400 leading-relaxed">Appel gratuit de 30 min pour analyser tes objectifs, ton niveau et tes contraintes.</p>
-      </div>
-
-      <div class="text-center reveal reveal-delay-2">
-        <div class="w-20 h-20 rounded-full border-2 border-orange flex items-center justify-center mx-auto mb-6 bg-orange/10 relative z-10 glow-orange-sm">
-          <span class="font-heading font-900 text-3xl gradient-text">02</span>
-        </div>
-        <h3 class="font-heading font-800 text-2xl text-white mb-3">Programme sur Mesure</h3>
-        <p class="text-slate-400 leading-relaxed">Je crée ton plan d'entraînement et nutrition 100% personnalisé en 48h.</p>
-      </div>
-
-      <div class="text-center reveal reveal-delay-3">
-        <div class="w-20 h-20 rounded-full border-2 border-orange/40 flex items-center justify-center mx-auto mb-6 glass-card relative z-10">
-          <span class="font-heading font-900 text-3xl gradient-text">03</span>
-        </div>
-        <h3 class="font-heading font-800 text-2xl text-white mb-3">Résultats Garantis</h3>
-        <p class="text-slate-400 leading-relaxed">Suivi hebdomadaire, ajustements continus et support quotidien jusqu'à l'objectif.</p>
-      </div>
+    <div style="background:var(--black);padding:48px 40px;text-align:center;" data-reveal data-delay="1">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(3.5rem,6vw,5.5rem);line-height:1;color:var(--orange);" data-count="98">0<span style="font-size:2.5rem;">%</span></div>
+      <div class="label" style="margin-top:10px;color:#555;">Taux de satisfaction</div>
     </div>
-
+    <div style="background:var(--black);padding:48px 40px;text-align:center;" data-reveal data-delay="2">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(3.5rem,6vw,5.5rem);line-height:1;" data-count="12">0<span style="font-size:2.5rem;color:var(--orange);">sem</span></div>
+      <div class="label" style="margin-top:10px;color:#555;">Pour voir les résultats</div>
+    </div>
+    <div style="background:var(--black);padding:48px 40px;text-align:center;" data-reveal data-delay="3">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(3.5rem,6vw,5.5rem);line-height:1;" data-count="4.9">0<span style="font-size:2.5rem;">★</span></div>
+      <div class="label" style="margin-top:10px;color:#555;">Note Google (127 avis)</div>
+    </div>
   </div>
 </section>
 
-<!-- ============================================================
-     PRICING
-============================================================ -->
-<section id="pricing" class="py-24 lg:py-32">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- ═══════════════════ TARIFS ═══════════════════ -->
+<section id="tarifs" style="padding:120px 0;background:var(--black2);">
+  <div style="max-width:1200px;margin:0 auto;padding:0 24px;">
 
-    <div class="text-center mb-16 reveal">
-      <span class="text-orange text-sm font-medium tracking-widest uppercase mb-4 block">Investis en toi</span>
-      <h2 class="font-heading font-900 text-5xl lg:text-6xl text-white leading-tight">TARIFS<br><span class="gradient-text">TRANSPARENTS</span></h2>
-      <p class="text-slate-400 text-lg mt-4 max-w-xl mx-auto">Pas de frais cachés. Pas de contrat longue durée. Tu paies les résultats.</p>
+    <div style="text-align:center;margin-bottom:72px;" data-reveal>
+      <div class="label" style="margin-bottom:16px;">Investir en soi</div>
+      <h2 class="display" style="font-size:clamp(3.5rem,6vw,6rem);">Tarifs<br>transparents.</h2>
+      <p style="color:#666;margin-top:16px;max-width:400px;margin-left:auto;margin-right:auto;font-size:.9rem;line-height:1.7;">Zéro frais cachés. Zéro contrat forcé. Tu paies les résultats.</p>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-6">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(255,255,255,.04);">
 
-      <!-- Starter -->
-      <div class="glass-card rounded-2xl p-8 flex flex-col reveal reveal-delay-1">
-        <div class="mb-6">
-          <h3 class="font-heading font-800 text-2xl text-white mb-1">Starter</h3>
-          <p class="text-slate-400 text-sm">Idéal pour commencer</p>
+      <div class="price-card" data-reveal>
+        <div class="label" style="margin-bottom:20px;">Starter</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:4rem;line-height:1;margin-bottom:4px;">89€</div>
+        <div style="font-size:.8rem;color:#555;margin-bottom:32px;">par mois · sans engagement</div>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:36px;">
+          <div style="display:flex;gap:12px;font-size:.85rem;color:#888;"><span style="color:#22c55e;">✓</span> 2 séances/semaine en ligne</div>
+          <div style="display:flex;gap:12px;font-size:.85rem;color:#888;"><span style="color:#22c55e;">✓</span> Programme mensuel</div>
+          <div style="display:flex;gap:12px;font-size:.85rem;color:#888;"><span style="color:#22c55e;">✓</span> Bilan nutritionnel initial</div>
+          <div style="display:flex;gap:12px;font-size:.85rem;color:#444;"><span>—</span> Suivi quotidien</div>
+          <div style="display:flex;gap:12px;font-size:.85rem;color:#444;"><span>—</span> Accès app exclusive</div>
         </div>
-        <div class="mb-6">
-          <div class="font-heading font-900 text-5xl text-white">89<span class="text-2xl text-slate-400">/mois</span></div>
-          <div class="text-slate-500 text-sm mt-1">Sans engagement</div>
-        </div>
-        <ul class="space-y-3 mb-8 flex-1">
-          <li class="flex items-center gap-3 text-slate-300 text-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 2 séances/semaine en ligne</li>
-          <li class="flex items-center gap-3 text-slate-300 text-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Programme mensuel</li>
-          <li class="flex items-center gap-3 text-slate-300 text-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Bilan nutritionnel</li>
-          <li class="flex items-center gap-3 text-slate-500 text-sm line-through"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Suivi quotidien</li>
-          <li class="flex items-center gap-3 text-slate-500 text-sm line-through"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Accès app exclusive</li>
-        </ul>
-        <a href="#booking" class="btn-outline font-heading font-700 text-sm tracking-wider uppercase px-6 py-3 rounded-xl cursor-pointer text-center">
-          Choisir Starter →
-        </a>
+        <a href="#reservation" class="btn-ghost" style="display:block;text-align:center;text-decoration:none;">Choisir →</a>
       </div>
 
-      <!-- Pro (featured) -->
-      <div class="relative rounded-2xl p-8 flex flex-col reveal reveal-delay-2" style="background: linear-gradient(135deg, rgba(249,115,22,0.12), rgba(234,88,12,0.06)); border: 1px solid rgba(249,115,22,0.4);">
-        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-orange text-white text-xs font-heading font-700 tracking-widest uppercase px-6 py-1.5 rounded-full whitespace-nowrap glow-orange-sm">
-          ⚡ Meilleur rapport qualité/prix
+      <div class="price-card featured" data-reveal data-delay="1">
+        <div class="label" style="margin-bottom:20px;color:var(--orange);">Transformation</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:4rem;line-height:1;margin-bottom:4px;">197€</div>
+        <div style="font-size:.8rem;color:#555;margin-bottom:32px;">par mois · engagement 3 mois</div>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:36px;">
+          <div style="display:flex;gap:12px;font-size:.85rem;color:#bbb;"><span style="color:#22c55e;">✓</span> 5 séances/semaine</div>
+          <div style="display:flex;gap:12px;font-size:.85rem;color:#bbb;"><span style="color:#22c55e;">✓</span> Nutrition + macros personnalisés</div>
+          <div style="display:flex;gap:12px;font-size:.85rem;color:#bbb;"><span style="color:#22c55e;">✓</span> Suivi quotidien WhatsApp</div>
+          <div style="display:flex;gap:12px;font-size:.85rem;color:#bbb;"><span style="color:#22c55e;">✓</span> Appel bilan hebdomadaire</div>
+          <div style="display:flex;gap:12px;font-size:.85rem;color:#bbb;"><span style="color:#22c55e;">✓</span> Accès app exclusive</div>
         </div>
-        <div class="mb-6 mt-2">
-          <h3 class="font-heading font-800 text-2xl text-white mb-1">Transformation</h3>
-          <p class="text-slate-400 text-sm">Le programme complet</p>
-        </div>
-        <div class="mb-6">
-          <div class="flex items-baseline gap-2">
-            <div class="font-heading font-900 text-5xl text-white">197<span class="text-2xl text-slate-400">/mois</span></div>
-          </div>
-          <div class="text-slate-500 text-sm mt-1">Engagement 3 mois • Résultats garantis</div>
-        </div>
-        <ul class="space-y-3 mb-8 flex-1">
-          <li class="flex items-center gap-3 text-slate-300 text-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 5 séances/semaine</li>
-          <li class="flex items-center gap-3 text-slate-300 text-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Plan nutrition + macros sur mesure</li>
-          <li class="flex items-center gap-3 text-slate-300 text-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Suivi quotidien WhatsApp</li>
-          <li class="flex items-center gap-3 text-slate-300 text-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Appel bilan hebdomadaire</li>
-          <li class="flex items-center gap-3 text-slate-300 text-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Accès app exclusive</li>
-        </ul>
-        <a href="#booking" class="btn-primary text-white font-heading font-700 text-sm tracking-widest uppercase px-6 py-3 rounded-xl cursor-pointer text-center">
-          Je veux me transformer →
-        </a>
+        <a href="#reservation" class="btn-solid" style="display:block;text-align:center;text-decoration:none;">Je me transforme →</a>
       </div>
 
-      <!-- Elite -->
-      <div class="glass-card rounded-2xl p-8 flex flex-col reveal reveal-delay-3">
-        <div class="mb-6">
-          <h3 class="font-heading font-800 text-2xl text-white mb-1">Elite</h3>
-          <p class="text-slate-400 text-sm">Pour les plus ambitieux</p>
+      <div class="price-card" data-reveal data-delay="2">
+        <div class="label" style="margin-bottom:20px;">Elite</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:4rem;line-height:1;margin-bottom:4px;">349€</div>
+        <div style="font-size:.8rem;color:#555;margin-bottom:32px;">par mois · accès illimité</div>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:36px;">
+          <div style="display:flex;gap:12px;font-size:.85rem;color:#888;"><span style="color:#22c55e;">✓</span> Séances illimitées</div>
+          <div style="display:flex;gap:12px;font-size:.85rem;color:#888;"><span style="color:#22c55e;">✓</span> Tout du plan Transformation</div>
+          <div style="display:flex;gap:12px;font-size:.85rem;color:#888;"><span style="color:#22c55e;">✓</span> Analyse vidéo biomécanique</div>
+          <div style="display:flex;gap:12px;font-size:.85rem;color:#888;"><span style="color:#22c55e;">✓</span> Coaching mental inclus</div>
+          <div style="display:flex;gap:12px;font-size:.85rem;color:#888;"><span style="color:#22c55e;">✓</span> Priorité 24h/24</div>
         </div>
-        <div class="mb-6">
-          <div class="font-heading font-900 text-5xl text-white">349<span class="text-2xl text-slate-400">/mois</span></div>
-          <div class="text-slate-500 text-sm mt-1">Accès illimité au coach</div>
-        </div>
-        <ul class="space-y-3 mb-8 flex-1">
-          <li class="flex items-center gap-3 text-slate-300 text-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Séances illimitées</li>
-          <li class="flex items-center gap-3 text-slate-300 text-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Tout du plan Transformation</li>
-          <li class="flex items-center gap-3 text-slate-300 text-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Analyse vidéo biomécanique</li>
-          <li class="flex items-center gap-3 text-slate-300 text-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Coaching mental inclus</li>
-          <li class="flex items-center gap-3 text-slate-300 text-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Priorité absolue 24h/24</li>
-        </ul>
-        <a href="#booking" class="btn-outline font-heading font-700 text-sm tracking-wider uppercase px-6 py-3 rounded-xl cursor-pointer text-center">
-          Rejoindre l'Elite →
-        </a>
+        <a href="#reservation" class="btn-ghost" style="display:block;text-align:center;text-decoration:none;">Rejoindre →</a>
       </div>
 
     </div>
 
-    <!-- Money-back -->
-    <div class="mt-10 text-center reveal">
-      <div class="inline-flex items-center gap-3 glass-card rounded-2xl px-6 py-4">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        <span class="text-slate-300 text-sm"><strong class="text-white">Garantie satisfait ou remboursé</strong> — Si tu ne vois pas de résultats en 4 semaines, je te rembourse intégralement. Sans question.</span>
-      </div>
+    <!-- Guarantee -->
+    <div style="margin-top:32px;display:flex;align-items:center;gap:16px;padding:20px 28px;border:1px solid rgba(34,197,94,.15);background:rgba(34,197,94,.04);border-radius:2px;" data-reveal>
+      <span style="font-size:1.4rem;color:#22c55e;">🛡</span>
+      <span style="font-size:.88rem;color:#888;line-height:1.6;"><strong style="color:#bbb;">Garantie satisfait ou remboursé.</strong> Aucun résultat en 4 semaines de programme suivi à la lettre ? Je te rembourse intégralement. Sans question.</span>
     </div>
 
   </div>
 </section>
 
-<!-- ============================================================
-     BOOKING
-============================================================ -->
-<section id="booking" class="py-24 lg:py-32 relative" style="background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(249,115,22,0.07) 0%, transparent 60%), #0D1220;">
-  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- ═══════════════════ RÉSERVATION ═══════════════════ -->
+<section id="reservation" style="padding:120px 0;background:var(--black);">
+  <div style="max-width:960px;margin:0 auto;padding:0 24px;">
 
-    <div class="text-center mb-12 reveal">
-      <span class="text-orange text-sm font-medium tracking-widest uppercase mb-4 block">Commence maintenant</span>
-      <h2 class="font-heading font-900 text-5xl lg:text-6xl text-white leading-tight">RÉSERVE TA<br><span class="gradient-text">SÉANCE GRATUITE</span></h2>
-      <p class="text-slate-400 text-lg mt-4 max-w-xl mx-auto">30 minutes avec Maxime pour définir ton plan d'action. Zéro engagement.</p>
+    <div style="text-align:center;margin-bottom:64px;" data-reveal>
+      <div class="label" style="margin-bottom:16px;">Commence maintenant</div>
+      <h2 class="display" style="font-size:clamp(3.5rem,6vw,6rem);">Réserve ta<br><span style="color:var(--orange);">séance gratuite.</span></h2>
+      <p style="color:#666;margin-top:16px;font-size:.9rem;">30 minutes avec Maxime. Zéro engagement. On définit ton plan ensemble.</p>
     </div>
 
-    <!-- Booking Widget -->
-    <div class="glass-card rounded-3xl p-6 lg:p-10 reveal">
+    <!-- Booking card -->
+    <div style="background:#0f0f0f;border:1px solid rgba(255,255,255,.07);border-radius:4px;overflow:hidden;" data-reveal>
 
-      <!-- Step progress -->
-      <div class="flex items-center gap-2 mb-10">
-        <div class="step-indicator flex items-center gap-2 flex-1" id="step-prog">
-          <div class="step-dot w-8 h-8 rounded-full border-2 flex items-center justify-center text-xs font-heading font-700 transition-all duration-300" data-step="1">1</div>
-          <div class="flex-1 h-0.5 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-orange rounded-full step-bar w-0" id="bar1"></div></div>
-          <div class="step-dot w-8 h-8 rounded-full border-2 flex items-center justify-center text-xs font-heading font-700 transition-all duration-300" data-step="2">2</div>
-          <div class="flex-1 h-0.5 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-orange rounded-full step-bar w-0" id="bar2"></div></div>
-          <div class="step-dot w-8 h-8 rounded-full border-2 flex items-center justify-center text-xs font-heading font-700 transition-all duration-300" data-step="3">3</div>
-        </div>
+      <!-- Step bar -->
+      <div style="padding:28px 40px;border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:center;gap:12px;">
+        <div class="sdot active" id="sd1">1</div>
+        <div class="sline" id="sl1"></div>
+        <div class="sdot" id="sd2">2</div>
+        <div class="sline" id="sl2"></div>
+        <div class="sdot" id="sd3">3</div>
+        <span style="font-size:.8rem;color:#555;margin-left:8px;" id="step-label">Programme</span>
       </div>
 
-      <!-- STEP 1: Choose program -->
-      <div id="step1" class="booking-step">
-        <h3 class="font-heading font-800 text-2xl text-white mb-6">Quel programme t'intéresse ?</h3>
-        <div class="grid sm:grid-cols-3 gap-4 mb-8">
-          <label class="program-option cursor-pointer">
-            <input type="radio" name="program" value="remise" class="sr-only">
-            <div class="rounded-xl p-5 border border-white/10 hover:border-orange/40 transition-all text-center program-card">
-              <div class="font-heading font-800 text-lg text-white mb-1">Remise en Forme</div>
-              <div class="text-slate-400 text-sm">3 séances/sem.</div>
-              <div class="text-orange font-heading font-700 mt-2">89€/mois</div>
-            </div>
-          </label>
-          <label class="program-option cursor-pointer">
-            <input type="radio" name="program" value="transformation" class="sr-only" checked>
-            <div class="rounded-xl p-5 border border-orange/40 bg-orange/10 transition-all text-center program-card selected">
-              <div class="font-heading font-800 text-lg text-white mb-1">Transformation</div>
-              <div class="text-slate-400 text-sm">5 séances/sem.</div>
-              <div class="text-orange font-heading font-700 mt-2">197€/mois</div>
-            </div>
-          </label>
-          <label class="program-option cursor-pointer">
-            <input type="radio" name="program" value="elite" class="sr-only">
-            <div class="rounded-xl p-5 border border-white/10 hover:border-orange/40 transition-all text-center program-card">
-              <div class="font-heading font-800 text-lg text-white mb-1">Elite</div>
-              <div class="text-slate-400 text-sm">Illimité</div>
-              <div class="text-orange font-heading font-700 mt-2">349€/mois</div>
-            </div>
-          </label>
-        </div>
-        <button onclick="goStep(2)" class="btn-primary text-white font-heading font-700 text-sm tracking-widest uppercase px-8 py-4 rounded-xl cursor-pointer">
-          Continuer → Choisir une date
-        </button>
-      </div>
+      <div style="padding:40px;">
 
-      <!-- STEP 2: Choose date & time -->
-      <div id="step2" class="booking-step hidden">
-        <div class="grid lg:grid-cols-2 gap-8">
-
-          <!-- Calendar -->
-          <div>
-            <h3 class="font-heading font-800 text-xl text-white mb-4">Choisir une date</h3>
-            <div class="rounded-2xl" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);">
-              <!-- Cal header -->
-              <div class="flex items-center justify-between px-4 py-3 border-b border-white/5">
-                <button id="cal-prev" class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-orange transition-colors cursor-pointer rounded-lg hover:bg-orange/10" aria-label="Mois précédent">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-                </button>
-                <div class="font-heading font-700 text-white text-sm tracking-wide" id="cal-month-label"></div>
-                <button id="cal-next" class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-orange transition-colors cursor-pointer rounded-lg hover:bg-orange/10" aria-label="Mois suivant">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-                </button>
+        <!-- STEP 1: Programme -->
+        <div id="s1">
+          <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.8rem;text-transform:uppercase;margin-bottom:28px;">Quel programme ?</h3>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:36px;" id="prog-choices">
+            <label style="cursor:pointer;">
+              <input type="radio" name="prog" value="Remise en Forme — 89€/mois" class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">
+              <div class="pchoice" style="border:1px solid rgba(255,255,255,.08);padding:20px;border-radius:2px;transition:all .2s;">
+                <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;margin-bottom:4px;">Remise en Forme</div>
+                <div style="font-size:.8rem;color:#555;">3 séances/sem.</div>
+                <div style="color:var(--orange);font-family:'Barlow Condensed',sans-serif;font-weight:700;margin-top:10px;">89€/mois</div>
               </div>
-              <!-- Day headers -->
-              <div class="grid grid-cols-7 text-center px-2 pt-3 pb-1">
-                <div class="text-slate-600 text-xs font-medium">L</div>
-                <div class="text-slate-600 text-xs font-medium">M</div>
-                <div class="text-slate-600 text-xs font-medium">M</div>
-                <div class="text-slate-600 text-xs font-medium">J</div>
-                <div class="text-slate-600 text-xs font-medium">V</div>
-                <div class="text-slate-600 text-xs font-medium">S</div>
-                <div class="text-slate-600 text-xs font-medium">D</div>
+            </label>
+            <label style="cursor:pointer;">
+              <input type="radio" name="prog" value="Transformation Totale — 197€/mois" class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);" checked>
+              <div class="pchoice selected" style="border:1px solid rgba(249,115,22,.5);background:rgba(249,115,22,.07);padding:20px;border-radius:2px;transition:all .2s;">
+                <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;margin-bottom:4px;">Transformation</div>
+                <div style="font-size:.8rem;color:#555;">5 séances/sem.</div>
+                <div style="color:var(--orange);font-family:'Barlow Condensed',sans-serif;font-weight:700;margin-top:10px;">197€/mois</div>
               </div>
-              <!-- Calendar grid -->
-              <div class="grid grid-cols-7 gap-1 p-3" id="cal-grid"></div>
-            </div>
+            </label>
+            <label style="cursor:pointer;">
+              <input type="radio" name="prog" value="Performance Elite — 349€/mois" class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">
+              <div class="pchoice" style="border:1px solid rgba(255,255,255,.08);padding:20px;border-radius:2px;transition:all .2s;">
+                <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;margin-bottom:4px;">Performance Elite</div>
+                <div style="font-size:.8rem;color:#555;">Illimité</div>
+                <div style="color:var(--orange);font-family:'Barlow Condensed',sans-serif;font-weight:700;margin-top:10px;">349€/mois</div>
+              </div>
+            </label>
           </div>
-
-          <!-- Time slots -->
-          <div>
-            <h3 class="font-heading font-800 text-xl text-white mb-4">Choisir un horaire <span id="selected-date-label" class="text-orange text-base font-body font-normal"></span></h3>
-            <div id="time-slots" class="space-y-2">
-              <p class="text-slate-500 text-sm italic">Sélectionne une date pour voir les disponibilités.</p>
-            </div>
-          </div>
-
+          <button onclick="goS(2)" class="btn-solid">Choisir une date →</button>
         </div>
 
-        <div class="flex gap-4 mt-8">
-          <button onclick="goStep(1)" class="btn-outline font-heading font-700 text-sm tracking-wider uppercase px-6 py-3 rounded-xl cursor-pointer">
-            ← Retour
-          </button>
-          <button id="step2-next" onclick="goStep(3)" class="btn-primary text-white font-heading font-700 text-sm tracking-widest uppercase px-8 py-3 rounded-xl cursor-pointer opacity-50 pointer-events-none" disabled>
-            Continuer → Mes infos
-          </button>
+        <!-- STEP 2: Date + Heure -->
+        <div id="s2" style="display:none;">
+          <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.8rem;text-transform:uppercase;margin-bottom:28px;">Choisir date &amp; horaire</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:36px;">
+
+            <!-- Calendar -->
+            <div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+                <button id="cprev" aria-label="Mois précédent" style="background:none;border:1px solid rgba(255,255,255,.08);color:#888;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:2px;font-size:.9rem;transition:all .2s;" onmouseover="this.style.borderColor='#F97316';this.style.color='#F97316'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)';this.style.color='#888'">←</button>
+                <span id="cmlabel" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;text-transform:uppercase;letter-spacing:.08em;"></span>
+                <button id="cnext" aria-label="Mois suivant" style="background:none;border:1px solid rgba(255,255,255,.08);color:#888;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:2px;font-size:.9rem;transition:all .2s;" onmouseover="this.style.borderColor='#F97316';this.style.color='#F97316'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)';this.style.color='#888'">→</button>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(7,1fr);text-align:center;gap:2px;margin-bottom:4px;">
+                <div style="font-size:.65rem;color:#444;padding:4px;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.05em;">L</div>
+                <div style="font-size:.65rem;color:#444;padding:4px;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.05em;">M</div>
+                <div style="font-size:.65rem;color:#444;padding:4px;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.05em;">M</div>
+                <div style="font-size:.65rem;color:#444;padding:4px;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.05em;">J</div>
+                <div style="font-size:.65rem;color:#444;padding:4px;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.05em;">V</div>
+                <div style="font-size:.65rem;color:#444;padding:4px;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.05em;">S</div>
+                <div style="font-size:.65rem;color:#444;padding:4px;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.05em;">D</div>
+              </div>
+              <div id="cgrid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;"></div>
+            </div>
+
+            <!-- Time slots -->
+            <div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;color:#888;">Horaires <span id="cdate-label" style="color:var(--orange);"></span></div>
+              <div id="slots-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <div style="font-size:.82rem;color:#444;grid-column:span 2;font-style:italic;">Sélectionne une date</div>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;">
+            <button onclick="goS(1)" class="btn-ghost">← Retour</button>
+            <button id="s2next" onclick="goS(3)" class="btn-solid" style="opacity:.3;pointer-events:none;" disabled>Mes informations →</button>
+          </div>
         </div>
+
+        <!-- STEP 3: Form -->
+        <div id="s3" style="display:none;">
+          <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.8rem;text-transform:uppercase;margin-bottom:28px;">Tes coordonnées</h3>
+          <form id="bform" novalidate>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+              <div>
+                <label style="display:block;font-size:.78rem;color:#666;margin-bottom:6px;text-transform:uppercase;letter-spacing:.08em;font-family:'Barlow Condensed',sans-serif;font-weight:700;" for="fn">Prénom *</label>
+                <input class="field" id="fn" type="text" required autocomplete="given-name" placeholder="Prénom">
+                <div class="field-err" id="fn-e">Champ requis</div>
+              </div>
+              <div>
+                <label style="display:block;font-size:.78rem;color:#666;margin-bottom:6px;text-transform:uppercase;letter-spacing:.08em;font-family:'Barlow Condensed',sans-serif;font-weight:700;" for="ln">Nom *</label>
+                <input class="field" id="ln" type="text" required autocomplete="family-name" placeholder="Nom">
+                <div class="field-err" id="ln-e">Champ requis</div>
+              </div>
+              <div>
+                <label style="display:block;font-size:.78rem;color:#666;margin-bottom:6px;text-transform:uppercase;letter-spacing:.08em;font-family:'Barlow Condensed',sans-serif;font-weight:700;" for="em">Email *</label>
+                <input class="field" id="em" type="email" required autocomplete="email" placeholder="ton@email.com">
+                <div class="field-err" id="em-e">Email invalide</div>
+              </div>
+              <div>
+                <label style="display:block;font-size:.78rem;color:#666;margin-bottom:6px;text-transform:uppercase;letter-spacing:.08em;font-family:'Barlow Condensed',sans-serif;font-weight:700;" for="ph">Téléphone *</label>
+                <input class="field" id="ph" type="tel" required autocomplete="tel" placeholder="06 00 00 00 00">
+                <div class="field-err" id="ph-e">Numéro invalide</div>
+              </div>
+              <div style="grid-column:span 2;">
+                <label style="display:block;font-size:.78rem;color:#666;margin-bottom:6px;text-transform:uppercase;letter-spacing:.08em;font-family:'Barlow Condensed',sans-serif;font-weight:700;" for="goal">Objectif principal</label>
+                <select class="field" id="goal" autocomplete="off">
+                  <option value="" style="background:#0f0f0f;">Sélectionner…</option>
+                  <option value="Perte de poids" style="background:#0f0f0f;">Perte de poids</option>
+                  <option value="Prise de masse" style="background:#0f0f0f;">Prise de masse musculaire</option>
+                  <option value="Performance sportive" style="background:#0f0f0f;">Améliorer mes performances</option>
+                  <option value="Remise en forme" style="background:#0f0f0f;">Remise en forme générale</option>
+                  <option value="Préparation compétition" style="background:#0f0f0f;">Préparation compétition</option>
+                </select>
+              </div>
+              <div style="grid-column:span 2;">
+                <label style="display:block;font-size:.78rem;color:#666;margin-bottom:6px;text-transform:uppercase;letter-spacing:.08em;font-family:'Barlow Condensed',sans-serif;font-weight:700;" for="msg">Message (optionnel)</label>
+                <textarea class="field" id="msg" rows="3" style="resize:none;" placeholder="Ton niveau actuel, tes contraintes, tes attentes…"></textarea>
+              </div>
+            </div>
+
+            <!-- Summary pill -->
+            <div style="background:rgba(249,115,22,.06);border:1px solid rgba(249,115,22,.15);border-radius:2px;padding:16px 20px;display:flex;gap:32px;flex-wrap:wrap;margin-bottom:28px;">
+              <div><span style="font-size:.7rem;color:#555;text-transform:uppercase;letter-spacing:.1em;display:block;margin-bottom:2px;">Programme</span><span id="sum-prog" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;">—</span></div>
+              <div><span style="font-size:.7rem;color:#555;text-transform:uppercase;letter-spacing:.1em;display:block;margin-bottom:2px;">Date</span><span id="sum-date" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;">—</span></div>
+              <div><span style="font-size:.7rem;color:#555;text-transform:uppercase;letter-spacing:.1em;display:block;margin-bottom:2px;">Horaire</span><span id="sum-time" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;">—</span></div>
+            </div>
+
+            <div style="display:flex;gap:12px;">
+              <button type="button" onclick="goS(2)" class="btn-ghost">← Retour</button>
+              <button type="submit" id="sbtn" class="btn-solid" style="flex:1;justify-content:center;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                Confirmer ma réservation
+              </button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FAQ ═══════════════════ -->
+<section style="padding:120px 0;background:var(--black2);">
+  <div style="max-width:720px;margin:0 auto;padding:0 24px;">
+    <div style="text-align:center;margin-bottom:56px;" data-reveal>
+      <div class="label" style="margin-bottom:16px;">FAQ</div>
+      <h2 class="display" style="font-size:clamp(3rem,5vw,5rem);">Tes questions.</h2>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1px;background:rgba(255,255,255,.04);">
+
+      <div style="background:var(--black2);">
+        <button class="faq-trigger" aria-expanded="false" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:24px 28px;background:none;border:none;color:var(--white);cursor:pointer;text-align:left;gap:20px;">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;text-transform:uppercase;letter-spacing:.03em;">Coaching en ligne ou présentiel ?</span>
+          <span class="faq-arr" style="color:var(--orange);font-size:1.2rem;flex-shrink:0;">↓</span>
+        </button>
+        <div class="faq-ans" style="padding:0 28px 24px;color:#777;font-size:.9rem;line-height:1.8;">Les deux. En ligne via Zoom + app ou en présentiel à Paris. Le résultat est identique — ce qui change, c'est le lieu.</div>
       </div>
 
-      <!-- STEP 3: Personal info -->
-      <div id="step3" class="booking-step hidden">
-        <h3 class="font-heading font-800 text-2xl text-white mb-6">Tes coordonnées</h3>
+      <div style="background:var(--black2);">
+        <button class="faq-trigger" aria-expanded="false" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:24px 28px;background:none;border:none;color:var(--white);cursor:pointer;text-align:left;gap:20px;">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;text-transform:uppercase;letter-spacing:.03em;">Zéro expérience sportive, c'est pour moi ?</span>
+          <span class="faq-arr" style="color:var(--orange);font-size:1.2rem;flex-shrink:0;">↓</span>
+        </button>
+        <div class="faq-ans" style="padding:0 28px 24px;color:#777;font-size:.9rem;line-height:1.8;">Absolument. Mes meilleurs résultats viennent souvent de débutants : pas de mauvaises habitudes, on construit sur des bases saines dès le départ.</div>
+      </div>
 
-        <form id="booking-form" class="grid sm:grid-cols-2 gap-5" novalidate>
-          <div class="flex flex-col gap-1.5">
-            <label for="b-prenom" class="text-slate-400 text-sm font-medium">Prénom <span class="text-orange">*</span></label>
-            <input type="text" id="b-prenom" name="prenom" required autocomplete="given-name"
-              class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:border-orange focus:outline-none focus:ring-1 focus:ring-orange transition-colors"
-              placeholder="Prénom">
-            <span class="field-error text-red-400 text-xs hidden">Ce champ est requis</span>
-          </div>
-          <div class="flex flex-col gap-1.5">
-            <label for="b-nom" class="text-slate-400 text-sm font-medium">Nom <span class="text-orange">*</span></label>
-            <input type="text" id="b-nom" name="nom" required autocomplete="family-name"
-              class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:border-orange focus:outline-none focus:ring-1 focus:ring-orange transition-colors"
-              placeholder="Nom">
-            <span class="field-error text-red-400 text-xs hidden">Ce champ est requis</span>
-          </div>
-          <div class="flex flex-col gap-1.5">
-            <label for="b-email" class="text-slate-400 text-sm font-medium">Email <span class="text-orange">*</span></label>
-            <input type="email" id="b-email" name="email" required autocomplete="email"
-              class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:border-orange focus:outline-none focus:ring-1 focus:ring-orange transition-colors"
-              placeholder="ton@email.com">
-            <span class="field-error text-red-400 text-xs hidden">Email invalide</span>
-          </div>
-          <div class="flex flex-col gap-1.5">
-            <label for="b-tel" class="text-slate-400 text-sm font-medium">Téléphone <span class="text-orange">*</span></label>
-            <input type="tel" id="b-tel" name="tel" required autocomplete="tel"
-              class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:border-orange focus:outline-none focus:ring-1 focus:ring-orange transition-colors"
-              placeholder="06 00 00 00 00">
-            <span class="field-error text-red-400 text-xs hidden">Numéro invalide</span>
-          </div>
-          <div class="sm:col-span-2 flex flex-col gap-1.5">
-            <label for="b-objectif" class="text-slate-400 text-sm font-medium">Ton objectif principal</label>
-            <select id="b-objectif" name="objectif"
-              class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-orange focus:outline-none focus:ring-1 focus:ring-orange transition-colors cursor-pointer">
-              <option value="" class="bg-bg">Sélectionner un objectif</option>
-              <option value="perte-poids" class="bg-bg">Perte de poids</option>
-              <option value="prise-masse" class="bg-bg">Prise de masse musculaire</option>
-              <option value="performance" class="bg-bg">Améliorer mes performances</option>
-              <option value="remise-forme" class="bg-bg">Remise en forme générale</option>
-              <option value="competition" class="bg-bg">Préparation compétition</option>
-              <option value="autre" class="bg-bg">Autre</option>
-            </select>
-          </div>
-          <div class="sm:col-span-2 flex flex-col gap-1.5">
-            <label for="b-message" class="text-slate-400 text-sm font-medium">Message (facultatif)</label>
-            <textarea id="b-message" name="message" rows="3"
-              class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:border-orange focus:outline-none focus:ring-1 focus:ring-orange transition-colors resize-none"
-              placeholder="Parle-moi de toi, de ton expérience sportive, de tes contraintes..."></textarea>
-          </div>
+      <div style="background:var(--black2);">
+        <button class="faq-trigger" aria-expanded="false" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:24px 28px;background:none;border:none;color:var(--white);cursor:pointer;text-align:left;gap:20px;">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;text-transform:uppercase;letter-spacing:.03em;">En quoi consiste la garantie remboursement ?</span>
+          <span class="faq-arr" style="color:var(--orange);font-size:1.2rem;flex-shrink:0;">↓</span>
+        </button>
+        <div class="faq-ans" style="padding:0 28px 24px;color:#777;font-size:.9rem;line-height:1.8;">4 semaines de programme suivi à la lettre sans résultat objectivement mesurable = remboursement 100% intégral. Sans question posée.</div>
+      </div>
 
-          <!-- Summary -->
-          <div class="sm:col-span-2 glass-card rounded-xl p-4">
-            <div class="text-slate-400 text-xs font-medium tracking-widest uppercase mb-2">Récapitulatif</div>
-            <div class="grid grid-cols-3 gap-4 text-sm">
-              <div><span class="text-slate-500">Programme</span><br><span class="text-white font-medium" id="summary-prog">—</span></div>
-              <div><span class="text-slate-500">Date</span><br><span class="text-white font-medium" id="summary-date">—</span></div>
-              <div><span class="text-slate-500">Horaire</span><br><span class="text-white font-medium" id="summary-time">—</span></div>
-            </div>
-          </div>
-
-          <div class="sm:col-span-2 flex gap-4">
-            <button type="button" onclick="goStep(2)" class="btn-outline font-heading font-700 text-sm tracking-wider uppercase px-6 py-3 rounded-xl cursor-pointer">
-              ← Retour
-            </button>
-            <button type="submit" id="submit-btn" class="btn-primary text-white font-heading font-700 text-sm tracking-widest uppercase px-8 py-3 rounded-xl cursor-pointer flex items-center gap-2 flex-1 justify-center">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-              Confirmer ma réservation
-            </button>
-          </div>
-        </form>
+      <div style="background:var(--black2);">
+        <button class="faq-trigger" aria-expanded="false" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:24px 28px;background:none;border:none;color:var(--white);cursor:pointer;text-align:left;gap:20px;">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;text-transform:uppercase;letter-spacing:.03em;">Délai avant les premiers résultats ?</span>
+          <span class="faq-arr" style="color:var(--orange);font-size:1.2rem;flex-shrink:0;">↓</span>
+        </button>
+        <div class="faq-ans" style="padding:0 28px 24px;color:#777;font-size:.9rem;line-height:1.8;">Premiers changements d'énergie et de composition corporelle : 2-3 semaines. Transformations visuelles nettes : 6 à 12 semaines selon les objectifs.</div>
       </div>
 
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     FAQ
-============================================================ -->
-<section class="py-24 lg:py-32">
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-
-    <div class="text-center mb-12 reveal">
-      <span class="text-orange text-sm font-medium tracking-widest uppercase mb-4 block">FAQ</span>
-      <h2 class="font-heading font-900 text-5xl lg:text-6xl text-white leading-tight">TES QUESTIONS,<br><span class="gradient-text">MES RÉPONSES</span></h2>
-    </div>
-
-    <div class="space-y-3" id="faq-list">
-
-      <div class="faq-item glass-card rounded-2xl overflow-hidden reveal reveal-delay-1">
-        <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left cursor-pointer hover:bg-white/2 transition-colors">
-          <span class="font-heading font-700 text-lg text-white">Est-ce que le coaching est en ligne ou en présentiel ?</span>
-          <svg class="faq-icon shrink-0 text-orange transition-transform duration-300 w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-        </button>
-        <div class="faq-content hidden px-6 pb-5">
-          <p class="text-slate-400 leading-relaxed">Les deux ! Je propose du coaching 100% en ligne (via Zoom + app) ou en présentiel si tu es en région parisienne. Le résultat est identique — ce qui change c'est le lieu.</p>
-        </div>
-      </div>
-
-      <div class="faq-item glass-card rounded-2xl overflow-hidden reveal reveal-delay-2">
-        <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left cursor-pointer hover:bg-white/2 transition-colors">
-          <span class="font-heading font-700 text-lg text-white">J'ai zéro expérience sportive, est-ce que c'est pour moi ?</span>
-          <svg class="faq-icon shrink-0 text-orange transition-transform duration-300 w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-        </button>
-        <div class="faq-content hidden px-6 pb-5">
-          <p class="text-slate-400 leading-relaxed">Absolument. Mes meilleurs résultats viennent souvent de débutants complets. Pas de mauvaises habitudes à corriger, on part sur de bonnes bases dès le départ.</p>
-        </div>
-      </div>
-
-      <div class="faq-item glass-card rounded-2xl overflow-hidden reveal reveal-delay-3">
-        <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left cursor-pointer hover:bg-white/2 transition-colors">
-          <span class="font-heading font-700 text-lg text-white">En quoi consiste la garantie satisfait ou remboursé ?</span>
-          <svg class="faq-icon shrink-0 text-orange transition-transform duration-300 w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-        </button>
-        <div class="faq-content hidden px-6 pb-5">
-          <p class="text-slate-400 leading-relaxed">Si tu suis le programme et la nutrition à la lettre pendant 4 semaines et que tu ne constates aucun changement (mesuré objectivement), je te rembourse 100% sans la moindre question.</p>
-        </div>
-      </div>
-
-      <div class="faq-item glass-card rounded-2xl overflow-hidden reveal reveal-delay-4">
-        <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left cursor-pointer hover:bg-white/2 transition-colors">
-          <span class="font-heading font-700 text-lg text-white">Combien de temps avant de voir des résultats ?</span>
-          <svg class="faq-icon shrink-0 text-orange transition-transform duration-300 w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-        </button>
-        <div class="faq-content hidden px-6 pb-5">
-          <p class="text-slate-400 leading-relaxed">Les premiers changements physiques et énergétiques arrivent généralement en 2-3 semaines. Les transformations visuelles notables se voient entre 6 et 12 semaines selon les objectifs.</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     FINAL CTA BANNER
-============================================================ -->
-<section class="py-16 lg:py-20 relative overflow-hidden">
-  <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(249,115,22,0.15) 0%, rgba(234,88,12,0.05) 100%); border-top: 1px solid rgba(249,115,22,0.2); border-bottom: 1px solid rgba(249,115,22,0.2);"></div>
-  <div class="absolute inset-0 grid-lines opacity-30"></div>
-  <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
-    <h2 class="font-heading font-900 text-5xl lg:text-7xl text-white leading-tight mb-6">
-      PRÊT À TOUT<br><span class="gradient-text text-glow">CHANGER ?</span>
+<!-- ═══════════════════ FINAL CTA ═══════════════════ -->
+<section style="padding:120px 24px;background:var(--black);text-align:center;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(249,115,22,.08) 0%,transparent 70%);pointer-events:none;"></div>
+  <div style="position:relative;" data-reveal>
+    <h2 class="display" style="font-size:clamp(4rem,9vw,9rem);margin-bottom:28px;">
+      <span class="display-outline">Prêt à</span><br>
+      <span style="color:var(--orange);">tout changer ?</span>
     </h2>
-    <p class="text-slate-400 text-lg mb-8 max-w-xl mx-auto">La séance découverte est gratuite, sans engagement. La seule chose que tu as à perdre… c'est du poids.</p>
-    <a href="#booking" class="btn-primary text-white font-heading font-900 text-xl tracking-widest uppercase px-10 py-5 rounded-2xl cursor-pointer inline-flex items-center gap-3 glow-orange">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-      Réserver ma séance gratuite
-    </a>
-    <p class="text-slate-600 text-sm mt-4">3 places disponibles ce mois-ci · Répond en moins de 24h</p>
+    <p style="color:#666;font-size:.95rem;margin-bottom:44px;max-width:400px;margin-left:auto;margin-right:auto;line-height:1.7;">La séance découverte est gratuite. La seule chose que tu as à perdre… c'est du poids.</p>
+    <a href="#reservation" class="btn-solid" style="font-size:1rem;padding:22px 56px;">Réserver ma séance gratuite →</a>
+    <p style="color:#333;font-size:.78rem;margin-top:20px;text-transform:uppercase;letter-spacing:.12em;">3 places disponibles ce mois · Réponse en moins de 24h</p>
   </div>
 </section>
 
-<!-- ============================================================
-     FOOTER
-============================================================ -->
-<footer class="border-t border-white/5 py-12">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid md:grid-cols-4 gap-8 mb-10">
-      <div class="md:col-span-2">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-8 h-8 rounded-lg bg-orange flex items-center justify-center">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M6.5 6.5h11M6.5 17.5h11M3 12h18"/><circle cx="12" cy="12" r="3"/></svg>
-          </div>
-          <span class="font-heading font-800 text-lg text-white">ELITE<span class="text-orange">COACH</span></span>
-        </div>
-        <p class="text-slate-500 text-sm leading-relaxed max-w-xs">Coach sportif certifié BPJEPS. Transformations durables, méthodes éprouvées, résultats réels.</p>
-        <div class="flex items-center gap-4 mt-4">
-          <a href="#" class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-slate-500 hover:text-orange hover:bg-orange/10 transition-colors cursor-pointer" aria-label="Instagram">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-          </a>
-          <a href="#" class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-slate-500 hover:text-orange hover:bg-orange/10 transition-colors cursor-pointer" aria-label="TikTok">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
-          </a>
-          <a href="#" class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-slate-500 hover:text-orange hover:bg-orange/10 transition-colors cursor-pointer" aria-label="YouTube">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
-          </a>
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer style="border-top:1px solid rgba(255,255,255,.05);padding:56px 0 40px;background:var(--black);">
+  <div style="max-width:1400px;margin:0 auto;padding:0 24px;">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:48px;flex-wrap:wrap;">
+      <div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.6rem;text-transform:uppercase;margin-bottom:16px;">MAXIME<span style="color:var(--orange);">.</span></div>
+        <p style="color:#444;font-size:.85rem;line-height:1.8;max-width:280px;">Coach sportif certifié BPJEPS. Transformations durables, méthodes éprouvées, résultats réels depuis 2018.</p>
+        <div style="display:flex;gap:12px;margin-top:20px;">
+          <a href="#" aria-label="Instagram" style="width:36px;height:36px;border:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;color:#555;text-decoration:none;transition:all .2s;border-radius:2px;font-size:.9rem;" onmouseover="this.style.borderColor='#F97316';this.style.color='#F97316'" onmouseout="this.style.borderColor='rgba(255,255,255,.06)';this.style.color='#555'">IG</a>
+          <a href="#" aria-label="TikTok" style="width:36px;height:36px;border:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;color:#555;text-decoration:none;transition:all .2s;border-radius:2px;font-size:.9rem;" onmouseover="this.style.borderColor='#F97316';this.style.color='#F97316'" onmouseout="this.style.borderColor='rgba(255,255,255,.06)';this.style.color='#555'">TK</a>
+          <a href="#" aria-label="YouTube" style="width:36px;height:36px;border:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;color:#555;text-decoration:none;transition:all .2s;border-radius:2px;font-size:.9rem;" onmouseover="this.style.borderColor='#F97316';this.style.color='#F97316'" onmouseout="this.style.borderColor='rgba(255,255,255,.06)';this.style.color='#555'">YT</a>
         </div>
       </div>
       <div>
-        <div class="font-heading font-700 text-sm text-white tracking-widest uppercase mb-4">Navigation</div>
-        <ul class="space-y-2 text-sm text-slate-500">
-          <li><a href="#programs" class="hover:text-orange transition-colors cursor-pointer">Programmes</a></li>
-          <li><a href="#about" class="hover:text-orange transition-colors cursor-pointer">À propos</a></li>
-          <li><a href="#results" class="hover:text-orange transition-colors cursor-pointer">Résultats</a></li>
-          <li><a href="#pricing" class="hover:text-orange transition-colors cursor-pointer">Tarifs</a></li>
-          <li><a href="#booking" class="hover:text-orange transition-colors cursor-pointer">Réserver</a></li>
-        </ul>
+        <div class="label" style="margin-bottom:20px;color:#444;">Navigation</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <a href="#programmes" style="color:#555;font-size:.85rem;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#F97316'" onmouseout="this.style.color='#555'">Programmes</a>
+          <a href="#coach" style="color:#555;font-size:.85rem;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#F97316'" onmouseout="this.style.color='#555'">Le coach</a>
+          <a href="#tarifs" style="color:#555;font-size:.85rem;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#F97316'" onmouseout="this.style.color='#555'">Tarifs</a>
+          <a href="#reservation" style="color:#555;font-size:.85rem;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#F97316'" onmouseout="this.style.color='#555'">Réserver</a>
+        </div>
       </div>
       <div>
-        <div class="font-heading font-700 text-sm text-white tracking-widest uppercase mb-4">Contact</div>
-        <ul class="space-y-2 text-sm text-slate-500">
-          <li class="flex items-center gap-2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>coach@elitecoach.fr</li>
-          <li class="flex items-center gap-2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>+33 6 12 34 56 78</li>
-          <li class="flex items-center gap-2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Paris, France</li>
-        </ul>
+        <div class="label" style="margin-bottom:20px;color:#444;">Contact</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <a href="mailto:coach@maxime-sport.fr" style="color:#555;font-size:.85rem;text-decoration:none;">coach@maxime-sport.fr</a>
+          <a href="tel:+33612345678" style="color:#555;font-size:.85rem;text-decoration:none;">+33 6 12 34 56 78</a>
+          <span style="color:#555;font-size:.85rem;">Paris, France</span>
+        </div>
       </div>
     </div>
-    <div class="border-t border-white/5 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-600 text-xs">
-      <span>© 2025 EliteCoach — Tous droits réservés</span>
-      <div class="flex gap-4">
-        <a href="#" class="hover:text-slate-400 transition-colors cursor-pointer">Mentions légales</a>
-        <a href="#" class="hover:text-slate-400 transition-colors cursor-pointer">CGV</a>
-        <a href="#" class="hover:text-slate-400 transition-colors cursor-pointer">Politique de confidentialité</a>
+    <div style="border-top:1px solid rgba(255,255,255,.04);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+      <span style="color:#333;font-size:.75rem;">© 2025 Maxime Laurent — Coach Sportif</span>
+      <div style="display:flex;gap:24px;">
+        <a href="#" style="color:#333;font-size:.75rem;text-decoration:none;">Mentions légales</a>
+        <a href="#" style="color:#333;font-size:.75rem;text-decoration:none;">CGV</a>
+        <a href="#" style="color:#333;font-size:.75rem;text-decoration:none;">Confidentialité</a>
       </div>
     </div>
   </div>
 </footer>
 
-<!-- ============================================================
-     SUCCESS MODAL
-============================================================ -->
-<div id="success-modal" class="fixed inset-0 z-[100] flex items-center justify-center hidden">
-  <div class="modal-overlay absolute inset-0 bg-black/70" onclick="closeModal()"></div>
-  <div class="relative glass-card rounded-3xl p-10 max-w-md w-full mx-4 text-center glow-orange-sm" style="border-color: rgba(249,115,22,0.3);">
-    <div class="w-20 h-20 rounded-full bg-green/20 flex items-center justify-center mx-auto mb-6">
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-    </div>
-    <h3 class="font-heading font-900 text-4xl text-white mb-3">RÉSERVATION<br>CONFIRMÉE !</h3>
-    <p class="text-slate-400 mb-2">Tu recevras un email de confirmation dans quelques minutes.</p>
-    <p id="modal-summary" class="text-orange font-medium text-sm mb-8"></p>
-    <p class="text-slate-500 text-sm mb-8">Maxime te contactera dans les <strong class="text-white">24 heures</strong> pour préparer votre séance ensemble.</p>
-    <button onclick="closeModal()" class="btn-primary text-white font-heading font-700 text-sm tracking-widest uppercase px-8 py-3 rounded-xl cursor-pointer w-full">
-      Fermer
-    </button>
+<!-- ═══════════════════ SUCCESS MODAL ═══════════════════ -->
+<div id="modal">
+  <div id="modal-bg" onclick="closeModal()"></div>
+  <div id="modal-box">
+    <div style="width:64px;height:64px;border-radius:50%;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:1.6rem;">✓</div>
+    <h3 class="display" style="font-size:2.8rem;margin-bottom:12px;">C'est confirmé !</h3>
+    <p style="color:#888;font-size:.9rem;margin-bottom:8px;">Un email de confirmation t'a été envoyé.</p>
+    <p id="modal-info" style="color:var(--orange);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;margin-bottom:24px;"></p>
+    <p style="color:#666;font-size:.85rem;margin-bottom:32px;">Maxime te contacte dans les <strong style="color:#bbb;">24 heures</strong> pour préparer votre échange.</p>
+    <button onclick="closeModal()" class="btn-solid" style="width:100%;justify-content:center;">Fermer</button>
   </div>
 </div>
 
-<!-- ============================================================
-     JAVASCRIPT
-============================================================ -->
+<!-- ═══════════════════ JAVASCRIPT ═══════════════════ -->
 <script>
-// ─── Mobile Menu ───────────────────────────────────────────────
-const burger = document.getElementById('burger');
-const mobileMenu = document.getElementById('mobile-menu');
-const menuBackdrop = document.getElementById('menu-backdrop');
-const closeMenuBtn = document.getElementById('close-menu');
-const b1 = document.getElementById('b1'), b2 = document.getElementById('b2'), b3 = document.getElementById('b3');
+// ── Responsive nav ──────────────────────────────────────────────────
+const navLinks = document.getElementById('nav-links');
+const burgerBtn = document.getElementById('burger');
+const mnav = document.getElementById('mnav');
+const b1=document.getElementById('b1'),b2=document.getElementById('b2'),b3=document.getElementById('b3');
 
-function openMenu() {
-  mobileMenu.classList.add('open');
-  menuBackdrop.classList.remove('hidden');
-  b1.style.transform = 'rotate(45deg) translate(4px, 4px)';
-  b2.style.opacity = '0';
-  b3.style.transform = 'rotate(-45deg) translate(4px, -4px)';
-  b3.style.width = '24px';
+function showBurger(show) {
+  burgerBtn.style.display = show ? 'flex' : 'none';
+  navLinks.style.display = show ? 'none' : 'flex';
 }
-function closeMenu() {
-  mobileMenu.classList.remove('open');
-  menuBackdrop.classList.add('hidden');
-  b1.style.transform = ''; b2.style.opacity = ''; b3.style.transform = ''; b3.style.width = '';
-}
-burger.addEventListener('click', openMenu);
-closeMenuBtn.addEventListener('click', closeMenu);
-menuBackdrop.addEventListener('click', closeMenu);
-document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', closeMenu));
+function checkNav() { showBurger(window.innerWidth < 768); }
+checkNav(); window.addEventListener('resize', checkNav);
 
-// ─── Scroll Reveal ─────────────────────────────────────────────
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
-}, { threshold: 0.12 });
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+let menuOpen = false;
+burgerBtn.addEventListener('click', () => {
+  menuOpen = !menuOpen;
+  mnav.style.transform = menuOpen ? 'translateX(0)' : 'translateX(100%)';
+  b1.style.transform = menuOpen ? 'rotate(45deg) translate(4px,4px)' : '';
+  b2.style.opacity = menuOpen ? '0' : '1';
+  b3.style.transform = menuOpen ? 'rotate(-45deg) translate(4px,-4px)' : '';
+  b3.style.width = menuOpen ? '24px' : '16px';
+});
+document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => {
+  menuOpen = false;
+  mnav.style.transform = 'translateX(100%)';
+  b1.style.transform=''; b2.style.opacity='1'; b3.style.transform=''; b3.style.width='16px';
+}));
 
-// ─── Counter Animation ─────────────────────────────────────────
-function animateCounter(el, target, suffix = '') {
+// ── Navbar scroll ───────────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// ── Scroll reveal ───────────────────────────────────────────────────
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); ro.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('[data-reveal]').forEach(el => ro.observe(el));
+
+// ── Counter animation ───────────────────────────────────────────────
+function countUp(el, target) {
+  const isFloat = !Number.isInteger(target);
+  const dur = 1600;
   const start = performance.now();
-  const duration = 1800;
-  const update = (now) => {
-    const t = Math.min((now - start) / duration, 1);
+  const suffix = el.innerHTML.replace(/[\d.]+/, '').trim();
+  (function tick(now) {
+    const t = Math.min((now - start) / dur, 1);
     const ease = 1 - Math.pow(1 - t, 3);
-    el.innerHTML = Math.round(ease * target) + suffix;
-    if (t < 1) requestAnimationFrame(update);
-  };
-  requestAnimationFrame(update);
+    const val = isFloat ? (ease * target).toFixed(1) : Math.round(ease * target);
+    el.innerHTML = val + suffix;
+    if (t < 1) requestAnimationFrame(tick);
+  })(start);
 }
-const counterObserver = new IntersectionObserver((entries) => {
+const co = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
-      const target = parseInt(e.target.dataset.target);
-      const suffix = e.target.innerHTML.replace(/\d+/, '').trim();
-      animateCounter(e.target, target, suffix);
-      counterObserver.unobserve(e.target);
+      countUp(e.target, parseFloat(e.target.dataset.count));
+      co.unobserve(e.target);
     }
   });
-}, { threshold: 0.5 });
-document.querySelectorAll('[data-target]').forEach(el => counterObserver.observe(el));
+}, { threshold: 0.6 });
+document.querySelectorAll('[data-count]').forEach(el => co.observe(el));
 
-// ─── Testimonials Carousel ─────────────────────────────────────
-const track = document.getElementById('testimonial-track');
-const dotsContainer = document.getElementById('carousel-dots');
-const cards = track.querySelectorAll('.glass-card, [class*="min-w"]');
-let currentSlide = 0;
-const totalCards = track.children.length;
-
-// Build dots
-for (let i = 0; i < totalCards; i++) {
-  const d = document.createElement('button');
-  d.className = `w-2 h-2 rounded-full transition-all cursor-pointer ${i === 0 ? 'bg-orange w-5' : 'bg-white/20'}`;
-  d.setAttribute('aria-label', `Avis ${i + 1}`);
-  d.addEventListener('click', () => goSlide(i));
-  dotsContainer.appendChild(d);
-}
-
-function goSlide(n) {
-  const dots = dotsContainer.querySelectorAll('button');
-  dots[currentSlide].className = 'w-2 h-2 rounded-full transition-all cursor-pointer bg-white/20';
-  currentSlide = (n + totalCards) % totalCards;
-  dots[currentSlide].className = 'w-2 h-2 rounded-full transition-all cursor-pointer bg-orange w-5';
-  const cardWidth = track.children[0].offsetWidth + 24;
-  track.style.transform = `translateX(-${currentSlide * cardWidth}px)`;
-}
-
-document.getElementById('prev-btn').addEventListener('click', () => goSlide(currentSlide - 1));
-document.getElementById('next-btn').addEventListener('click', () => goSlide(currentSlide + 1));
-
-// Auto-advance
-let autoSlide = setInterval(() => goSlide(currentSlide + 1), 5000);
-track.parentElement.addEventListener('mouseenter', () => clearInterval(autoSlide));
-track.parentElement.addEventListener('mouseleave', () => { autoSlide = setInterval(() => goSlide(currentSlide + 1), 5000); });
-
-// ─── FAQ Accordion ─────────────────────────────────────────────
-document.querySelectorAll('.faq-trigger').forEach(trigger => {
-  trigger.addEventListener('click', () => {
-    const item = trigger.parentElement;
-    const content = item.querySelector('.faq-content');
-    const icon = trigger.querySelector('.faq-icon');
-    const isOpen = !content.classList.contains('hidden');
-    // Close all
-    document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
-    document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
-    if (!isOpen) {
-      content.classList.remove('hidden');
-      icon.style.transform = 'rotate(180deg)';
-    }
-  });
-});
-
-// ─── Program selection ─────────────────────────────────────────
-document.querySelectorAll('.program-option input').forEach(radio => {
-  radio.addEventListener('change', () => {
-    document.querySelectorAll('.program-card').forEach(c => {
-      c.classList.remove('selected', 'bg-orange/10', 'border-orange/40');
-      c.classList.add('border-white/10');
-    });
-    const card = radio.closest('.program-option').querySelector('.program-card');
-    card.classList.add('selected', 'bg-orange/10', 'border-orange/40');
-    card.classList.remove('border-white/10');
-  });
-});
-
-// ─── Step Navigation ───────────────────────────────────────────
-let selectedDate = null, selectedTime = null, selectedProgram = 'transformation';
-
-function goStep(n) {
-  document.querySelectorAll('.booking-step').forEach(s => s.classList.add('hidden'));
-  document.getElementById(`step${n}`).classList.remove('hidden');
-
-  // Update progress dots & bars
-  const dots = document.querySelectorAll('.step-dot');
-  dots.forEach((d, i) => {
-    d.classList.remove('border-orange', 'text-orange', 'bg-orange/10', 'border-white/10', 'text-slate-500');
-    if (i + 1 < n) {
-      d.classList.add('border-green', 'text-green');
-      d.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>';
-    } else if (i + 1 === n) {
-      d.classList.add('border-orange', 'text-orange', 'bg-orange/10');
-      d.textContent = i + 1;
-    } else {
-      d.classList.add('border-white/10', 'text-slate-500');
-      d.textContent = i + 1;
-    }
-  });
-  const bar1 = document.getElementById('bar1');
-  const bar2 = document.getElementById('bar2');
-  bar1.style.width = n >= 2 ? '100%' : '0%';
-  bar2.style.width = n >= 3 ? '100%' : '0%';
-
-  if (n === 3) updateSummary();
-}
-
-function updateSummary() {
-  const progLabel = { remise: 'Remise en Forme', transformation: 'Transformation', elite: 'Elite' };
-  const selProg = document.querySelector('input[name="program"]:checked')?.value || 'transformation';
-  document.getElementById('summary-prog').textContent = progLabel[selProg] || '—';
-  if (selectedDate) {
-    document.getElementById('summary-date').textContent = selectedDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
-  }
-  document.getElementById('summary-time').textContent = selectedTime || '—';
-}
-
-// ─── Calendar ──────────────────────────────────────────────────
-const MONTHS_FR = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
-const BOOKED_SLOTS = { '2026-07-07': ['09:00', '14:00'], '2026-07-10': ['10:00', '11:00', '15:00'], '2026-07-15': ['09:00'] };
-const AVAILABLE_TIMES = ['09:00','10:00','11:00','14:00','15:00','16:00','17:00'];
-
-let calDate = new Date(2026, 6, 1); // July 2026 start
-
-function renderCalendar() {
-  const label = document.getElementById('cal-month-label');
-  const grid = document.getElementById('cal-grid');
-  label.textContent = `${MONTHS_FR[calDate.getMonth()]} ${calDate.getFullYear()}`;
-  grid.innerHTML = '';
-
-  const firstDay = new Date(calDate.getFullYear(), calDate.getMonth(), 1);
-  const lastDay = new Date(calDate.getFullYear(), calDate.getMonth() + 1, 0);
-  const today = new Date(); today.setHours(0,0,0,0);
-
-  // Monday-first: 0=Mon…6=Sun
-  let startDow = (firstDay.getDay() + 6) % 7;
-  for (let i = 0; i < startDow; i++) {
-    const blank = document.createElement('div');
-    blank.className = 'cal-day empty h-8 rounded-lg';
-    grid.appendChild(blank);
-  }
-
-  for (let d = 1; d <= lastDay.getDate(); d++) {
-    const dayEl = document.createElement('button');
-    const thisDate = new Date(calDate.getFullYear(), calDate.getMonth(), d);
-    const isPast = thisDate < today;
-    const isSun = thisDate.getDay() === 0;
-    const isSel = selectedDate && thisDate.toDateString() === selectedDate.toDateString();
-
-    dayEl.className = `cal-day h-8 w-full rounded-lg flex items-center justify-center text-sm font-medium ${isPast || isSun ? 'disabled text-slate-700' : 'available text-slate-200'} ${isSel ? 'selected' : ''}`;
-    dayEl.textContent = d;
-    dayEl.setAttribute('aria-label', thisDate.toLocaleDateString('fr-FR'));
-
-    if (!isPast && !isSun) {
-      dayEl.addEventListener('click', () => selectDate(thisDate));
-    } else {
-      dayEl.disabled = true;
-    }
-    grid.appendChild(dayEl);
-  }
-}
-
-function selectDate(date) {
-  selectedDate = date;
-  selectedTime = null;
-  renderCalendar();
-  renderTimeSlots(date);
-  document.getElementById('selected-date-label').textContent = `— ${date.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short' })}`;
-  checkStep2Complete();
-}
-
-function renderTimeSlots(date) {
-  const container = document.getElementById('time-slots');
-  const key = date.toISOString().split('T')[0];
-  const booked = BOOKED_SLOTS[key] || [];
-
-  container.innerHTML = '<div class="grid grid-cols-2 gap-2"></div>';
-  const grid = container.querySelector('div');
-
-  AVAILABLE_TIMES.forEach(t => {
-    const isBooked = booked.includes(t);
-    const slot = document.createElement('button');
-    slot.className = `time-slot rounded-xl px-4 py-3 border text-sm font-medium ${isBooked ? 'booked border-white/5 text-slate-600' : 'border-white/10 text-slate-300'} ${!isBooked && selectedTime === t ? 'selected' : ''}`;
-    slot.textContent = t;
-    slot.disabled = isBooked;
-    if (!isBooked) {
-      slot.addEventListener('click', () => {
-        selectedTime = t;
-        container.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
-        slot.classList.add('selected');
-        checkStep2Complete();
-      });
-    }
-    grid.appendChild(slot);
-  });
-}
-
-function checkStep2Complete() {
-  const btn = document.getElementById('step2-next');
-  if (selectedDate && selectedTime) {
-    btn.classList.remove('opacity-50', 'pointer-events-none');
-    btn.disabled = false;
+// ── Hero responsive ─────────────────────────────────────────────────
+function fixHeroGrid() {
+  const hg = document.getElementById('hero-grid') || document.querySelector('#hero');
+  if (!hg) return;
+  if (window.innerWidth < 1024) {
+    hg.style.gridTemplateColumns = '1fr';
+    const vp = hg.querySelector('[style*="background:#0e0e0e"]');
+    if (vp) vp.style.display = 'none';
   } else {
-    btn.classList.add('opacity-50', 'pointer-events-none');
-    btn.disabled = true;
+    hg.style.gridTemplateColumns = '1fr 420px';
+    const vp = hg.querySelector('[style*="background:#0e0e0e"]');
+    if (vp) vp.style.display = '';
+  }
+}
+fixHeroGrid(); window.addEventListener('resize', fixHeroGrid);
+
+// ── Program card selection ───────────────────────────────────────────
+document.querySelectorAll('#prog-choices input[type=radio]').forEach(radio => {
+  radio.addEventListener('change', () => {
+    document.querySelectorAll('.pchoice').forEach(c => {
+      c.style.borderColor = 'rgba(255,255,255,.08)';
+      c.style.background = '';
+      c.classList.remove('selected');
+    });
+    const card = radio.nextElementSibling;
+    card.style.borderColor = 'rgba(249,115,22,.5)';
+    card.style.background = 'rgba(249,115,22,.07)';
+    card.classList.add('selected');
+  });
+});
+
+// ── Testimonials carousel ────────────────────────────────────────────
+const ttrack = document.getElementById('ttrack');
+let tcur = 0;
+const tcards = ttrack.children;
+function goT(n) {
+  tcur = ((n % tcards.length) + tcards.length) % tcards.length;
+  const w = tcards[0].offsetWidth + 20;
+  ttrack.style.transform = `translateX(-${tcur * w}px)`;
+}
+document.getElementById('tprev').addEventListener('click', () => goT(tcur - 1));
+document.getElementById('tnext').addEventListener('click', () => goT(tcur + 1));
+let tauto = setInterval(() => goT(tcur + 1), 5000);
+document.getElementById('twrap').addEventListener('mouseenter', () => clearInterval(tauto));
+document.getElementById('twrap').addEventListener('mouseleave', () => { tauto = setInterval(() => goT(tcur + 1), 5000); });
+
+// ── FAQ accordion ────────────────────────────────────────────────────
+document.querySelectorAll('.faq-trigger').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const open = btn.getAttribute('aria-expanded') === 'true';
+    document.querySelectorAll('.faq-trigger').forEach(b => b.setAttribute('aria-expanded', 'false'));
+    if (!open) btn.setAttribute('aria-expanded', 'true');
+  });
+});
+
+// ── Booking: step navigation ─────────────────────────────────────────
+let selDate = null, selTime = null;
+
+function goS(n) {
+  ['s1','s2','s3'].forEach((id,i) => document.getElementById(id).style.display = i+1===n?'':'none');
+  const labels = ['Programme','Date & Horaire','Informations'];
+  document.getElementById('step-label').textContent = labels[n-1];
+  // Dots
+  ['sd1','sd2','sd3'].forEach((id,i) => {
+    const d = document.getElementById(id);
+    d.className = 'sdot';
+    if (i+1 < n) d.classList.add('done'), d.innerHTML='✓';
+    else if (i+1 === n) d.classList.add('active'), d.textContent=i+1;
+    else d.textContent=i+1;
+  });
+  // Lines
+  document.getElementById('sl1').classList.toggle('done', n > 1);
+  document.getElementById('sl2').classList.toggle('done', n > 2);
+  if (n === 3) fillSummary();
+}
+
+function fillSummary() {
+  const prog = document.querySelector('input[name="prog"]:checked')?.value || '—';
+  document.getElementById('sum-prog').textContent = prog.split(' —')[0];
+  document.getElementById('sum-date').textContent = selDate ? selDate.toLocaleDateString('fr-FR',{day:'numeric',month:'short'}) : '—';
+  document.getElementById('sum-time').textContent = selTime || '—';
+}
+
+// ── Calendar ─────────────────────────────────────────────────────────
+const MONTHS = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+const BOOKED = {'2026-07-07':['09:00','14:00'],'2026-07-10':['10:00','11:00','15:00'],'2026-07-15':['09:00']};
+const TIMES = ['09:00','10:00','11:00','14:00','15:00','16:00','17:00'];
+let calM = new Date(2026,6,1);
+
+function renderCal() {
+  document.getElementById('cmlabel').textContent = `${MONTHS[calM.getMonth()]} ${calM.getFullYear()}`;
+  const grid = document.getElementById('cgrid');
+  grid.innerHTML = '';
+  const first = new Date(calM.getFullYear(), calM.getMonth(), 1);
+  const last  = new Date(calM.getFullYear(), calM.getMonth()+1, 0);
+  const today = new Date(); today.setHours(0,0,0,0);
+  let dow = (first.getDay()+6)%7;
+  for (let i=0;i<dow;i++) { const b=document.createElement('div'); b.className='cal-day empty'; grid.appendChild(b); }
+  for (let d=1;d<=last.getDate();d++) {
+    const dt = new Date(calM.getFullYear(), calM.getMonth(), d);
+    const past = dt<today, sun=dt.getDay()===0;
+    const sel = selDate && dt.toDateString()===selDate.toDateString();
+    const btn = document.createElement('button');
+    btn.className='cal-day'+(past||sun?' disabled':'')+(sel?' selected':'');
+    btn.textContent=d;
+    btn.setAttribute('aria-label', dt.toLocaleDateString('fr-FR'));
+    if (!past&&!sun) btn.addEventListener('click',()=>pickDate(dt));
+    else btn.disabled=true;
+    grid.appendChild(btn);
   }
 }
 
-document.getElementById('cal-prev').addEventListener('click', () => {
-  calDate = new Date(calDate.getFullYear(), calDate.getMonth() - 1, 1);
-  renderCalendar();
-});
-document.getElementById('cal-next').addEventListener('click', () => {
-  calDate = new Date(calDate.getFullYear(), calDate.getMonth() + 1, 1);
-  renderCalendar();
-});
-
-// Render calendar on load
-renderCalendar();
-
-// ─── Form Submission ───────────────────────────────────────────
-document.getElementById('booking-form').addEventListener('submit', function(e) {
-  e.preventDefault();
-  let valid = true;
-
-  // Validate fields
-  ['b-prenom', 'b-nom'].forEach(id => {
-    const el = document.getElementById(id);
-    const err = el.nextElementSibling;
-    if (!el.value.trim()) { err.classList.remove('hidden'); el.classList.add('border-red-500/50'); valid = false; }
-    else { err.classList.add('hidden'); el.classList.remove('border-red-500/50'); }
-  });
-
-  const email = document.getElementById('b-email');
-  const emailErr = email.nextElementSibling;
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
-    emailErr.classList.remove('hidden'); email.classList.add('border-red-500/50'); valid = false;
-  } else { emailErr.classList.add('hidden'); email.classList.remove('border-red-500/50'); }
-
-  const tel = document.getElementById('b-tel');
-  const telErr = tel.nextElementSibling;
-  if (tel.value.replace(/\s/g, '').length < 10) {
-    telErr.classList.remove('hidden'); tel.classList.add('border-red-500/50'); valid = false;
-  } else { telErr.classList.add('hidden'); tel.classList.remove('border-red-500/50'); }
-
-  if (!valid) return;
-
-  // Show loading
-  const btn = document.getElementById('submit-btn');
-  btn.innerHTML = '<svg class="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M3.6 9h1.5M19 9h1.4M12 3.5V5M12 19v1.5" stroke-linecap="round"/></svg> Envoi en cours...';
-  btn.disabled = true;
-
-  setTimeout(() => {
-    const progLabel = { remise: 'Remise en Forme', transformation: 'Transformation', elite: 'Elite' };
-    const prog = document.querySelector('input[name="program"]:checked')?.value || 'transformation';
-    const dateStr = selectedDate?.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }) || '';
-    document.getElementById('modal-summary').textContent = `${progLabel[prog]} · ${dateStr} à ${selectedTime}`;
-    document.getElementById('success-modal').classList.remove('hidden');
-    this.reset();
-    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Confirmer ma réservation';
-    btn.disabled = false;
-    goStep(1);
-    selectedDate = null; selectedTime = null;
-  }, 1500);
-});
-
-function closeModal() {
-  document.getElementById('success-modal').classList.add('hidden');
+function pickDate(dt) {
+  selDate=dt; selTime=null;
+  renderCal();
+  document.getElementById('cdate-label').textContent = dt.toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'});
+  renderSlots(dt);
+  checkS2();
 }
 
-// Close modal on Escape
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+function renderSlots(dt) {
+  const key = dt.toISOString().split('T')[0];
+  const taken = BOOKED[key]||[];
+  const g = document.getElementById('slots-grid');
+  g.innerHTML='';
+  TIMES.forEach(t => {
+    const isTaken=taken.includes(t);
+    const b=document.createElement('button');
+    b.className='slot'+(isTaken?' taken':'')+(selTime===t&&!isTaken?' chosen':'');
+    b.textContent=t; b.disabled=isTaken;
+    if(!isTaken) b.addEventListener('click',()=>{ selTime=t; renderSlots(dt); checkS2(); });
+    g.appendChild(b);
+  });
+}
 
-// ─── Init step ─────────────────────────────────────────────────
-goStep(1);
+function checkS2() {
+  const btn=document.getElementById('s2next');
+  const ok=selDate&&selTime;
+  btn.style.opacity=ok?'1':'0.3';
+  btn.style.pointerEvents=ok?'auto':'none';
+  btn.disabled=!ok;
+}
+
+document.getElementById('cprev').addEventListener('click',()=>{ calM=new Date(calM.getFullYear(),calM.getMonth()-1,1); renderCal(); });
+document.getElementById('cnext').addEventListener('click',()=>{ calM=new Date(calM.getFullYear(),calM.getMonth()+1,1); renderCal(); });
+renderCal();
+
+// ── Form submit ──────────────────────────────────────────────────────
+document.getElementById('bform').addEventListener('submit',e=>{
+  e.preventDefault(); let ok=true;
+  const fn=document.getElementById('fn'), ln=document.getElementById('ln');
+  const em=document.getElementById('em'), ph=document.getElementById('ph');
+  [fn,ln].forEach(f=>{ const err=document.getElementById(f.id+'-e'); if(!f.value.trim()){err.style.display='block';f.style.borderColor='rgba(239,68,68,.5)';ok=false;}else{err.style.display='none';f.style.borderColor='';} });
+  const emailOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value);
+  document.getElementById('em-e').style.display=emailOk?'none':'block'; if(!emailOk){em.style.borderColor='rgba(239,68,68,.5)';ok=false;}else em.style.borderColor='';
+  const telOk=ph.value.replace(/\s/g,'').length>=10;
+  document.getElementById('ph-e').style.display=telOk?'none':'block'; if(!telOk){ph.style.borderColor='rgba(239,68,68,.5)';ok=false;}else ph.style.borderColor='';
+  if(!ok) return;
+  const btn=document.getElementById('sbtn');
+  btn.textContent='Envoi en cours…'; btn.disabled=true;
+  setTimeout(()=>{
+    const prog=(document.querySelector('input[name="prog"]:checked')?.value||'—').split(' —')[0];
+    const ds=selDate?.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})||'';
+    document.getElementById('modal-info').textContent=`${prog} · ${ds} à ${selTime}`;
+    document.getElementById('modal').classList.add('open');
+    document.getElementById('bform').reset();
+    btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Confirmer ma réservation';
+    btn.disabled=false;
+    selDate=null; selTime=null;
+    goS(1);
+  },1200);
+});
+
+function closeModal(){ document.getElementById('modal').classList.remove('open'); }
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
 </script>
-
 </body>
 </html>
