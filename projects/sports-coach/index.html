@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elite Coach — Transforme ton Corps, Libère ton Potentiel</title>
+<meta name="description" content="Coach sportif certifié. Programmes personnalisés, suivi nutrition, résultats garantis. Réservez votre séance découverte gratuite.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        heading: ['Barlow Condensed', 'sans-serif'],
+        body: ['Barlow', 'sans-serif'],
+      },
+      colors: {
+        bg: '#080D16',
+        card: '#0F1623',
+        'card-hover': '#161E2E',
+        orange: { DEFAULT: '#F97316', dark: '#EA580C', light: '#FB923C' },
+        green: { DEFAULT: '#22C55E', dark: '#16A34A' },
+        slate: {
+          900: '#0F172A', 800: '#1E293B', 700: '#334155',
+          600: '#475569', 500: '#64748B', 400: '#94A3B8',
+          300: '#CBD5E1', 200: '#E2E8F0', 100: '#F1F5F9',
+        },
+      },
+      animation: {
+        'fade-up': 'fadeUp 0.6s ease-out forwards',
+        'fade-in': 'fadeIn 0.4s ease-out forwards',
+        'pulse-slow': 'pulse 3s cubic-bezier(0.4,0,0.6,1) infinite',
+      },
+      keyframes: {
+        fadeUp: { '0%': { opacity: '0', transform: 'translateY(30px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+      },
+    }
+  }
+}
+</script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { font-family: 'Barlow', sans-serif; background: #080D16; color: #F1F5F9; }
+  h1, h2, h3, h4, h5 { font-family: 'Barlow Condensed', sans-serif; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #080D16; }
+  ::-webkit-scrollbar-thumb { background: #F97316; border-radius: 3px; }
+
+  /* Glow effects */
+  .glow-orange { box-shadow: 0 0 30px rgba(249,115,22,0.3); }
+  .glow-orange-sm { box-shadow: 0 0 15px rgba(249,115,22,0.2); }
+  .text-glow { text-shadow: 0 0 40px rgba(249,115,22,0.4); }
+
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, #F97316 0%, #FB923C 50%, #FBBF24 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+
+  /* Hero background */
+  .hero-bg {
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(249,115,22,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 40% at 80% 50%, rgba(249,115,22,0.05) 0%, transparent 50%),
+                #080D16;
+  }
+
+  /* Grid lines */
+  .grid-lines {
+    background-image: linear-gradient(rgba(249,115,22,0.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(249,115,22,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  /* Animate on scroll */
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* Navbar blur */
+  .navbar-blur { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+
+  /* Card styles */
+  .glass-card {
+    background: rgba(15,22,35,0.8);
+    border: 1px solid rgba(249,115,22,0.1);
+    backdrop-filter: blur(10px);
+  }
+  .glass-card:hover { border-color: rgba(249,115,22,0.3); }
+
+  /* Button styles */
+  .btn-primary {
+    background: linear-gradient(135deg, #F97316, #EA580C);
+    transition: all 0.2s ease;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(249,115,22,0.4); }
+  .btn-primary:active { transform: translateY(0); }
+
+  .btn-outline {
+    border: 1px solid rgba(249,115,22,0.5);
+    color: #F97316;
+    transition: all 0.2s ease;
+  }
+  .btn-outline:hover { background: rgba(249,115,22,0.1); border-color: #F97316; }
+
+  /* Stats counter */
+  .stat-number { font-variant-numeric: tabular-nums; }
+
+  /* Pricing card */
+  .pricing-popular {
+    background: linear-gradient(135deg, rgba(249,115,22,0.15), rgba(234,88,12,0.08));
+    border: 1px solid rgba(249,115,22,0.4);
+  }
+
+  /* Calendar styles */
+  .cal-day { transition: all 0.15s ease; }
+  .cal-day:hover:not(.disabled):not(.empty) { background: rgba(249,115,22,0.2); cursor: pointer; }
+  .cal-day.selected { background: #F97316 !important; color: white !important; }
+  .cal-day.today { border: 1px solid rgba(249,115,22,0.5); }
+  .cal-day.disabled { opacity: 0.25; cursor: not-allowed; }
+  .cal-day.available { color: #F1F5F9; }
+
+  /* Time slot */
+  .time-slot { transition: all 0.15s ease; cursor: pointer; }
+  .time-slot:hover:not(.booked) { border-color: #F97316; background: rgba(249,115,22,0.1); }
+  .time-slot.selected { background: #F97316; border-color: #F97316; color: white; }
+  .time-slot.booked { opacity: 0.3; cursor: not-allowed; text-decoration: line-through; }
+
+  /* Progress bar */
+  .step-bar { transition: width 0.4s ease; }
+
+  /* Modal */
+  .modal-overlay { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+
+  /* Testimonial */
+  .testimonial-track { display: flex; transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94); }
+
+  /* Parallax subtle */
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { transition: none; opacity: 1; transform: none; }
+    .btn-primary:hover, .btn-outline:hover { transform: none; }
+  }
+
+  /* Focus visible */
+  :focus-visible { outline: 2px solid #F97316; outline-offset: 3px; border-radius: 4px; }
+
+  /* Mobile menu */
+  #mobile-menu { transform: translateX(100%); transition: transform 0.3s ease; }
+  #mobile-menu.open { transform: translateX(0); }
+
+  /* Number counter animation */
+  @keyframes countUp { from { opacity: 0; } to { opacity: 1; } }
+</style>
+</head>
+<body class="bg-bg text-slate-100 font-body antialiased overflow-x-hidden">
+
+<!-- ============================================================
+     NAVBAR
+============================================================ -->
+<header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <div class="navbar-blur bg-bg/80 border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 lg:h-20">
+
+        <!-- Logo -->
+        <a href="#hero" class="flex items-center gap-3 group cursor-pointer">
+          <div class="w-9 h-9 rounded-lg bg-orange flex items-center justify-center glow-orange-sm group-hover:scale-105 transition-transform">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6.5 6.5h11M6.5 17.5h11M3 12h18"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </div>
+          <span class="font-heading font-800 text-xl tracking-wide text-white">ELITE<span class="text-orange">COACH</span></span>
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden lg:flex items-center gap-8">
+          <a href="#programs" class="text-slate-400 hover:text-orange transition-colors duration-200 text-sm font-medium tracking-wide">Programmes</a>
+          <a href="#about" class="text-slate-400 hover:text-orange transition-colors duration-200 text-sm font-medium tracking-wide">À propos</a>
+          <a href="#results" class="text-slate-400 hover:text-orange transition-colors duration-200 text-sm font-medium tracking-wide">Résultats</a>
+          <a href="#pricing" class="text-slate-400 hover:text-orange transition-colors duration-200 text-sm font-medium tracking-wide">Tarifs</a>
+          <a href="#booking" class="btn-primary text-white font-heading font-700 text-sm tracking-widest uppercase px-6 py-2.5 rounded-lg cursor-pointer">
+            Réserver →
+          </a>
+        </nav>
+
+        <!-- Mobile burger -->
+        <button id="burger" class="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 cursor-pointer" aria-label="Menu">
+          <span class="w-6 h-0.5 bg-white transition-all duration-300" id="b1"></span>
+          <span class="w-6 h-0.5 bg-white transition-all duration-300" id="b2"></span>
+          <span class="w-4 h-0.5 bg-white transition-all duration-300 self-start" id="b3"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="fixed top-0 right-0 bottom-0 w-72 z-50 bg-card border-l border-white/10 flex flex-col p-8 pt-20">
+  <button id="close-menu" class="absolute top-5 right-5 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-white cursor-pointer" aria-label="Fermer">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+  </button>
+  <nav class="flex flex-col gap-6">
+    <a href="#programs" class="text-slate-300 hover:text-orange font-heading text-2xl font-700 tracking-wide mobile-link">Programmes</a>
+    <a href="#about" class="text-slate-300 hover:text-orange font-heading text-2xl font-700 tracking-wide mobile-link">À propos</a>
+    <a href="#results" class="text-slate-300 hover:text-orange font-heading text-2xl font-700 tracking-wide mobile-link">Résultats</a>
+    <a href="#pricing" class="text-slate-300 hover:text-orange font-heading text-2xl font-700 tracking-wide mobile-link">Tarifs</a>
+  </nav>
+  <a href="#booking" class="mt-auto btn-primary text-white font-heading font-700 text-base tracking-widest uppercase px-6 py-4 rounded-xl text-center mobile-link cursor-pointer">
+    Réserver ma séance →
+  </a>
+</div>
+<div id="menu-backdrop" class="fixed inset-0 z-40 bg-black/60 hidden"></div>
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section id="hero" class="relative min-h-dvh flex flex-col items-center justify-center hero-bg grid-lines overflow-hidden pt-20">
+
+  <!-- Decorative orb -->
+  <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-orange/5 blur-[120px] pointer-events-none"></div>
+  <div class="absolute bottom-0 right-0 w-80 h-80 rounded-full bg-orange/3 blur-[80px] pointer-events-none"></div>
+
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-0 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center w-full">
+
+    <!-- Left content -->
+    <div class="text-center lg:text-left">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 bg-orange/10 border border-orange/20 rounded-full px-4 py-1.5 mb-6 reveal">
+        <span class="w-2 h-2 rounded-full bg-green animate-pulse-slow"></span>
+        <span class="text-orange text-xs font-medium tracking-widest uppercase">3 places disponibles ce mois-ci</span>
+      </div>
+
+      <h1 class="font-heading font-900 text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-none tracking-tight text-white mb-6 reveal reveal-delay-1">
+        TRANSFORME<br>
+        TON CORPS.<br>
+        <span class="gradient-text text-glow">LIBÈRE TON</span><br>
+        <span class="gradient-text text-glow">POTENTIEL.</span>
+      </h1>
+
+      <p class="text-slate-400 text-lg lg:text-xl leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0 reveal reveal-delay-2">
+        Coaching sportif personnalisé, suivi nutritionnel et mentalité de champion.
+        Résultats garantis en <strong class="text-white">12 semaines</strong> ou remboursé.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10 reveal reveal-delay-3">
+        <a href="#booking" class="btn-primary text-white font-heading font-700 text-base tracking-widest uppercase px-8 py-4 rounded-xl cursor-pointer inline-flex items-center justify-center gap-2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          Séance Découverte Gratuite
+        </a>
+        <a href="#results" class="btn-outline font-heading font-700 text-base tracking-wider uppercase px-8 py-4 rounded-xl cursor-pointer inline-flex items-center justify-center gap-2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Voir les résultats
+        </a>
+      </div>
+
+      <!-- Trust signals -->
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-3 justify-center lg:justify-start reveal reveal-delay-4">
+        <div class="flex items-center gap-2 text-slate-400 text-sm">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#22C55E" stroke="#22C55E" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Certifié BPJEPS
+        </div>
+        <div class="flex items-center gap-2 text-slate-400 text-sm">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#22C55E" stroke="#22C55E" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          +200 clients transformés
+        </div>
+        <div class="flex items-center gap-2 text-slate-400 text-sm">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#22C55E" stroke="#22C55E" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Satisfait ou remboursé
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Stats cards -->
+    <div class="grid grid-cols-2 gap-4 lg:gap-5 reveal reveal-delay-2">
+      <div class="glass-card rounded-2xl p-6 col-span-2 flex items-center gap-5">
+        <div class="w-14 h-14 rounded-xl bg-orange/20 flex items-center justify-center shrink-0">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div>
+          <div class="font-heading font-900 text-4xl text-white stat-number" data-target="247">0</div>
+          <div class="text-slate-400 text-sm mt-0.5">Clients transformés depuis 2018</div>
+        </div>
+      </div>
+      <div class="glass-card rounded-2xl p-6">
+        <div class="font-heading font-900 text-4xl text-orange stat-number" data-target="98">0<span class="text-2xl">%</span></div>
+        <div class="text-slate-400 text-sm mt-1">Taux de satisfaction</div>
+      </div>
+      <div class="glass-card rounded-2xl p-6">
+        <div class="font-heading font-900 text-4xl text-white stat-number"><span data-target="12">0</span><span class="text-2xl text-orange">sem.</span></div>
+        <div class="text-slate-400 text-sm mt-1">Pour voir les résultats</div>
+      </div>
+      <div class="glass-card rounded-2xl p-6">
+        <div class="font-heading font-900 text-4xl text-white stat-number" data-target="6">0<span class="text-2xl text-orange">+</span></div>
+        <div class="text-slate-400 text-sm mt-1">Années d'expérience</div>
+      </div>
+      <div class="glass-card rounded-2xl p-6">
+        <div class="flex items-center gap-1 mb-1">
+          <span class="font-heading font-900 text-4xl text-white">4.9</span>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#F97316" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div class="text-slate-400 text-sm">Note Google (127 avis)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-600 animate-bounce">
+    <span class="text-xs tracking-widest uppercase">Découvrir</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROGRAMS / SERVICES
+============================================================ -->
+<section id="programs" class="py-24 lg:py-32 relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-16 reveal">
+      <span class="text-orange text-sm font-medium tracking-widest uppercase mb-4 block">Mes programmes</span>
+      <h2 class="font-heading font-900 text-5xl lg:text-6xl text-white leading-tight">UN PROGRAMME<br><span class="gradient-text">TAILLÉ POUR TOI</span></h2>
+      <p class="text-slate-400 text-lg mt-4 max-w-2xl mx-auto">Chaque programme est 100% personnalisé selon ton corps, tes objectifs et ton emploi du temps.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- Card 1 -->
+      <div class="glass-card rounded-2xl p-8 group cursor-pointer transition-all duration-300 hover:-translate-y-1 reveal reveal-delay-1">
+        <div class="w-14 h-14 rounded-xl bg-orange/15 flex items-center justify-center mb-6 group-hover:bg-orange/25 transition-colors">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6.5 6.5h11M6.5 17.5h11"/><rect x="2" y="6" width="2" height="12" rx="1"/><rect x="20" y="6" width="2" height="12" rx="1"/>
+          </svg>
+        </div>
+        <h3 class="font-heading font-800 text-2xl text-white mb-3">Remise en Forme</h3>
+        <p class="text-slate-400 leading-relaxed mb-6">Idéal pour débutants. Reconstruction progressive, cardio adapté et fondations solides pour toute ta vie.</p>
+        <ul class="space-y-2 mb-6">
+          <li class="flex items-center gap-2 text-sm text-slate-300"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 3 séances/semaine</li>
+          <li class="flex items-center gap-2 text-sm text-slate-300"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Plan nutrition inclus</li>
+          <li class="flex items-center gap-2 text-sm text-slate-300"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Suivi WhatsApp</li>
+        </ul>
+        <a href="#booking" class="text-orange font-medium text-sm flex items-center gap-1 hover:gap-2 transition-all cursor-pointer">Réserver →</a>
+      </div>
+
+      <!-- Card 2 (featured) -->
+      <div class="relative rounded-2xl p-8 group cursor-pointer transition-all duration-300 hover:-translate-y-1 reveal reveal-delay-2"
+           style="background: linear-gradient(135deg, rgba(249,115,22,0.12), rgba(234,88,12,0.06)); border: 1px solid rgba(249,115,22,0.35);">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange text-white text-xs font-heading font-700 tracking-widest uppercase px-4 py-1 rounded-full">Plus populaire</div>
+        <div class="w-14 h-14 rounded-xl bg-orange/25 flex items-center justify-center mb-6">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2" stroke-linecap="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+        </div>
+        <h3 class="font-heading font-800 text-2xl text-white mb-3">Transformation Totale</h3>
+        <p class="text-slate-400 leading-relaxed mb-6">Le programme phare. Perte de graisse, gain musculaire et mental d'acier en 12 semaines intensives.</p>
+        <ul class="space-y-2 mb-6">
+          <li class="flex items-center gap-2 text-sm text-slate-300"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 5 séances/semaine</li>
+          <li class="flex items-center gap-2 text-sm text-slate-300"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Nutrition & macros personnalisés</li>
+          <li class="flex items-center gap-2 text-sm text-slate-300"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Suivi quotidien</li>
+          <li class="flex items-center gap-2 text-sm text-slate-300"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Accès app exclusive</li>
+        </ul>
+        <a href="#booking" class="btn-primary text-white font-heading font-700 text-sm tracking-widest uppercase px-6 py-3 rounded-xl cursor-pointer inline-flex items-center gap-2">
+          Commencer maintenant →
+        </a>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="glass-card rounded-2xl p-8 group cursor-pointer transition-all duration-300 hover:-translate-y-1 reveal reveal-delay-3">
+        <div class="w-14 h-14 rounded-xl bg-orange/15 flex items-center justify-center mb-6 group-hover:bg-orange/25 transition-colors">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2" stroke-linecap="round">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+          </svg>
+        </div>
+        <h3 class="font-heading font-800 text-2xl text-white mb-3">Performance Elite</h3>
+        <p class="text-slate-400 leading-relaxed mb-6">Pour sportifs confirmés. Optimisation des performances, périodisation avancée et préparation compétition.</p>
+        <ul class="space-y-2 mb-6">
+          <li class="flex items-center gap-2 text-sm text-slate-300"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Programme sur mesure</li>
+          <li class="flex items-center gap-2 text-sm text-slate-300"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Analyse vidéo des mouvements</li>
+          <li class="flex items-center gap-2 text-sm text-slate-300"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Suivi 24h/24 prioritaire</li>
+        </ul>
+        <a href="#booking" class="text-orange font-medium text-sm flex items-center gap-1 hover:gap-2 transition-all cursor-pointer">Réserver →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ABOUT
+============================================================ -->
+<section id="about" class="py-24 lg:py-32" style="background: radial-gradient(ellipse 60% 50% at 100% 50%, rgba(249,115,22,0.05) 0%, transparent 60%), #080D16;">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-16 items-center">
+
+    <!-- Visual side -->
+    <div class="relative reveal">
+      <div class="aspect-[4/5] rounded-3xl overflow-hidden relative" style="background: linear-gradient(135deg, #0F1623 0%, #161E2E 100%); border: 1px solid rgba(249,115,22,0.15);">
+        <!-- Placeholder athlete visual -->
+        <div class="absolute inset-0 flex flex-col items-center justify-center">
+          <div class="w-32 h-32 rounded-full bg-orange/20 flex items-center justify-center mb-4 glow-orange">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="1.5" stroke-linecap="round">
+              <circle cx="12" cy="7" r="4"/><path d="M5.5 20a7 7 0 0 1 13 0"/>
+            </svg>
+          </div>
+          <p class="text-orange/60 text-sm tracking-widest uppercase font-heading">Photo du coach</p>
+        </div>
+        <!-- Orange corner accent -->
+        <div class="absolute bottom-0 right-0 w-24 h-24 bg-orange/20 rounded-tl-3xl"></div>
+        <div class="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-orange/30 rounded-tl-2xl"></div>
+      </div>
+
+      <!-- Floating badge -->
+      <div class="absolute -bottom-6 -right-4 glass-card rounded-2xl px-5 py-4 glow-orange-sm">
+        <div class="font-heading font-900 text-3xl text-white">BPJEPS</div>
+        <div class="text-orange text-xs font-medium tracking-widest uppercase">Certifié</div>
+      </div>
+      <div class="absolute -top-4 -left-4 glass-card rounded-2xl px-5 py-4">
+        <div class="font-heading font-900 text-3xl text-orange">6<span class="text-xl text-white">ans</span></div>
+        <div class="text-slate-400 text-xs">d'expérience</div>
+      </div>
+    </div>
+
+    <!-- Text side -->
+    <div class="reveal reveal-delay-2">
+      <span class="text-orange text-sm font-medium tracking-widest uppercase mb-4 block">À propos du coach</span>
+      <h2 class="font-heading font-900 text-5xl lg:text-6xl text-white leading-tight mb-6">
+        MAXIME LAURENT,<br><span class="gradient-text">TON COACH ÉLITE</span>
+      </h2>
+      <p class="text-slate-400 text-lg leading-relaxed mb-6">
+        Ancien athlète de compétition et coach certifié BPJEPS depuis 6 ans, j'ai accompagné plus de 247 clients vers leurs objectifs — qu'il s'agisse de perdre du poids, de gagner en masse musculaire ou de préparer une compétition.
+      </p>
+      <p class="text-slate-400 leading-relaxed mb-8">
+        Ma philosophie : <strong class="text-white">pas de programme générique</strong>. Chaque client est unique. Je construis chaque plan d'entraînement et nutrition sur mesure, avec un suivi rigoureux et une disponibilité totale.
+      </p>
+
+      <!-- Certifications -->
+      <div class="grid grid-cols-2 gap-4 mb-8">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-green/20 flex items-center justify-center shrink-0">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <span class="text-slate-300 text-sm">BPJEPS Activités Physiques</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-green/20 flex items-center justify-center shrink-0">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <span class="text-slate-300 text-sm">Coach Nutrition Certifié</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-green/20 flex items-center justify-center shrink-0">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <span class="text-slate-300 text-sm">Préparation Mentale INSEP</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-green/20 flex items-center justify-center shrink-0">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <span class="text-slate-300 text-sm">Secouriste PSC1</span>
+        </div>
+      </div>
+
+      <a href="#booking" class="btn-primary text-white font-heading font-700 text-sm tracking-widest uppercase px-8 py-4 rounded-xl cursor-pointer inline-flex items-center gap-2">
+        Travailler avec Maxime →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     RESULTS / TESTIMONIALS
+============================================================ -->
+<section id="results" class="py-24 lg:py-32 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-16 reveal">
+      <span class="text-orange text-sm font-medium tracking-widest uppercase mb-4 block">Résultats réels</span>
+      <h2 class="font-heading font-900 text-5xl lg:text-6xl text-white leading-tight">ILS ONT<br><span class="gradient-text">TOUT CHANGÉ</span></h2>
+    </div>
+
+    <!-- Testimonials carousel -->
+    <div class="relative overflow-hidden" id="testimonials-wrapper">
+      <div class="testimonial-track flex gap-6" id="testimonial-track">
+
+        <!-- T1 -->
+        <div class="glass-card rounded-2xl p-8 min-w-[320px] lg:min-w-[380px] flex-shrink-0">
+          <div class="flex items-center gap-1 mb-4">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-slate-300 leading-relaxed mb-6 italic">"En 3 mois avec Maxime, j'ai perdu 14 kg et gagné une confiance en moi que je n'aurais jamais crue possible. Son suivi est incomparable."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-orange/30 flex items-center justify-center font-heading font-700 text-orange">S</div>
+            <div>
+              <div class="text-white font-medium text-sm">Sophie M.</div>
+              <div class="text-slate-500 text-xs">Programme Transformation Totale · -14 kg</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- T2 -->
+        <div class="glass-card rounded-2xl p-8 min-w-[320px] lg:min-w-[380px] flex-shrink-0">
+          <div class="flex items-center gap-1 mb-4">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-slate-300 leading-relaxed mb-6 italic">"Maxime m'a préparé pour mon premier marathon en 16 semaines. Sa méthode de périodisation est redoutable. J'ai terminé en 3h42, au-delà de mes espérances."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-orange/30 flex items-center justify-center font-heading font-700 text-orange">T</div>
+            <div>
+              <div class="text-white font-medium text-sm">Thomas B.</div>
+              <div class="text-slate-500 text-xs">Programme Performance Elite · Marathon 3h42</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- T3 -->
+        <div class="glass-card rounded-2xl p-8 min-w-[320px] lg:min-w-[380px] flex-shrink-0">
+          <div class="flex items-center gap-1 mb-4">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-slate-300 leading-relaxed mb-6 italic">"J'avais essayé plusieurs coachs avant. Aucun ne m'avait donné de vrais résultats. Avec Maxime : +8 kg de muscle en 5 mois. Les chiffres parlent d'eux-mêmes."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-orange/30 flex items-center justify-center font-heading font-700 text-orange">A</div>
+            <div>
+              <div class="text-white font-medium text-sm">Alexandre D.</div>
+              <div class="text-slate-500 text-xs">Programme Transformation Totale · +8 kg muscle</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- T4 -->
+        <div class="glass-card rounded-2xl p-8 min-w-[320px] lg:min-w-[380px] flex-shrink-0">
+          <div class="flex items-center gap-1 mb-4">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#F97316"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="text-slate-300 leading-relaxed mb-6 italic">"Après ma grossesse, je ne me reconnaissais plus. Maxime a su adapter le programme à ma réalité. Aujourd'hui je suis en meilleure forme qu'avant !"</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-orange/30 flex items-center justify-center font-heading font-700 text-orange">C</div>
+            <div>
+              <div class="text-white font-medium text-sm">Camille R.</div>
+              <div class="text-slate-500 text-xs">Programme Remise en Forme · Post-partum</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Carousel controls -->
+      <div class="flex items-center justify-center gap-4 mt-8">
+        <button id="prev-btn" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:border-orange hover:text-orange transition-colors cursor-pointer" aria-label="Précédent">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div id="carousel-dots" class="flex gap-2"></div>
+        <button id="next-btn" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:border-orange hover:text-orange transition-colors cursor-pointer" aria-label="Suivant">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     HOW IT WORKS
+============================================================ -->
+<section class="py-24 lg:py-32" style="background: linear-gradient(180deg, #080D16 0%, #0D1220 50%, #080D16 100%);">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-16 reveal">
+      <span class="text-orange text-sm font-medium tracking-widest uppercase mb-4 block">La méthode</span>
+      <h2 class="font-heading font-900 text-5xl lg:text-6xl text-white leading-tight">COMMENT ÇA<br><span class="gradient-text">FONCTIONNE ?</span></h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8 relative">
+      <!-- Connecting line (desktop) -->
+      <div class="hidden md:block absolute top-10 left-[20%] right-[20%] h-px bg-gradient-to-r from-orange/30 via-orange to-orange/30"></div>
+
+      <div class="text-center reveal reveal-delay-1">
+        <div class="w-20 h-20 rounded-full border-2 border-orange/40 flex items-center justify-center mx-auto mb-6 glass-card relative z-10">
+          <span class="font-heading font-900 text-3xl gradient-text">01</span>
+        </div>
+        <h3 class="font-heading font-800 text-2xl text-white mb-3">Séance Découverte</h3>
+        <p class="text-slate-400 leading-relaxed">Appel gratuit de 30 min pour analyser tes objectifs, ton niveau et tes contraintes.</p>
+      </div>
+
+      <div class="text-center reveal reveal-delay-2">
+        <div class="w-20 h-20 rounded-full border-2 border-orange flex items-center justify-center mx-auto mb-6 bg-orange/10 relative z-10 glow-orange-sm">
+          <span class="font-heading font-900 text-3xl gradient-text">02</span>
+        </div>
+        <h3 class="font-heading font-800 text-2xl text-white mb-3">Programme sur Mesure</h3>
+        <p class="text-slate-400 leading-relaxed">Je crée ton plan d'entraînement et nutrition 100% personnalisé en 48h.</p>
+      </div>
+
+      <div class="text-center reveal reveal-delay-3">
+        <div class="w-20 h-20 rounded-full border-2 border-orange/40 flex items-center justify-center mx-auto mb-6 glass-card relative z-10">
+          <span class="font-heading font-900 text-3xl gradient-text">03</span>
+        </div>
+        <h3 class="font-heading font-800 text-2xl text-white mb-3">Résultats Garantis</h3>
+        <p class="text-slate-400 leading-relaxed">Suivi hebdomadaire, ajustements continus et support quotidien jusqu'à l'objectif.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     PRICING
+============================================================ -->
+<section id="pricing" class="py-24 lg:py-32">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-16 reveal">
+      <span class="text-orange text-sm font-medium tracking-widest uppercase mb-4 block">Investis en toi</span>
+      <h2 class="font-heading font-900 text-5xl lg:text-6xl text-white leading-tight">TARIFS<br><span class="gradient-text">TRANSPARENTS</span></h2>
+      <p class="text-slate-400 text-lg mt-4 max-w-xl mx-auto">Pas de frais cachés. Pas de contrat longue durée. Tu paies les résultats.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+
+      <!-- Starter -->
+      <div class="glass-card rounded-2xl p-8 flex flex-col reveal reveal-delay-1">
+        <div class="mb-6">
+          <h3 class="font-heading font-800 text-2xl text-white mb-1">Starter</h3>
+          <p class="text-slate-400 text-sm">Idéal pour commencer</p>
+        </div>
+        <div class="mb-6">
+          <div class="font-heading font-900 text-5xl text-white">89<span class="text-2xl text-slate-400">/mois</span></div>
+          <div class="text-slate-500 text-sm mt-1">Sans engagement</div>
+        </div>
+        <ul class="space-y-3 mb-8 flex-1">
+          <li class="flex items-center gap-3 text-slate-300 text-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 2 séances/semaine en ligne</li>
+          <li class="flex items-center gap-3 text-slate-300 text-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Programme mensuel</li>
+          <li class="flex items-center gap-3 text-slate-300 text-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Bilan nutritionnel</li>
+          <li class="flex items-center gap-3 text-slate-500 text-sm line-through"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Suivi quotidien</li>
+          <li class="flex items-center gap-3 text-slate-500 text-sm line-through"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Accès app exclusive</li>
+        </ul>
+        <a href="#booking" class="btn-outline font-heading font-700 text-sm tracking-wider uppercase px-6 py-3 rounded-xl cursor-pointer text-center">
+          Choisir Starter →
+        </a>
+      </div>
+
+      <!-- Pro (featured) -->
+      <div class="relative rounded-2xl p-8 flex flex-col reveal reveal-delay-2" style="background: linear-gradient(135deg, rgba(249,115,22,0.12), rgba(234,88,12,0.06)); border: 1px solid rgba(249,115,22,0.4);">
+        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-orange text-white text-xs font-heading font-700 tracking-widest uppercase px-6 py-1.5 rounded-full whitespace-nowrap glow-orange-sm">
+          ⚡ Meilleur rapport qualité/prix
+        </div>
+        <div class="mb-6 mt-2">
+          <h3 class="font-heading font-800 text-2xl text-white mb-1">Transformation</h3>
+          <p class="text-slate-400 text-sm">Le programme complet</p>
+        </div>
+        <div class="mb-6">
+          <div class="flex items-baseline gap-2">
+            <div class="font-heading font-900 text-5xl text-white">197<span class="text-2xl text-slate-400">/mois</span></div>
+          </div>
+          <div class="text-slate-500 text-sm mt-1">Engagement 3 mois • Résultats garantis</div>
+        </div>
+        <ul class="space-y-3 mb-8 flex-1">
+          <li class="flex items-center gap-3 text-slate-300 text-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 5 séances/semaine</li>
+          <li class="flex items-center gap-3 text-slate-300 text-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Plan nutrition + macros sur mesure</li>
+          <li class="flex items-center gap-3 text-slate-300 text-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Suivi quotidien WhatsApp</li>
+          <li class="flex items-center gap-3 text-slate-300 text-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Appel bilan hebdomadaire</li>
+          <li class="flex items-center gap-3 text-slate-300 text-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Accès app exclusive</li>
+        </ul>
+        <a href="#booking" class="btn-primary text-white font-heading font-700 text-sm tracking-widest uppercase px-6 py-3 rounded-xl cursor-pointer text-center">
+          Je veux me transformer →
+        </a>
+      </div>
+
+      <!-- Elite -->
+      <div class="glass-card rounded-2xl p-8 flex flex-col reveal reveal-delay-3">
+        <div class="mb-6">
+          <h3 class="font-heading font-800 text-2xl text-white mb-1">Elite</h3>
+          <p class="text-slate-400 text-sm">Pour les plus ambitieux</p>
+        </div>
+        <div class="mb-6">
+          <div class="font-heading font-900 text-5xl text-white">349<span class="text-2xl text-slate-400">/mois</span></div>
+          <div class="text-slate-500 text-sm mt-1">Accès illimité au coach</div>
+        </div>
+        <ul class="space-y-3 mb-8 flex-1">
+          <li class="flex items-center gap-3 text-slate-300 text-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Séances illimitées</li>
+          <li class="flex items-center gap-3 text-slate-300 text-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Tout du plan Transformation</li>
+          <li class="flex items-center gap-3 text-slate-300 text-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Analyse vidéo biomécanique</li>
+          <li class="flex items-center gap-3 text-slate-300 text-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Coaching mental inclus</li>
+          <li class="flex items-center gap-3 text-slate-300 text-sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Priorité absolue 24h/24</li>
+        </ul>
+        <a href="#booking" class="btn-outline font-heading font-700 text-sm tracking-wider uppercase px-6 py-3 rounded-xl cursor-pointer text-center">
+          Rejoindre l'Elite →
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Money-back -->
+    <div class="mt-10 text-center reveal">
+      <div class="inline-flex items-center gap-3 glass-card rounded-2xl px-6 py-4">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span class="text-slate-300 text-sm"><strong class="text-white">Garantie satisfait ou remboursé</strong> — Si tu ne vois pas de résultats en 4 semaines, je te rembourse intégralement. Sans question.</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     BOOKING
+============================================================ -->
+<section id="booking" class="py-24 lg:py-32 relative" style="background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(249,115,22,0.07) 0%, transparent 60%), #0D1220;">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-12 reveal">
+      <span class="text-orange text-sm font-medium tracking-widest uppercase mb-4 block">Commence maintenant</span>
+      <h2 class="font-heading font-900 text-5xl lg:text-6xl text-white leading-tight">RÉSERVE TA<br><span class="gradient-text">SÉANCE GRATUITE</span></h2>
+      <p class="text-slate-400 text-lg mt-4 max-w-xl mx-auto">30 minutes avec Maxime pour définir ton plan d'action. Zéro engagement.</p>
+    </div>
+
+    <!-- Booking Widget -->
+    <div class="glass-card rounded-3xl p-6 lg:p-10 reveal">
+
+      <!-- Step progress -->
+      <div class="flex items-center gap-2 mb-10">
+        <div class="step-indicator flex items-center gap-2 flex-1" id="step-prog">
+          <div class="step-dot w-8 h-8 rounded-full border-2 flex items-center justify-center text-xs font-heading font-700 transition-all duration-300" data-step="1">1</div>
+          <div class="flex-1 h-0.5 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-orange rounded-full step-bar w-0" id="bar1"></div></div>
+          <div class="step-dot w-8 h-8 rounded-full border-2 flex items-center justify-center text-xs font-heading font-700 transition-all duration-300" data-step="2">2</div>
+          <div class="flex-1 h-0.5 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-orange rounded-full step-bar w-0" id="bar2"></div></div>
+          <div class="step-dot w-8 h-8 rounded-full border-2 flex items-center justify-center text-xs font-heading font-700 transition-all duration-300" data-step="3">3</div>
+        </div>
+      </div>
+
+      <!-- STEP 1: Choose program -->
+      <div id="step1" class="booking-step">
+        <h3 class="font-heading font-800 text-2xl text-white mb-6">Quel programme t'intéresse ?</h3>
+        <div class="grid sm:grid-cols-3 gap-4 mb-8">
+          <label class="program-option cursor-pointer">
+            <input type="radio" name="program" value="remise" class="sr-only">
+            <div class="rounded-xl p-5 border border-white/10 hover:border-orange/40 transition-all text-center program-card">
+              <div class="font-heading font-800 text-lg text-white mb-1">Remise en Forme</div>
+              <div class="text-slate-400 text-sm">3 séances/sem.</div>
+              <div class="text-orange font-heading font-700 mt-2">89€/mois</div>
+            </div>
+          </label>
+          <label class="program-option cursor-pointer">
+            <input type="radio" name="program" value="transformation" class="sr-only" checked>
+            <div class="rounded-xl p-5 border border-orange/40 bg-orange/10 transition-all text-center program-card selected">
+              <div class="font-heading font-800 text-lg text-white mb-1">Transformation</div>
+              <div class="text-slate-400 text-sm">5 séances/sem.</div>
+              <div class="text-orange font-heading font-700 mt-2">197€/mois</div>
+            </div>
+          </label>
+          <label class="program-option cursor-pointer">
+            <input type="radio" name="program" value="elite" class="sr-only">
+            <div class="rounded-xl p-5 border border-white/10 hover:border-orange/40 transition-all text-center program-card">
+              <div class="font-heading font-800 text-lg text-white mb-1">Elite</div>
+              <div class="text-slate-400 text-sm">Illimité</div>
+              <div class="text-orange font-heading font-700 mt-2">349€/mois</div>
+            </div>
+          </label>
+        </div>
+        <button onclick="goStep(2)" class="btn-primary text-white font-heading font-700 text-sm tracking-widest uppercase px-8 py-4 rounded-xl cursor-pointer">
+          Continuer → Choisir une date
+        </button>
+      </div>
+
+      <!-- STEP 2: Choose date & time -->
+      <div id="step2" class="booking-step hidden">
+        <div class="grid lg:grid-cols-2 gap-8">
+
+          <!-- Calendar -->
+          <div>
+            <h3 class="font-heading font-800 text-xl text-white mb-4">Choisir une date</h3>
+            <div class="rounded-2xl" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);">
+              <!-- Cal header -->
+              <div class="flex items-center justify-between px-4 py-3 border-b border-white/5">
+                <button id="cal-prev" class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-orange transition-colors cursor-pointer rounded-lg hover:bg-orange/10" aria-label="Mois précédent">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+                </button>
+                <div class="font-heading font-700 text-white text-sm tracking-wide" id="cal-month-label"></div>
+                <button id="cal-next" class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-orange transition-colors cursor-pointer rounded-lg hover:bg-orange/10" aria-label="Mois suivant">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                </button>
+              </div>
+              <!-- Day headers -->
+              <div class="grid grid-cols-7 text-center px-2 pt-3 pb-1">
+                <div class="text-slate-600 text-xs font-medium">L</div>
+                <div class="text-slate-600 text-xs font-medium">M</div>
+                <div class="text-slate-600 text-xs font-medium">M</div>
+                <div class="text-slate-600 text-xs font-medium">J</div>
+                <div class="text-slate-600 text-xs font-medium">V</div>
+                <div class="text-slate-600 text-xs font-medium">S</div>
+                <div class="text-slate-600 text-xs font-medium">D</div>
+              </div>
+              <!-- Calendar grid -->
+              <div class="grid grid-cols-7 gap-1 p-3" id="cal-grid"></div>
+            </div>
+          </div>
+
+          <!-- Time slots -->
+          <div>
+            <h3 class="font-heading font-800 text-xl text-white mb-4">Choisir un horaire <span id="selected-date-label" class="text-orange text-base font-body font-normal"></span></h3>
+            <div id="time-slots" class="space-y-2">
+              <p class="text-slate-500 text-sm italic">Sélectionne une date pour voir les disponibilités.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="flex gap-4 mt-8">
+          <button onclick="goStep(1)" class="btn-outline font-heading font-700 text-sm tracking-wider uppercase px-6 py-3 rounded-xl cursor-pointer">
+            ← Retour
+          </button>
+          <button id="step2-next" onclick="goStep(3)" class="btn-primary text-white font-heading font-700 text-sm tracking-widest uppercase px-8 py-3 rounded-xl cursor-pointer opacity-50 pointer-events-none" disabled>
+            Continuer → Mes infos
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Personal info -->
+      <div id="step3" class="booking-step hidden">
+        <h3 class="font-heading font-800 text-2xl text-white mb-6">Tes coordonnées</h3>
+
+        <form id="booking-form" class="grid sm:grid-cols-2 gap-5" novalidate>
+          <div class="flex flex-col gap-1.5">
+            <label for="b-prenom" class="text-slate-400 text-sm font-medium">Prénom <span class="text-orange">*</span></label>
+            <input type="text" id="b-prenom" name="prenom" required autocomplete="given-name"
+              class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:border-orange focus:outline-none focus:ring-1 focus:ring-orange transition-colors"
+              placeholder="Prénom">
+            <span class="field-error text-red-400 text-xs hidden">Ce champ est requis</span>
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label for="b-nom" class="text-slate-400 text-sm font-medium">Nom <span class="text-orange">*</span></label>
+            <input type="text" id="b-nom" name="nom" required autocomplete="family-name"
+              class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:border-orange focus:outline-none focus:ring-1 focus:ring-orange transition-colors"
+              placeholder="Nom">
+            <span class="field-error text-red-400 text-xs hidden">Ce champ est requis</span>
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label for="b-email" class="text-slate-400 text-sm font-medium">Email <span class="text-orange">*</span></label>
+            <input type="email" id="b-email" name="email" required autocomplete="email"
+              class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:border-orange focus:outline-none focus:ring-1 focus:ring-orange transition-colors"
+              placeholder="ton@email.com">
+            <span class="field-error text-red-400 text-xs hidden">Email invalide</span>
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label for="b-tel" class="text-slate-400 text-sm font-medium">Téléphone <span class="text-orange">*</span></label>
+            <input type="tel" id="b-tel" name="tel" required autocomplete="tel"
+              class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:border-orange focus:outline-none focus:ring-1 focus:ring-orange transition-colors"
+              placeholder="06 00 00 00 00">
+            <span class="field-error text-red-400 text-xs hidden">Numéro invalide</span>
+          </div>
+          <div class="sm:col-span-2 flex flex-col gap-1.5">
+            <label for="b-objectif" class="text-slate-400 text-sm font-medium">Ton objectif principal</label>
+            <select id="b-objectif" name="objectif"
+              class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-orange focus:outline-none focus:ring-1 focus:ring-orange transition-colors cursor-pointer">
+              <option value="" class="bg-bg">Sélectionner un objectif</option>
+              <option value="perte-poids" class="bg-bg">Perte de poids</option>
+              <option value="prise-masse" class="bg-bg">Prise de masse musculaire</option>
+              <option value="performance" class="bg-bg">Améliorer mes performances</option>
+              <option value="remise-forme" class="bg-bg">Remise en forme générale</option>
+              <option value="competition" class="bg-bg">Préparation compétition</option>
+              <option value="autre" class="bg-bg">Autre</option>
+            </select>
+          </div>
+          <div class="sm:col-span-2 flex flex-col gap-1.5">
+            <label for="b-message" class="text-slate-400 text-sm font-medium">Message (facultatif)</label>
+            <textarea id="b-message" name="message" rows="3"
+              class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:border-orange focus:outline-none focus:ring-1 focus:ring-orange transition-colors resize-none"
+              placeholder="Parle-moi de toi, de ton expérience sportive, de tes contraintes..."></textarea>
+          </div>
+
+          <!-- Summary -->
+          <div class="sm:col-span-2 glass-card rounded-xl p-4">
+            <div class="text-slate-400 text-xs font-medium tracking-widest uppercase mb-2">Récapitulatif</div>
+            <div class="grid grid-cols-3 gap-4 text-sm">
+              <div><span class="text-slate-500">Programme</span><br><span class="text-white font-medium" id="summary-prog">—</span></div>
+              <div><span class="text-slate-500">Date</span><br><span class="text-white font-medium" id="summary-date">—</span></div>
+              <div><span class="text-slate-500">Horaire</span><br><span class="text-white font-medium" id="summary-time">—</span></div>
+            </div>
+          </div>
+
+          <div class="sm:col-span-2 flex gap-4">
+            <button type="button" onclick="goStep(2)" class="btn-outline font-heading font-700 text-sm tracking-wider uppercase px-6 py-3 rounded-xl cursor-pointer">
+              ← Retour
+            </button>
+            <button type="submit" id="submit-btn" class="btn-primary text-white font-heading font-700 text-sm tracking-widest uppercase px-8 py-3 rounded-xl cursor-pointer flex items-center gap-2 flex-1 justify-center">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              Confirmer ma réservation
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FAQ
+============================================================ -->
+<section class="py-24 lg:py-32">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-12 reveal">
+      <span class="text-orange text-sm font-medium tracking-widest uppercase mb-4 block">FAQ</span>
+      <h2 class="font-heading font-900 text-5xl lg:text-6xl text-white leading-tight">TES QUESTIONS,<br><span class="gradient-text">MES RÉPONSES</span></h2>
+    </div>
+
+    <div class="space-y-3" id="faq-list">
+
+      <div class="faq-item glass-card rounded-2xl overflow-hidden reveal reveal-delay-1">
+        <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left cursor-pointer hover:bg-white/2 transition-colors">
+          <span class="font-heading font-700 text-lg text-white">Est-ce que le coaching est en ligne ou en présentiel ?</span>
+          <svg class="faq-icon shrink-0 text-orange transition-transform duration-300 w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </button>
+        <div class="faq-content hidden px-6 pb-5">
+          <p class="text-slate-400 leading-relaxed">Les deux ! Je propose du coaching 100% en ligne (via Zoom + app) ou en présentiel si tu es en région parisienne. Le résultat est identique — ce qui change c'est le lieu.</p>
+        </div>
+      </div>
+
+      <div class="faq-item glass-card rounded-2xl overflow-hidden reveal reveal-delay-2">
+        <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left cursor-pointer hover:bg-white/2 transition-colors">
+          <span class="font-heading font-700 text-lg text-white">J'ai zéro expérience sportive, est-ce que c'est pour moi ?</span>
+          <svg class="faq-icon shrink-0 text-orange transition-transform duration-300 w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </button>
+        <div class="faq-content hidden px-6 pb-5">
+          <p class="text-slate-400 leading-relaxed">Absolument. Mes meilleurs résultats viennent souvent de débutants complets. Pas de mauvaises habitudes à corriger, on part sur de bonnes bases dès le départ.</p>
+        </div>
+      </div>
+
+      <div class="faq-item glass-card rounded-2xl overflow-hidden reveal reveal-delay-3">
+        <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left cursor-pointer hover:bg-white/2 transition-colors">
+          <span class="font-heading font-700 text-lg text-white">En quoi consiste la garantie satisfait ou remboursé ?</span>
+          <svg class="faq-icon shrink-0 text-orange transition-transform duration-300 w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </button>
+        <div class="faq-content hidden px-6 pb-5">
+          <p class="text-slate-400 leading-relaxed">Si tu suis le programme et la nutrition à la lettre pendant 4 semaines et que tu ne constates aucun changement (mesuré objectivement), je te rembourse 100% sans la moindre question.</p>
+        </div>
+      </div>
+
+      <div class="faq-item glass-card rounded-2xl overflow-hidden reveal reveal-delay-4">
+        <button class="faq-trigger w-full flex items-center justify-between px-6 py-5 text-left cursor-pointer hover:bg-white/2 transition-colors">
+          <span class="font-heading font-700 text-lg text-white">Combien de temps avant de voir des résultats ?</span>
+          <svg class="faq-icon shrink-0 text-orange transition-transform duration-300 w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </button>
+        <div class="faq-content hidden px-6 pb-5">
+          <p class="text-slate-400 leading-relaxed">Les premiers changements physiques et énergétiques arrivent généralement en 2-3 semaines. Les transformations visuelles notables se voient entre 6 et 12 semaines selon les objectifs.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FINAL CTA BANNER
+============================================================ -->
+<section class="py-16 lg:py-20 relative overflow-hidden">
+  <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(249,115,22,0.15) 0%, rgba(234,88,12,0.05) 100%); border-top: 1px solid rgba(249,115,22,0.2); border-bottom: 1px solid rgba(249,115,22,0.2);"></div>
+  <div class="absolute inset-0 grid-lines opacity-30"></div>
+  <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
+    <h2 class="font-heading font-900 text-5xl lg:text-7xl text-white leading-tight mb-6">
+      PRÊT À TOUT<br><span class="gradient-text text-glow">CHANGER ?</span>
+    </h2>
+    <p class="text-slate-400 text-lg mb-8 max-w-xl mx-auto">La séance découverte est gratuite, sans engagement. La seule chose que tu as à perdre… c'est du poids.</p>
+    <a href="#booking" class="btn-primary text-white font-heading font-900 text-xl tracking-widest uppercase px-10 py-5 rounded-2xl cursor-pointer inline-flex items-center gap-3 glow-orange">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      Réserver ma séance gratuite
+    </a>
+    <p class="text-slate-600 text-sm mt-4">3 places disponibles ce mois-ci · Répond en moins de 24h</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="border-t border-white/5 py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid md:grid-cols-4 gap-8 mb-10">
+      <div class="md:col-span-2">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-8 h-8 rounded-lg bg-orange flex items-center justify-center">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M6.5 6.5h11M6.5 17.5h11M3 12h18"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <span class="font-heading font-800 text-lg text-white">ELITE<span class="text-orange">COACH</span></span>
+        </div>
+        <p class="text-slate-500 text-sm leading-relaxed max-w-xs">Coach sportif certifié BPJEPS. Transformations durables, méthodes éprouvées, résultats réels.</p>
+        <div class="flex items-center gap-4 mt-4">
+          <a href="#" class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-slate-500 hover:text-orange hover:bg-orange/10 transition-colors cursor-pointer" aria-label="Instagram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-slate-500 hover:text-orange hover:bg-orange/10 transition-colors cursor-pointer" aria-label="TikTok">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+          </a>
+          <a href="#" class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-slate-500 hover:text-orange hover:bg-orange/10 transition-colors cursor-pointer" aria-label="YouTube">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <div class="font-heading font-700 text-sm text-white tracking-widest uppercase mb-4">Navigation</div>
+        <ul class="space-y-2 text-sm text-slate-500">
+          <li><a href="#programs" class="hover:text-orange transition-colors cursor-pointer">Programmes</a></li>
+          <li><a href="#about" class="hover:text-orange transition-colors cursor-pointer">À propos</a></li>
+          <li><a href="#results" class="hover:text-orange transition-colors cursor-pointer">Résultats</a></li>
+          <li><a href="#pricing" class="hover:text-orange transition-colors cursor-pointer">Tarifs</a></li>
+          <li><a href="#booking" class="hover:text-orange transition-colors cursor-pointer">Réserver</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="font-heading font-700 text-sm text-white tracking-widest uppercase mb-4">Contact</div>
+        <ul class="space-y-2 text-sm text-slate-500">
+          <li class="flex items-center gap-2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>coach@elitecoach.fr</li>
+          <li class="flex items-center gap-2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>+33 6 12 34 56 78</li>
+          <li class="flex items-center gap-2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Paris, France</li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/5 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-600 text-xs">
+      <span>© 2025 EliteCoach — Tous droits réservés</span>
+      <div class="flex gap-4">
+        <a href="#" class="hover:text-slate-400 transition-colors cursor-pointer">Mentions légales</a>
+        <a href="#" class="hover:text-slate-400 transition-colors cursor-pointer">CGV</a>
+        <a href="#" class="hover:text-slate-400 transition-colors cursor-pointer">Politique de confidentialité</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     SUCCESS MODAL
+============================================================ -->
+<div id="success-modal" class="fixed inset-0 z-[100] flex items-center justify-center hidden">
+  <div class="modal-overlay absolute inset-0 bg-black/70" onclick="closeModal()"></div>
+  <div class="relative glass-card rounded-3xl p-10 max-w-md w-full mx-4 text-center glow-orange-sm" style="border-color: rgba(249,115,22,0.3);">
+    <div class="w-20 h-20 rounded-full bg-green/20 flex items-center justify-center mx-auto mb-6">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <h3 class="font-heading font-900 text-4xl text-white mb-3">RÉSERVATION<br>CONFIRMÉE !</h3>
+    <p class="text-slate-400 mb-2">Tu recevras un email de confirmation dans quelques minutes.</p>
+    <p id="modal-summary" class="text-orange font-medium text-sm mb-8"></p>
+    <p class="text-slate-500 text-sm mb-8">Maxime te contactera dans les <strong class="text-white">24 heures</strong> pour préparer votre séance ensemble.</p>
+    <button onclick="closeModal()" class="btn-primary text-white font-heading font-700 text-sm tracking-widest uppercase px-8 py-3 rounded-xl cursor-pointer w-full">
+      Fermer
+    </button>
+  </div>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+<script>
+// ─── Mobile Menu ───────────────────────────────────────────────
+const burger = document.getElementById('burger');
+const mobileMenu = document.getElementById('mobile-menu');
+const menuBackdrop = document.getElementById('menu-backdrop');
+const closeMenuBtn = document.getElementById('close-menu');
+const b1 = document.getElementById('b1'), b2 = document.getElementById('b2'), b3 = document.getElementById('b3');
+
+function openMenu() {
+  mobileMenu.classList.add('open');
+  menuBackdrop.classList.remove('hidden');
+  b1.style.transform = 'rotate(45deg) translate(4px, 4px)';
+  b2.style.opacity = '0';
+  b3.style.transform = 'rotate(-45deg) translate(4px, -4px)';
+  b3.style.width = '24px';
+}
+function closeMenu() {
+  mobileMenu.classList.remove('open');
+  menuBackdrop.classList.add('hidden');
+  b1.style.transform = ''; b2.style.opacity = ''; b3.style.transform = ''; b3.style.width = '';
+}
+burger.addEventListener('click', openMenu);
+closeMenuBtn.addEventListener('click', closeMenu);
+menuBackdrop.addEventListener('click', closeMenu);
+document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', closeMenu));
+
+// ─── Scroll Reveal ─────────────────────────────────────────────
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ─── Counter Animation ─────────────────────────────────────────
+function animateCounter(el, target, suffix = '') {
+  const start = performance.now();
+  const duration = 1800;
+  const update = (now) => {
+    const t = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - t, 3);
+    el.innerHTML = Math.round(ease * target) + suffix;
+    if (t < 1) requestAnimationFrame(update);
+  };
+  requestAnimationFrame(update);
+}
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const target = parseInt(e.target.dataset.target);
+      const suffix = e.target.innerHTML.replace(/\d+/, '').trim();
+      animateCounter(e.target, target, suffix);
+      counterObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-target]').forEach(el => counterObserver.observe(el));
+
+// ─── Testimonials Carousel ─────────────────────────────────────
+const track = document.getElementById('testimonial-track');
+const dotsContainer = document.getElementById('carousel-dots');
+const cards = track.querySelectorAll('.glass-card, [class*="min-w"]');
+let currentSlide = 0;
+const totalCards = track.children.length;
+
+// Build dots
+for (let i = 0; i < totalCards; i++) {
+  const d = document.createElement('button');
+  d.className = `w-2 h-2 rounded-full transition-all cursor-pointer ${i === 0 ? 'bg-orange w-5' : 'bg-white/20'}`;
+  d.setAttribute('aria-label', `Avis ${i + 1}`);
+  d.addEventListener('click', () => goSlide(i));
+  dotsContainer.appendChild(d);
+}
+
+function goSlide(n) {
+  const dots = dotsContainer.querySelectorAll('button');
+  dots[currentSlide].className = 'w-2 h-2 rounded-full transition-all cursor-pointer bg-white/20';
+  currentSlide = (n + totalCards) % totalCards;
+  dots[currentSlide].className = 'w-2 h-2 rounded-full transition-all cursor-pointer bg-orange w-5';
+  const cardWidth = track.children[0].offsetWidth + 24;
+  track.style.transform = `translateX(-${currentSlide * cardWidth}px)`;
+}
+
+document.getElementById('prev-btn').addEventListener('click', () => goSlide(currentSlide - 1));
+document.getElementById('next-btn').addEventListener('click', () => goSlide(currentSlide + 1));
+
+// Auto-advance
+let autoSlide = setInterval(() => goSlide(currentSlide + 1), 5000);
+track.parentElement.addEventListener('mouseenter', () => clearInterval(autoSlide));
+track.parentElement.addEventListener('mouseleave', () => { autoSlide = setInterval(() => goSlide(currentSlide + 1), 5000); });
+
+// ─── FAQ Accordion ─────────────────────────────────────────────
+document.querySelectorAll('.faq-trigger').forEach(trigger => {
+  trigger.addEventListener('click', () => {
+    const item = trigger.parentElement;
+    const content = item.querySelector('.faq-content');
+    const icon = trigger.querySelector('.faq-icon');
+    const isOpen = !content.classList.contains('hidden');
+    // Close all
+    document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
+    document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
+    if (!isOpen) {
+      content.classList.remove('hidden');
+      icon.style.transform = 'rotate(180deg)';
+    }
+  });
+});
+
+// ─── Program selection ─────────────────────────────────────────
+document.querySelectorAll('.program-option input').forEach(radio => {
+  radio.addEventListener('change', () => {
+    document.querySelectorAll('.program-card').forEach(c => {
+      c.classList.remove('selected', 'bg-orange/10', 'border-orange/40');
+      c.classList.add('border-white/10');
+    });
+    const card = radio.closest('.program-option').querySelector('.program-card');
+    card.classList.add('selected', 'bg-orange/10', 'border-orange/40');
+    card.classList.remove('border-white/10');
+  });
+});
+
+// ─── Step Navigation ───────────────────────────────────────────
+let selectedDate = null, selectedTime = null, selectedProgram = 'transformation';
+
+function goStep(n) {
+  document.querySelectorAll('.booking-step').forEach(s => s.classList.add('hidden'));
+  document.getElementById(`step${n}`).classList.remove('hidden');
+
+  // Update progress dots & bars
+  const dots = document.querySelectorAll('.step-dot');
+  dots.forEach((d, i) => {
+    d.classList.remove('border-orange', 'text-orange', 'bg-orange/10', 'border-white/10', 'text-slate-500');
+    if (i + 1 < n) {
+      d.classList.add('border-green', 'text-green');
+      d.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>';
+    } else if (i + 1 === n) {
+      d.classList.add('border-orange', 'text-orange', 'bg-orange/10');
+      d.textContent = i + 1;
+    } else {
+      d.classList.add('border-white/10', 'text-slate-500');
+      d.textContent = i + 1;
+    }
+  });
+  const bar1 = document.getElementById('bar1');
+  const bar2 = document.getElementById('bar2');
+  bar1.style.width = n >= 2 ? '100%' : '0%';
+  bar2.style.width = n >= 3 ? '100%' : '0%';
+
+  if (n === 3) updateSummary();
+}
+
+function updateSummary() {
+  const progLabel = { remise: 'Remise en Forme', transformation: 'Transformation', elite: 'Elite' };
+  const selProg = document.querySelector('input[name="program"]:checked')?.value || 'transformation';
+  document.getElementById('summary-prog').textContent = progLabel[selProg] || '—';
+  if (selectedDate) {
+    document.getElementById('summary-date').textContent = selectedDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+  }
+  document.getElementById('summary-time').textContent = selectedTime || '—';
+}
+
+// ─── Calendar ──────────────────────────────────────────────────
+const MONTHS_FR = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+const BOOKED_SLOTS = { '2026-07-07': ['09:00', '14:00'], '2026-07-10': ['10:00', '11:00', '15:00'], '2026-07-15': ['09:00'] };
+const AVAILABLE_TIMES = ['09:00','10:00','11:00','14:00','15:00','16:00','17:00'];
+
+let calDate = new Date(2026, 6, 1); // July 2026 start
+
+function renderCalendar() {
+  const label = document.getElementById('cal-month-label');
+  const grid = document.getElementById('cal-grid');
+  label.textContent = `${MONTHS_FR[calDate.getMonth()]} ${calDate.getFullYear()}`;
+  grid.innerHTML = '';
+
+  const firstDay = new Date(calDate.getFullYear(), calDate.getMonth(), 1);
+  const lastDay = new Date(calDate.getFullYear(), calDate.getMonth() + 1, 0);
+  const today = new Date(); today.setHours(0,0,0,0);
+
+  // Monday-first: 0=Mon…6=Sun
+  let startDow = (firstDay.getDay() + 6) % 7;
+  for (let i = 0; i < startDow; i++) {
+    const blank = document.createElement('div');
+    blank.className = 'cal-day empty h-8 rounded-lg';
+    grid.appendChild(blank);
+  }
+
+  for (let d = 1; d <= lastDay.getDate(); d++) {
+    const dayEl = document.createElement('button');
+    const thisDate = new Date(calDate.getFullYear(), calDate.getMonth(), d);
+    const isPast = thisDate < today;
+    const isSun = thisDate.getDay() === 0;
+    const isSel = selectedDate && thisDate.toDateString() === selectedDate.toDateString();
+
+    dayEl.className = `cal-day h-8 w-full rounded-lg flex items-center justify-center text-sm font-medium ${isPast || isSun ? 'disabled text-slate-700' : 'available text-slate-200'} ${isSel ? 'selected' : ''}`;
+    dayEl.textContent = d;
+    dayEl.setAttribute('aria-label', thisDate.toLocaleDateString('fr-FR'));
+
+    if (!isPast && !isSun) {
+      dayEl.addEventListener('click', () => selectDate(thisDate));
+    } else {
+      dayEl.disabled = true;
+    }
+    grid.appendChild(dayEl);
+  }
+}
+
+function selectDate(date) {
+  selectedDate = date;
+  selectedTime = null;
+  renderCalendar();
+  renderTimeSlots(date);
+  document.getElementById('selected-date-label').textContent = `— ${date.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short' })}`;
+  checkStep2Complete();
+}
+
+function renderTimeSlots(date) {
+  const container = document.getElementById('time-slots');
+  const key = date.toISOString().split('T')[0];
+  const booked = BOOKED_SLOTS[key] || [];
+
+  container.innerHTML = '<div class="grid grid-cols-2 gap-2"></div>';
+  const grid = container.querySelector('div');
+
+  AVAILABLE_TIMES.forEach(t => {
+    const isBooked = booked.includes(t);
+    const slot = document.createElement('button');
+    slot.className = `time-slot rounded-xl px-4 py-3 border text-sm font-medium ${isBooked ? 'booked border-white/5 text-slate-600' : 'border-white/10 text-slate-300'} ${!isBooked && selectedTime === t ? 'selected' : ''}`;
+    slot.textContent = t;
+    slot.disabled = isBooked;
+    if (!isBooked) {
+      slot.addEventListener('click', () => {
+        selectedTime = t;
+        container.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+        slot.classList.add('selected');
+        checkStep2Complete();
+      });
+    }
+    grid.appendChild(slot);
+  });
+}
+
+function checkStep2Complete() {
+  const btn = document.getElementById('step2-next');
+  if (selectedDate && selectedTime) {
+    btn.classList.remove('opacity-50', 'pointer-events-none');
+    btn.disabled = false;
+  } else {
+    btn.classList.add('opacity-50', 'pointer-events-none');
+    btn.disabled = true;
+  }
+}
+
+document.getElementById('cal-prev').addEventListener('click', () => {
+  calDate = new Date(calDate.getFullYear(), calDate.getMonth() - 1, 1);
+  renderCalendar();
+});
+document.getElementById('cal-next').addEventListener('click', () => {
+  calDate = new Date(calDate.getFullYear(), calDate.getMonth() + 1, 1);
+  renderCalendar();
+});
+
+// Render calendar on load
+renderCalendar();
+
+// ─── Form Submission ───────────────────────────────────────────
+document.getElementById('booking-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  let valid = true;
+
+  // Validate fields
+  ['b-prenom', 'b-nom'].forEach(id => {
+    const el = document.getElementById(id);
+    const err = el.nextElementSibling;
+    if (!el.value.trim()) { err.classList.remove('hidden'); el.classList.add('border-red-500/50'); valid = false; }
+    else { err.classList.add('hidden'); el.classList.remove('border-red-500/50'); }
+  });
+
+  const email = document.getElementById('b-email');
+  const emailErr = email.nextElementSibling;
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+    emailErr.classList.remove('hidden'); email.classList.add('border-red-500/50'); valid = false;
+  } else { emailErr.classList.add('hidden'); email.classList.remove('border-red-500/50'); }
+
+  const tel = document.getElementById('b-tel');
+  const telErr = tel.nextElementSibling;
+  if (tel.value.replace(/\s/g, '').length < 10) {
+    telErr.classList.remove('hidden'); tel.classList.add('border-red-500/50'); valid = false;
+  } else { telErr.classList.add('hidden'); tel.classList.remove('border-red-500/50'); }
+
+  if (!valid) return;
+
+  // Show loading
+  const btn = document.getElementById('submit-btn');
+  btn.innerHTML = '<svg class="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M3.6 9h1.5M19 9h1.4M12 3.5V5M12 19v1.5" stroke-linecap="round"/></svg> Envoi en cours...';
+  btn.disabled = true;
+
+  setTimeout(() => {
+    const progLabel = { remise: 'Remise en Forme', transformation: 'Transformation', elite: 'Elite' };
+    const prog = document.querySelector('input[name="program"]:checked')?.value || 'transformation';
+    const dateStr = selectedDate?.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }) || '';
+    document.getElementById('modal-summary').textContent = `${progLabel[prog]} · ${dateStr} à ${selectedTime}`;
+    document.getElementById('success-modal').classList.remove('hidden');
+    this.reset();
+    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Confirmer ma réservation';
+    btn.disabled = false;
+    goStep(1);
+    selectedDate = null; selectedTime = null;
+  }, 1500);
+});
+
+function closeModal() {
+  document.getElementById('success-modal').classList.add('hidden');
+}
+
+// Close modal on Escape
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ─── Init step ─────────────────────────────────────────────────
+goStep(1);
+</script>
+
+</body>
+</html>
