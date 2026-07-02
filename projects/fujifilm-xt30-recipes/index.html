@@ -277,7 +277,7 @@ img,svg{display:block;}
           <div class="chip-row mt-14" id="category-chips"></div>
 
           <div class="row between mt-24" style="align-items:baseline;">
-            <h2 class="section-title" id="home-count">7 recettes</h2>
+            <h2 class="section-title" id="home-count">59 recettes</h2>
             <span class="link mono" style="font-size:0.72rem;text-transform:uppercase;" onclick="goto('screen-guide')">Guide</span>
           </div>
           <div id="recipe-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px;"></div>
@@ -357,7 +357,7 @@ img,svg{display:block;}
 
           <h2 class="section-title mt-28">Compatibilité</h2>
           <div class="glass-soft mt-14" style="padding:16px;">
-            <p style="font-size:0.85rem;line-height:1.6;" class="muted">Le X-T30 et le X-T3 partagent le même capteur X-Trans IV et le même processeur, mais n'ont pas reçu certaines simulations film plus récentes (Classic Negative, Nostalgic Neg., Eterna Bleach Bypass, Reala Ace). Les 7 recettes de cette application ont été spécialement sélectionnées par Fuji X Weekly pour fonctionner parfaitement avec les simulations disponibles sur votre boîtier.</p>
+            <p style="font-size:0.85rem;line-height:1.6;" class="muted">Le X-T30 et le X-T3 partagent le même capteur X-Trans IV et le même processeur, mais n'ont pas reçu certaines simulations film plus récentes (Classic Negative, Nostalgic Neg., Reala Ace) ni certains réglages plus fins (Color Chrome FX Blue, Clarity, taille du grain). Les recettes de cette application n'utilisent que des simulations et réglages réellement disponibles sur votre boîtier — certaines recettes portent le nom d'un effet (ex. « Eterna Bleach Bypass ») mais le recréent avec les outils du X-T3/X-T30, sans nécessiter la simulation d'origine.</p>
           </div>
           <div style="height:16px;"></div>
         </div>
@@ -494,9 +494,373 @@ const recipes = [
     desc:"Un noir et blanc contrasté avec des noirs profonds et des blancs lumineux qui ne cramment pas facilement. Le grain est réglé sur Faible pour un rendu propre — tentez Forte pour un résultat plus brut.",
     specs:{dr:'DR400',highlight:'+1',shadow:'+3',color:'—',sharp:'-1',nr:'-4',grain:'Faible',chrome:'N/A',wbType:'Incandescent',wbShift:'R-8 / B-8',iso:'Auto (jusqu\'à 12800)',ec:'+1/3 à +2/3'}
   },
+  {
+    id:'kodachrome64', name:'Kodachrome 64', base:'Classic Chrome', scene:'landscape',
+    tint:['#4a3520','#e0a24a'], filter:'saturate(1.4) contrast(1.15) brightness(1.02)', grain:true,
+    cats:['paysage','couleur','polyvalent','jour'], tagline:'Vif, punchy, fidèle',
+    desc:"Idéal pour paysages, portraits et scènes polyvalentes en plein jour où l'on recherche des couleurs vives et fidèles avec un contraste marqué.",
+    specs:{dr:'DR400',highlight:'+1',shadow:'+2',color:'0',sharp:'+2',nr:'-4',grain:'Forte',chrome:'Faible',wbType:'Lumière du jour',wbShift:'R+2 / B-5',iso:'Auto (jusqu’à 6400)',ec:'+1/3 à +1'}
+  },
+  {
+    id:'mccurrykodachrome', name:'McCurry Kodachrome', base:'Classic Chrome', scene:'portrait',
+    tint:['#6b3620','#e0793f'], filter:'saturate(1.55) contrast(1.12) brightness(1.0)', grain:true,
+    cats:['portrait','couleur','jour'], tagline:'Portraits saturés et lumineux',
+    desc:"Parfait pour portraits colorés et scènes ensoleillées façon Steve McCurry ; à exposer avec précision pour éviter l'écrêtage des hautes lumières.",
+    specs:{dr:'DR100',highlight:'0',shadow:'0',color:'+2',sharp:'-2',nr:'-2',grain:'Faible',chrome:'Forte',wbType:'Kelvin 5900K',wbShift:'R-1 / B+4',iso:'Auto (jusqu’à 1600)',ec:'-1/3 à +1/3'}
+  },
+  {
+    id:'kodakgold200', name:'Kodak Gold 200', base:'Classic Chrome', scene:'portrait',
+    tint:['#5c3c22','#d99a4e'], filter:'saturate(1.35) contrast(1.08) brightness(1.03)', grain:true,
+    cats:['portrait','couleur','vintage','jour'], tagline:'Chaleureux, nostalgique',
+    desc:"Convient aux photos de vacances, portraits décontractés et scènes de rue ensoleillées, pour un rendu chaleureux et nostalgique typique des années 90.",
+    specs:{dr:'DR-Auto',highlight:'-2',shadow:'+1',color:'+3',sharp:'-2',nr:'-4',grain:'Forte',chrome:'Désactivé',wbType:'Lumière du jour',wbShift:'R+4 / B-5',iso:'Auto (jusqu’à 6400)',ec:'+2/3 à +1 1/3'}
+  },
+  {
+    id:'portra400v1', name:'Kodak Portra 400', base:'Classic Chrome', scene:'portrait',
+    tint:['#6b3e28','#cf7d45'], filter:'saturate(1.2) contrast(1.05) brightness(1.0)', grain:true,
+    cats:['portrait','couleur','jour'], tagline:'Chaud, contrasté, grainé',
+    desc:"Adapté aux portraits et scènes de rue nécessitant un rendu chaleureux à dominante rouge-orangé, avec un grain plus marqué que la version Portra 160.",
+    specs:{dr:'DR-Auto',highlight:'-1',shadow:'-1',color:'+2',sharp:'-2',nr:'-4',grain:'Forte',chrome:'Forte',wbType:'Lumière du jour',wbShift:'R+4 / B-5',iso:'Auto (jusqu’à 6400)',ec:'+2/3 à +1'}
+  },
+  {
+    id:'portra160', name:'Kodak Portra 160', base:'Classic Chrome', scene:'portrait',
+    tint:['#6a5240','#c9a679'], filter:'saturate(0.85) contrast(0.92) brightness(1.05)', grain:true,
+    cats:['portrait','couleur','jour','polyvalent'], tagline:'Doux et naturel',
+    desc:"Idéal pour le portrait en lumière naturelle et les scènes à fort contraste, grâce à des tons doux et une saturation des couleurs plus discrète.",
+    specs:{dr:'DR-Auto',highlight:'-2',shadow:'-2',color:'+1',sharp:'-2',nr:'-4',grain:'Faible',chrome:'Désactivé',wbType:'Lumière du jour',wbShift:'R+4 / B-5',iso:'Auto (jusqu’à 6400)',ec:'+2/3 à +1 1/3'}
+  },
+  {
+    id:'eterna', name:'Eterna', base:'Eterna', scene:'landscape',
+    tint:['#243530','#6f8a78'], filter:'saturate(0.85) contrast(1.05) brightness(0.97)', grain:true,
+    cats:['paysage','cinema','polyvalent'], tagline:'Filmique, tout-terrain',
+    desc:"Polyvalent au quotidien, du paysage à la rue en passant par le portrait, avec un rendu filmique doux dont l'aspect varie selon l'exposition.",
+    specs:{dr:'DR100',highlight:'+4',shadow:'+4',color:'+4',sharp:'+2',nr:'-4',grain:'Forte',chrome:'Faible',wbType:'Auto',wbShift:'R+5 / B-6',iso:'Auto (jusqu’à 6400)',ec:'variable selon la scène'}
+  },
+  {
+    id:'vintageeterna', name:'Vintage Eterna', base:'Eterna', scene:'landscape',
+    tint:['#4a3624','#9c7a4a'], filter:'saturate(0.9) contrast(0.95) sepia(0.15) brightness(0.98)', grain:true,
+    cats:['paysage','vintage','cinema'], tagline:'Rétro années 50-60',
+    desc:"Réservé à un usage occasionnel pour un rendu rétro années 50-60, particulièrement efficace avec des objectifs vintage ou bon marché à caractère.",
+    specs:{dr:'DR100',highlight:'+3',shadow:'-1',color:'+2',sharp:'-1',nr:'-4',grain:'Forte',chrome:'Désactivé',wbType:'Auto',wbShift:'R+2 / B-5',iso:'Auto (jusqu’à 6400)',ec:'-2/3 à 0'}
+  },
+  {
+    id:'expiredeterna', name:'Expired Eterna', base:'Eterna', scene:'landscape',
+    tint:['#3a2a3a','#8a6a7a'], filter:'saturate(0.95) contrast(1.0) brightness(0.96)', grain:true,
+    cats:['paysage','vintage'], tagline:'Pellicule expirée, virage violet',
+    desc:"Idéal pour paysages, feuillages et scènes en basse lumière où l'on souhaite simuler une pellicule expirée virant légèrement au violet.",
+    specs:{dr:'DR100',highlight:'+4',shadow:'+4',color:'+4',sharp:'-2',nr:'-4',grain:'Forte',chrome:'Faible',wbType:'Auto',wbShift:'R+5 / B+5',iso:'Large plage (testé jusqu’à 25600)',ec:'-1/3 à +1/3'}
+  },
+  {
+    id:'eternalowcontrast', name:'Eterna Low-Contrast', base:'Eterna', scene:'landscape',
+    tint:['#2e3d3a','#7d968c'], filter:'saturate(0.7) contrast(0.85) brightness(1.02)', grain:true,
+    cats:['paysage','cinema','polyvalent'], tagline:'Plat et doux',
+    desc:"À privilégier en lumière forte et couleurs vives, car ce rendu plat et doux façon pellicule bon marché peut sembler terne en lumière faible.",
+    specs:{dr:'DR200',highlight:'-2',shadow:'-1',color:'+4',sharp:'-4',nr:'-4',grain:'Forte',chrome:'Forte',wbType:'Kelvin 5900K',wbShift:'R-3 / B+3',iso:'Auto (jusqu’à 6400)',ec:'+1/3 à +1'}
+  },
+  {
+    id:'eternav3', name:'Eterna v3', base:'Eterna', scene:'landscape',
+    tint:['#4a3a20','#c08c48'], filter:'saturate(1.2) contrast(1.05) brightness(1.0)', grain:true,
+    cats:['paysage','cinema','jour'], tagline:'Cinéma, tons chauds',
+    desc:"Parfait pour les paysages et l'automne en pleine journée ensoleillée ou à l'heure dorée, avec une tonalité chaude proche d'une pellicule cinéma.",
+    specs:{dr:'DR400',highlight:'+2',shadow:'+3',color:'+4',sharp:'-2',nr:'-4',grain:'Forte',chrome:'Forte',wbType:'Auto',wbShift:'R-1 / B-1',iso:'Auto (jusqu’à 6400)',ec:'+1/3 à +2/3'}
+  },
+  {
+    id:'cinematicnegative', name:'Cinematic Negative', base:'Eterna', scene:'landscape',
+    tint:['#3a2a18','#a8703c'], filter:'saturate(1.15) contrast(1.02) brightness(0.98)', grain:true,
+    cats:['paysage','cinema','polyvalent'], tagline:'Cinéma professionnel, chaud',
+    desc:"Convient aux scènes de jour variées, architecture, nourriture et portraits environnementaux, pour un rendu façon cinéma avec une dominante chaude.",
+    specs:{dr:'DR400',highlight:'+1',shadow:'+2',color:'+4',sharp:'-1',nr:'-4',grain:'Faible',chrome:'Forte',wbType:'Incandescent',wbShift:'R+8 / B-9',iso:'Auto (jusqu’à 6400)',ec:'0 à +2/3'}
+  },
+  {
+    id:'polaroid', name:'Polaroid', base:'Eterna', scene:'landscape',
+    tint:['#4a4030','#b8a578'], filter:'saturate(0.75) contrast(0.95) brightness(1.08)', grain:true,
+    cats:['paysage','vintage','polyvalent'], tagline:'Analogique, hautes lumières souples',
+    desc:"Fonctionne bien en surexposition et sur des scènes à fort contraste, du paysage à l'architecture, pour une esthétique analogique proche du Polaroid.",
+    specs:{dr:'DR400',highlight:'+4',shadow:'-2',color:'-2',sharp:'-1',nr:'-4',grain:'Forte',chrome:'Désactivé',wbType:'Auto',wbShift:'R+5 / B-5',iso:'Auto (jusqu’à 6400)',ec:'-2/3 à +1'}
+  },
+  {
+    id:'polaroidii', name:'Polaroid II', base:'Eterna', scene:'night',
+    tint:['#1c1a2c','#4a4266'], filter:'saturate(0.7) contrast(1.15) brightness(0.85)', grain:true,
+    cats:['nuit','vintage'], tagline:'Sombre, désaturé, bleu-violet',
+    desc:"À réserver aux situations où l'on recherche des tons froids et désaturés, pour des paysages ou portraits nécessitant une ambiance sombre et contrastée.",
+    specs:{dr:'DR100',highlight:'+4',shadow:'+4',color:'-3',sharp:'-4',nr:'-4',grain:'Forte',chrome:'Forte',wbType:'Ombre',wbShift:'R+4 / B+6',iso:'Auto (jusqu’à 6400)',ec:'0 à -1'}
+  },
+  {
+    id:'analogcolor', name:'Analog Color', base:'Pro Neg. Std', scene:'portrait',
+    tint:['#4a3c34','#a68a6e'], filter:'saturate(0.85) contrast(1.0) brightness(1.0)', grain:true,
+    cats:['portrait','polyvalent','vintage'], tagline:'Organique, façon argentique',
+    desc:"Polyvalent selon la lumière ambiante, particulièrement adapté aux portraits en peau nue et à l'association avec des objectifs vintage.",
+    specs:{dr:'DR200',highlight:'+3',shadow:'0',color:'-1',sharp:'+1',nr:'-4',grain:'Forte',chrome:'Forte',wbType:'Lumière du jour',wbShift:'R-3 / B+1',iso:'Auto (jusqu’à 6400)',ec:'+2/3 à +1 1/3'}
+  },
+  {
+    id:'fadedcolor', name:'Faded Color', base:'Classic Chrome', scene:'portrait',
+    tint:['#5c4a34','#c9a06a'], filter:'saturate(0.8) contrast(0.85) brightness(1.05)', grain:true,
+    cats:['portrait','vintage','rue'], tagline:'Délavé et nostalgique',
+    desc:"Idéal pour portraits et scènes urbaines où l'on souhaite un rendu délavé et nostalgique proche d'un vieux tirage argentique décoloré.",
+    specs:{dr:'DR100',highlight:'+3',shadow:'+4',color:'+4',sharp:'+2',nr:'-4',grain:'Forte',chrome:'Forte',wbType:'Auto (double exposition)',wbShift:'variable selon la teinte visée',iso:'Auto (jusqu’à 12800)',ec:'+1/3 à +1'}
+  },
+  {
+    id:'vintagecolorfade', name:'Vintage Color Fade', base:'Pro Neg. Hi / Acros', scene:'landscape',
+    tint:['#3c4a4a','#8aa39c'], filter:'saturate(0.65) contrast(0.82) brightness(1.06)', grain:true,
+    cats:['paysage','vintage','rue'], tagline:'Doux, fané, intemporel',
+    desc:"Convient aux scènes de rue et voyages où l'on recherche un contraste doux, des couleurs fanées et une ambiance rétro intemporelle.",
+    specs:{dr:'DR200',highlight:'+4',shadow:'+4',color:'mixte selon exposition',sharp:'+1',nr:'-4',grain:'Faible',chrome:'Forte',wbType:'Auto',wbShift:'R-5 / B+5',iso:'Auto (jusqu’à 6400)',ec:'variable (double exposition)'}
+  },
+  {
+    id:'elitechromecolorfade', name:'Elite Chrome Color Fade', base:'Classic Chrome', scene:'landscape',
+    tint:['#2e4048','#7d9aa0'], filter:'saturate(0.6) contrast(0.85) brightness(1.05)', grain:true,
+    cats:['paysage','vintage'], tagline:'Diapositive vieillie, cyan',
+    desc:"Parfait pour paysages et voyages estivaux quand on veut évoquer une diapositive Kodak Elite Chrome vieillie, décolorée et légèrement cyan.",
+    specs:{dr:'DR200',highlight:'0',shadow:'+2',color:'-2',sharp:'-4',nr:'+2',grain:'Forte',chrome:'Forte',wbType:'Kelvin 8300K',wbShift:'R+4 / B+8',iso:'Auto (jusqu’à 6400)',ec:'0 à -2/3'}
+  },
+  {
+    id:'negativeprint', name:'Negative Print', base:'Eterna', scene:'portrait',
+    tint:['#4a3c38','#b89482'], filter:'saturate(0.85) contrast(0.88) brightness(1.04)', grain:true,
+    cats:['portrait','polyvalent'], tagline:'Doux et flatteur',
+    desc:"Adapté aux portraits en extérieur et scènes lifestyle recherchant un rendu doux, des tons chair flatteurs et un faible contraste.",
+    specs:{dr:'DR200',highlight:'+2',shadow:'+4',color:'+4',sharp:'-1',nr:'-4',grain:'Faible',chrome:'Désactivé',wbType:'Fluorescent 3',wbShift:'R-2 / B-7',iso:'Auto (jusqu’à 6400)',ec:'+1/3 à +2/3'}
+  },
+  {
+    id:'colornegative', name:'Color Negative', base:'Pro Neg. Hi', scene:'landscape',
+    tint:['#333c46','#8b96a0'], filter:'saturate(0.75) contrast(1.0) brightness(1.0)', grain:true,
+    cats:['rue','polyvalent'], tagline:'Discret et désaturé',
+    desc:"Bon choix pour la photographie de rue quotidienne où l'on veut un rendu discret et légèrement désaturé, proche d'une pellicule négative.",
+    specs:{dr:'DR400',highlight:'+2',shadow:'+2',color:'-2',sharp:'+1',nr:'-4',grain:'Faible',chrome:'Désactivé',wbType:'Fluorescent 1',wbShift:'R-2 / B+4',iso:'Auto (jusqu’à 6400)',ec:'0 à +2/3'}
+  },
+  {
+    id:'proneg', name:'Pro Neg', base:'Pro Neg. Hi', scene:'portrait',
+    tint:['#4a4038','#b09c7e'], filter:'saturate(0.85) contrast(0.9) brightness(1.02)', grain:true,
+    cats:['portrait','polyvalent'], tagline:'Neutre, légère chaleur',
+    desc:"Polyvalent pour portraits et documentaire, offrant un rendu neutre et doux avec une légère chaleur proche des négatifs professionnels Kodak.",
+    specs:{dr:'DR400',highlight:'+1',shadow:'+1',color:'+1',sharp:'-1',nr:'-4',grain:'Faible',chrome:'Désactivé',wbType:'Kelvin 9100K',wbShift:'R-7 / B+7',iso:'Auto (jusqu’à 6400)',ec:'+1/3 à +1'}
+  },
+  {
+    id:'fujichromesensia100', name:'Fujichrome Sensia 100', base:'Provia', scene:'landscape',
+    tint:['#4a2e3a','#c97a6a'], filter:'saturate(1.25) contrast(1.05) brightness(1.0)', grain:true,
+    cats:['paysage','jour'], tagline:'Ciels de coucher de soleil',
+    desc:"Excellent pour les levers et couchers de soleil aux ciels roses et violets, grâce à des ombres saturées et une belle diapositive.",
+    specs:{dr:'DR400',highlight:'0',shadow:'+2',color:'0',sharp:'+1',nr:'-4',grain:'Faible',chrome:'Désactivé',wbType:'Fluorescent 2',wbShift:'R-1 / B-3',iso:'Auto (jusqu’à 6400)',ec:'0 à +2/3'}
+  },
+  {
+    id:'fujicolorpro160ns', name:'Fujicolor Pro 160NS', base:'Pro Neg. Hi', scene:'portrait',
+    tint:['#4a4238','#b8a888'], filter:'saturate(0.85) contrast(0.88) brightness(1.03)', grain:true,
+    cats:['portrait','polyvalent'], tagline:'Peau naturelle, faible contraste',
+    desc:"Recommandé pour les portraits en lumière douce, avec des teintes de peau naturelles et un contraste faible typique de ce négatif professionnel.",
+    specs:{dr:'DR400',highlight:'0',shadow:'0',color:'0',sharp:'-3',nr:'-4',grain:'Faible',chrome:'Désactivé',wbType:'Lumière du jour',wbShift:'R0 / B0',iso:'Auto (jusqu’à 6400)',ec:'0 à +2/3'}
+  },
+  {
+    id:'fujicolorpro400h', name:'Fujicolor Pro 400H', base:'Pro Neg. Hi', scene:'portrait',
+    tint:['#3c463c','#a8bfa0'], filter:'saturate(0.8) contrast(0.85) brightness(1.06)', grain:true,
+    cats:['portrait','polyvalent'], tagline:'Pastel et aérien',
+    desc:"Idéal pour mariages et portraits en extérieur, avec des couleurs pastel aériennes et des verts doux typiques du 400H non poussé.",
+    specs:{dr:'DR400',highlight:'0',shadow:'0',color:'+1',sharp:'-3',nr:'-4',grain:'Faible',chrome:'Forte',wbType:'Lumière du jour',wbShift:'R+1 / B-3',iso:'Auto (jusqu’à 6400)',ec:'0 à +2/3'}
+  },
+  {
+    id:'fujicolorpro400hoverexposed', name:'Fujicolor Pro 400H Surexposé', base:'Provia', scene:'portrait',
+    tint:['#4a4436','#d9cba0'], filter:'saturate(0.7) contrast(0.75) brightness(1.15)', grain:true,
+    cats:['portrait','jour'], tagline:'Très clair, rêveur',
+    desc:"Parfait pour des portraits lumineux en golden hour, offrant un rendu pastel très clair et aérien proche du 400H surexposé.",
+    specs:{dr:'DR400',highlight:'-2',shadow:'+4',color:'+1',sharp:'+1',nr:'-4',grain:'Faible',chrome:'Désactivé',wbType:'Auto',wbShift:'R+2 / B+2',iso:'Auto (jusqu’à 6400)',ec:'+1 2/3 à +2 1/3'}
+  },
+  {
+    id:'warmcontrast', name:'« Warm Contrast »', base:'Pro Neg. Std', scene:'landscape',
+    tint:['#4a3018','#d98a3c'], filter:'saturate(1.4) contrast(1.2) brightness(1.0)', grain:true,
+    cats:['paysage','jour'], tagline:'Chaud, punchy',
+    desc:"Convient aux scènes en lumière chaude de fin de journée où l'on veut des couleurs saturées et un contraste marqué et punchy.",
+    specs:{dr:'DR200',highlight:'+1',shadow:'+3',color:'+4',sharp:'+1',nr:'-4',grain:'Forte',chrome:'Désactivé',wbType:'Auto',wbShift:'R-2 / B-4',iso:'Auto (jusqu’à 6400)',ec:'+1/3 à +1'}
+  },
+  {
+    id:'porto200', name:'Porto 200', base:'Pro Neg. Std', scene:'landscape',
+    tint:['#4a3c2c','#c4a06c'], filter:'saturate(0.95) contrast(0.95) brightness(1.02)', grain:true,
+    cats:['paysage','rue','jour'], tagline:'Chaleureux et doux',
+    desc:"Adapté à l'architecture et aux scènes de rue ensoleillées, avec un rendu doux et chaleureux évoquant les pellicules négatives Kodak.",
+    specs:{dr:'DR200',highlight:'-1',shadow:'0',color:'0',sharp:'0',nr:'-4',grain:'Faible',chrome:'Désactivé',wbType:'Ombre',wbShift:'R0 / B-4',iso:'Auto (jusqu’à 6400)',ec:'+1/3 à +2/3'}
+  },
+  {
+    id:'bleachbypass', name:'« Bleach Bypass »', base:'Classic Chrome / Acros', scene:'night',
+    tint:['#2a2e30','#6d7678'], filter:'saturate(0.55) contrast(1.25) brightness(0.9)', grain:true,
+    cats:['nuit','cinema','rue'], tagline:'Argentique, dramatique',
+    desc:"Idéal pour scènes urbaines et cinématiques sombres où l'on recherche un contraste élevé et une ambiance argentique dramatique et désaturée.",
+    specs:{dr:'DR200',highlight:'+3',shadow:'+4',color:'+2',sharp:'+1',nr:'-4',grain:'Forte',chrome:'Forte',wbType:'Auto',wbShift:'R-1 / B+3',iso:'Auto (jusqu’à 6400)',ec:'+1/3 à +2/3'}
+  },
+  {
+    id:'eternableachbypass', name:'« Eterna Bleach Bypass »', base:'Pro Neg. Std', scene:'night',
+    tint:['#242830','#606870'], filter:'saturate(0.5) contrast(1.2) brightness(0.88)', grain:true,
+    cats:['nuit','cinema'], tagline:'Cinéma froid et désaturé',
+    desc:"Parfait pour un rendu cinématographique désaturé et contrasté, adapté aux scènes urbaines nocturnes ou dramatiques façon bleach bypass argentique.",
+    specs:{dr:'DR400',highlight:'+3',shadow:'+3',color:'-4',sharp:'0',nr:'-4',grain:'Faible',chrome:'Désactivé',wbType:'Incandescent',wbShift:'R+8 / B-9',iso:'Auto (jusqu’à 6400)',ec:'0 à +2/3'}
+  },
+  {
+    id:'chromebypass', name:'Chrome Bypass', base:'Pro Neg. Std', scene:'landscape',
+    tint:['#2c302e','#727c74'], filter:'saturate(0.55) contrast(1.2) brightness(0.92)', grain:true,
+    cats:['rue','cinema'], tagline:'Sobre et cinématographique',
+    desc:"Convient aux scènes urbaines ou dramatiques nécessitant un rendu désaturé et contrasté, proche d'un bleach bypass argentique, sobre et cinématographique.",
+    specs:{dr:'DR200',highlight:'+3',shadow:'+4',color:'-4',sharp:'-1',nr:'-4',grain:'Forte',chrome:'Désactivé',wbType:'Auto',wbShift:'R+2 / B-5',iso:'Auto (jusqu’à 6400)',ec:'0 à +2/3'}
+  },
+  {
+    id:'kodacolor', name:'Kodacolor', base:'Classic Chrome', scene:'landscape',
+    tint:['#3c4a3c','#a8b878'], filter:'saturate(1.1) contrast(1.0) brightness(1.0)', grain:true,
+    cats:['paysage','vintage','jour'], tagline:'Chaleur des années 80',
+    desc:"Parfait pour les paysages et scènes de vie en lumière dorée, apportant une teinte chaude et nostalgique typique des tirages Kodak des années 1980.",
+    specs:{dr:'DR400',highlight:'-1',shadow:'+2',color:'-2',sharp:'+2',nr:'-4',grain:'Forte',chrome:'Désactivé',wbType:'Kelvin 6300K',wbShift:'R-1 / B-4',iso:'Auto (jusqu’à 6400)',ec:'+2/3 à +1 1/3'}
+  },
+  {
+    id:'kodacolorvr', name:'Kodacolor VR', base:'Classic Chrome', scene:'portrait',
+    tint:['#3a3c48','#9aa0b8'], filter:'saturate(0.85) contrast(0.95) brightness(1.0)', grain:true,
+    cats:['portrait','vintage','rue'], tagline:'Vintage délavé',
+    desc:"Idéal pour un rendu vintage délavé rappelant une pellicule Kodacolor VR légèrement périmée, adapté aux portraits décontractés et scènes de rue.",
+    specs:{dr:'DR400',highlight:'-1',shadow:'+1',color:'+2',sharp:'-1',nr:'-4',grain:'Faible',chrome:'Désactivé',wbType:'Kelvin 10000K',wbShift:'R-7 / B+8',iso:'Auto (jusqu’à 6400)',ec:'+1/3 à +1'}
+  },
+  {
+    id:'vintagekodacolor', name:'Vintage Kodacolor', base:'Classic Chrome', scene:'landscape',
+    tint:['#4a3e30','#b89868'], filter:'saturate(0.75) contrast(0.92) brightness(1.03)', grain:true,
+    cats:['paysage','vintage','jour'], tagline:'Désaturé et ensoleillé',
+    desc:"Excellent pour les journées ensoleillées et l'heure dorée, offrant un rendu désaturé et chaleureux évoquant les vieilles photographies Kodak.",
+    specs:{dr:'DR200',highlight:'+2',shadow:'0',color:'-4',sharp:'-1',nr:'-4',grain:'Forte',chrome:'Désactivé',wbType:'Kelvin 9100K',wbShift:'R-4 / B+4',iso:'Auto (jusqu’à 12800)',ec:'-1/3 à +1/3'}
+  },
+  {
+    id:'kodacolorii126', name:'Kodacolor II 126', base:'Classic Chrome', scene:'portrait',
+    tint:['#5c3830','#c47850'], filter:'saturate(0.9) contrast(1.05) brightness(0.98)', grain:true,
+    cats:['portrait','vintage'], tagline:'Instamatic, dominante rouge',
+    desc:"Reproduit l'esthétique bon marché des appareils Instamatic des années 1970, avec un grain marqué et une dominante rouge caractéristique.",
+    specs:{dr:'DR200',highlight:'-1',shadow:'+3',color:'-4',sharp:'-4',nr:'-4',grain:'Forte',chrome:'Forte',wbType:'Kelvin 6300K',wbShift:'R+6 / B+3',iso:'3200 à 6400',ec:'0 à +2/3'}
+  },
+  {
+    id:'classicslide', name:'Classic Slide', base:'Classic Chrome', scene:'landscape',
+    tint:['#333e46','#8593a0'], filter:'saturate(0.95) contrast(1.02) brightness(1.0)', grain:true,
+    cats:['paysage','polyvalent'], tagline:'Froid et net',
+    desc:"Convient aux journées nuageuses ou pluvieuses grâce à sa dominante froide, offrant un rendu proche d'une pellicule diapositive classique.",
+    specs:{dr:'DR400',highlight:'+1',shadow:'+2',color:'0',sharp:'+1',nr:'-4',grain:'Faible',chrome:'Désactivé',wbType:'Lumière du jour',wbShift:'R-2 / B+3',iso:'Auto (jusqu’à 6400)',ec:'+1/3 à +2/3'}
+  },
+  {
+    id:'urbanvintagechrome', name:'Urban Vintage Chrome', base:'Classic Chrome', scene:'landscape',
+    tint:['#383c3a','#8c9088'], filter:'saturate(0.6) contrast(1.1) brightness(0.98)', grain:true,
+    cats:['rue','vintage'], tagline:'Urbain, désaturé',
+    desc:"Adapté aux scènes urbaines, industrielles ou rurales recherchant un style analogique désaturé et contrasté proche d'un bleach bypass classique.",
+    specs:{dr:'DR200',highlight:'0',shadow:'+2',color:'-4',sharp:'0',nr:'-4',grain:'Faible',chrome:'Désactivé',wbType:'Kelvin 4300K',wbShift:'R-1 / B-3',iso:'Auto (jusqu’à 3200)',ec:'+1/3 à +2/3'}
+  },
+  {
+    id:'fujicolor100industrial', name:'Fujicolor 100 Industrial', base:'Pro Neg. Std', scene:'landscape',
+    tint:['#42463c','#9a9c80'], filter:'saturate(0.75) contrast(0.9) brightness(1.0)', grain:true,
+    cats:['paysage','rue'], tagline:'Doux, peu saturé',
+    desc:"Convient aux scènes urbaines et paysages en lumière contrastée, offrant un rendu doux et peu saturé évoquant un négatif basse sensibilité.",
+    specs:{dr:'DR400',highlight:'+1',shadow:'+2',color:'+1',sharp:'+2',nr:'-4',grain:'Faible',chrome:'Faible',wbType:'Kelvin 3200K',wbShift:'R+8 / B-8',iso:'Auto (jusqu’à 6400)',ec:'+1/3 à +2/3'}
+  },
+  {
+    id:'lomographycolor100', name:'Lomography Color 100', base:'Velvia', scene:'landscape',
+    tint:['#2e3c46','#6e8ca0'], filter:'saturate(1.0) contrast(1.0) brightness(0.98)', grain:true,
+    cats:['paysage','vintage'], tagline:'Lo-fi et imprévisible',
+    desc:"Parfait pour les paysages d'automne ou d'hiver et les portraits en lumière naturelle, avec un rendu lo-fi et imprévisible.",
+    specs:{dr:'DR400',highlight:'+1',shadow:'+1',color:'-3',sharp:'+1',nr:'-4',grain:'Faible',chrome:'Faible',wbType:'Nuageux/Ombre',wbShift:'R-3 / B+7',iso:'Auto (jusqu’à 6400)',ec:'+1/3 à +2/3'}
+  },
+  {
+    id:'velvia', name:'Velvia', base:'Velvia', scene:'landscape',
+    tint:['#2e4a34','#4a9c5c'], filter:'saturate(1.5) contrast(1.15) brightness(1.0)', grain:true,
+    cats:['paysage','jour'], tagline:'Punchy et saturé',
+    desc:"Idéal pour les paysages désertiques et scènes naturelles saturées, offrant un rendu punchy et contrasté proche de la pellicule Velvia argentique.",
+    specs:{dr:'DR-Auto',highlight:'0',shadow:'+1',color:'+3',sharp:'+2',nr:'-4',grain:'Faible',chrome:'Forte',wbType:'Auto',wbShift:'R+1 / B-1',iso:'Auto (jusqu’à 6400)',ec:'+1/3 à +2/3'}
+  },
+  {
+    id:'velviav2', name:'Velvia v2', base:'Velvia', scene:'landscape',
+    tint:['#1e3c2c','#3fae60'], filter:'saturate(1.45) contrast(1.05) brightness(1.02)', grain:true,
+    cats:['paysage','jour'], tagline:'Très saturé, contraste doux',
+    desc:"Convient aux paysages colorés et scènes naturelles, avec une saturation encore plus poussée et un contraste plus doux que la Velvia originale.",
+    specs:{dr:'DR200',highlight:'-1',shadow:'-1',color:'+4',sharp:'0',nr:'-4',grain:'Faible',chrome:'Forte',wbType:'Auto',wbShift:'R0 / B0',iso:'Auto (jusqu’à 6400)',ec:'+1/3 à +1'}
+  },
+  {
+    id:'redscale', name:'Redscale', base:'Astia', scene:'landscape',
+    tint:['#5c1e18','#d9622e'], filter:'saturate(1.3) contrast(1.05) brightness(1.0)', grain:true,
+    cats:['vintage','polyvalent'], tagline:'Dominante rouge expérimentale',
+    desc:"Convient aux expérimentations créatives sur divers sujets, produisant une dominante rouge, orangée ou jaune caractéristique du redscale argentique.",
+    specs:{dr:'DR200',highlight:'+1',shadow:'+2',color:'-2',sharp:'-2',nr:'-4',grain:'Forte',chrome:'Forte',wbType:'Kelvin 10000K',wbShift:'R+9 / B0',iso:'Auto (jusqu’à 6400)',ec:'-1/3 à +1/3'}
+  },
+  {
+    id:'crossprocess', name:'Cross Process', base:'Classic Chrome', scene:'landscape',
+    tint:['#3c4022','#c9b23c'], filter:'saturate(1.35) contrast(1.15) brightness(1.0)', grain:true,
+    cats:['vintage','polyvalent'], tagline:'Chaud et audacieux',
+    desc:"Idéal pour un rendu expérimental chaud et saturé évoquant une pellicule diapositive développée en chimie C-41, pour des scènes créatives.",
+    specs:{dr:'DR400',highlight:'+4',shadow:'-1',color:'+3',sharp:'+1',nr:'-4',grain:'Faible',chrome:'Désactivé',wbType:'Kelvin 7700K',wbShift:'R-8 / B-3',iso:'Auto (jusqu’à 6400)',ec:'-1/3 à -2/3'}
+  },
+  {
+    id:'xpro', name:'XPro', base:'Classic Chrome', scene:'landscape',
+    tint:['#3a2c42','#9c6ca0'], filter:'saturate(1.2) contrast(1.05) brightness(1.0)', grain:true,
+    cats:['vintage','polyvalent'], tagline:'Froid, magenta, expérimental',
+    desc:"Convient aux scènes créatives occasionnelles recherchant un rendu cross-processé froid et contrasté évoquant une diapositive développée en C-41.",
+    specs:{dr:'DR400',highlight:'-1',shadow:'+3',color:'+4',sharp:'-1',nr:'-4',grain:'Faible',chrome:'Désactivé',wbType:'Kelvin 3400K',wbShift:'R-6 / B-9',iso:'Auto (jusqu’à 6400)',ec:'+2/3 à +1 1/3'}
+  },
+  {
+    id:'agfaapx400', name:'Agfa APX 400', base:'Acros (+ filtre au choix)', scene:'portrait',
+    tint:['#3a3632','#8c8478'], filter:'grayscale(1) contrast(0.95) sepia(0.12) brightness(1.0)', grain:true,
+    cats:['nb'], tagline:'Argentique doux et chaud',
+    desc:"Convient particulièrement aux scènes à fort contraste où l'on souhaite un rendu argentique doux et légèrement chaud, sans paraître plat.",
+    specs:{dr:'DR400',highlight:'-2',shadow:'+4',color:'virage +1 (chaud)',sharp:'+4',nr:'-4',grain:'Faible',chrome:'Forte',wbType:'—',wbShift:'—',iso:'Auto (jusqu’à 12800)',ec:'+2/3 à +1 1/3'}
+  },
+  {
+    id:'monochromekodachrome', name:'Monochrome Kodachrome', base:'Acros + Filtre Rouge', scene:'portrait',
+    tint:['#302e2c','#a8a29a'], filter:'grayscale(1) contrast(1.15) brightness(0.98)', grain:true,
+    cats:['nb','vintage'], tagline:'N&B vintage contrasté',
+    desc:"Idéal pour un rendu noir et blanc vintage avec des objectifs anciens, évoquant les tirages argentiques classiques à fort caractère.",
+    specs:{dr:'DR200',highlight:'+4',shadow:'-2',color:'virage neutre',sharp:'+1',nr:'-4',grain:'Forte',chrome:'Désactivé',wbType:'Auto',wbShift:'R0 / B+9',iso:'3200 à 12800',ec:'-1/3 à +2/3'}
+  },
+  {
+    id:'ilfordhp5push', name:'Ilford HP5 Push Process', base:'Acros (+ filtre au choix)', scene:'landscape',
+    tint:['#2a2a28','#88857e'], filter:'grayscale(1) contrast(1.25) brightness(0.95)', grain:true,
+    cats:['nb','rue'], tagline:'Grain marqué, poussé',
+    desc:"Parfait pour la photographie de rue en basse lumière recherchant un grain prononcé et un contraste élevé façon pellicule poussée.",
+    specs:{dr:'—',highlight:'+3',shadow:'+4',color:'virage désactivé',sharp:'-2',nr:'-4',grain:'Forte',chrome:'Forte',wbType:'—',wbShift:'—',iso:'25600 (ou 51200)',ec:'+1/3'}
+  },
+  {
+    id:'ilforddeltapush', name:'Ilford Delta Push Process', base:'Monochrome (+ filtre au choix)', scene:'night',
+    tint:['#242422','#787670'], filter:'grayscale(1) contrast(1.2) brightness(0.9)', grain:true,
+    cats:['nb','nuit'], tagline:'Grainu et contrasté',
+    desc:"Convient aux scènes de faible luminosité où l'on recherche l'aspect grainu et contrasté d'une pellicule Delta poussée à 3200 ISO.",
+    specs:{dr:'DR400',highlight:'0',shadow:'+3',color:'virage neutre',sharp:'-3',nr:'-4',grain:'Forte',chrome:'Désactivé',wbType:'—',wbShift:'—',iso:'12800 (jusqu’à 3200 possible)',ec:'+1/3 à +2/3'}
+  },
+  {
+    id:'dramaticmonochrome', name:'Dramatic Monochrome', base:'Monochrome (+ filtre au choix)', scene:'landscape',
+    tint:['#1c1c1a','#8a887e'], filter:'grayscale(1) contrast(1.35) brightness(0.92)', grain:true,
+    cats:['nb','paysage'], tagline:'Graphique, noirs profonds',
+    desc:"Idéal pour les paysages et l'architecture, offrant un noir et blanc contrasté et graphique inspiré des grands maîtres de la photo N&B.",
+    specs:{dr:'DR200',highlight:'+4',shadow:'+4',color:'virage neutre',sharp:'+3',nr:'-4',grain:'Forte',chrome:'Forte',wbType:'Auto',wbShift:'R0 / B0',iso:'Auto (jusqu’à 12800)',ec:'0 à +2/3'}
+  },
+  {
+    id:'noir', name:'Noir', base:'Acros + Filtre Vert', scene:'night',
+    tint:['#2c2c2c','#767674'], filter:'grayscale(1) contrast(0.95) brightness(0.95)', grain:true,
+    cats:['nb','nuit','cinema'], tagline:'Film noir, gris doux',
+    desc:"Adapté aux scènes urbaines nocturnes et portraits sombres façon film noir, avec un rendu gris doux plutôt que des noirs profonds.",
+    specs:{dr:'DR200',highlight:'+4',shadow:'+1',color:'virage neutre',sharp:'-4',nr:'-4',grain:'Forte',chrome:'Désactivé',wbType:'Kelvin 2500K',wbShift:'R+9 / B+9',iso:'3200',ec:'-2/3 à +2/3'}
+  },
+  {
+    id:'fadedmonochrome', name:'Faded Monochrome', base:'Acros (+ filtre, double exp.)', scene:'portrait',
+    tint:['#44423e','#b0aca2'], filter:'grayscale(1) contrast(0.8) brightness(1.08)', grain:true,
+    cats:['nb','vintage'], tagline:'Noirs laiteux, délavé',
+    desc:"Idéal pour les scènes à fort contraste où l'on souhaite un noir et blanc délavé aux noirs laiteux, via une technique de double exposition.",
+    specs:{dr:'DR100',highlight:'+4',shadow:'+4',color:'virage neutre',sharp:'+2',nr:'-4',grain:'Forte',chrome:'Forte',wbType:'—',wbShift:'—',iso:'Auto (jusqu’à 12800)',ec:'+1/3 à +1'}
+  },
+  {
+    id:'splittonedbw', name:'Split-Toned B&W', base:'Acros / Velvia (double exp.)', scene:'portrait',
+    tint:['#3a362c','#a89a7c'], filter:'grayscale(0.85) contrast(0.95) sepia(0.1) brightness(1.0)', grain:true,
+    cats:['nb','vintage'], tagline:'Virage fractionné chaud/froid',
+    desc:"Convient aux portraits et scènes nostalgiques recherchant un virage fractionné, chaud dans les tons et bleuté dans les ombres.",
+    specs:{dr:'DR200',highlight:'+4',shadow:'+4',color:'virage +6 chaud / +2 (exp. 2)',sharp:'+1',nr:'-4',grain:'Faible',chrome:'Forte',wbType:'Auto (exp. 2)',wbShift:'R0 / B0 (exp. 2)',iso:'Auto (jusqu’à 6400)',ec:'+2/3 à +1 (puis -1 à -3)'}
+  },
+  {
+    id:'cyanotype', name:'Cyanotype', base:'Acros', scene:'landscape',
+    tint:['#0d2233','#3f6f8f'], filter:'saturate(0.9) contrast(1.1) brightness(0.98)', grain:true,
+    cats:['nb','vintage'], tagline:'Bleu froid, botanique',
+    desc:"Parfait pour la photographie botanique en extérieur, avec une dominante bleue froide évoquant le procédé historique du cyanotype de 1842.",
+    specs:{dr:'DR400',highlight:'+3',shadow:'+3',color:'virage -9 (froid max)',sharp:'-4',nr:'-4',grain:'Forte',chrome:'Forte',wbType:'Auto',wbShift:'—',iso:'Auto (jusqu’à 12800)',ec:'+1/3 à +1'}
+  },
+  {
+    id:'sepia', name:'Sepia', base:'Sepia', scene:'portrait',
+    tint:['#3a2a1a','#a8825a'], filter:'sepia(0.6) grayscale(0.3) contrast(1.05) brightness(1.0)', grain:true,
+    cats:['nb','vintage'], tagline:'Brun chaud, ancien',
+    desc:"Convient aux portraits et scènes nostalgiques où l'on recherche la teinte brun-rougeâtre chaude typique des tirages sépia anciens.",
+    specs:{dr:'DR400',highlight:'+3',shadow:'+3',color:'—',sharp:'-2',nr:'-4',grain:'Forte',chrome:'Désactivé',wbType:'—',wbShift:'—',iso:'—',ec:'—'}
+  }
 ];
-const catLabels = {portrait:'Portrait',paysage:'Paysage',nuit:'Nuit',nb:'N&B',couleur:'Couleur',cinema:'Ciné',jour:'Jour',polyvalent:'Polyvalent'};
-const filterCats = ['portrait','paysage','nuit','nb','polyvalent'];
+const catLabels = {portrait:'Portrait',paysage:'Paysage',nuit:'Nuit',nb:'N&B',couleur:'Couleur',cinema:'Ciné',jour:'Jour',polyvalent:'Polyvalent',rue:'Rue',vintage:'Vintage'};
+const filterCats = ['portrait','paysage','rue','nuit','nb','cinema','vintage','polyvalent'];
 
 /* ============ FAVORITES (persisted via localStorage) ============ */
 let favorites = [];
@@ -694,7 +1058,7 @@ function renderAbout(){
   const items = [
     {icon:'i-info', label:'Source des recettes : Fuji X Weekly'},
     {icon:'i-camera', label:'Boîtiers compatibles : X-T3, X-T30, X-T30 II'},
-    {icon:'i-layers', label:'7 recettes, hors-ligne, sans compte'},
+    {icon:'i-layers', label:'59 recettes, hors-ligne, sans compte'},
   ];
   document.getElementById('about-settings').innerHTML = items.map((it,i)=>`
     <div class="row" style="gap:10px;padding:14px 16px;${i>0?'border-top:1px solid var(--divider);':''}">
