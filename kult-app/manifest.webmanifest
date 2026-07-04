@@ -1,0 +1,26 @@
+{
+  "name": "Kult — Swipe tes prochains coups de cœur",
+  "short_name": "Kult",
+  "description": "Le Tinder des films, séries et livres : swipe, découvre et reçois des recommandations selon tes goûts.",
+  "lang": "fr",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b0b13",
+  "theme_color": "#0b0b13",
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/maskable.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
