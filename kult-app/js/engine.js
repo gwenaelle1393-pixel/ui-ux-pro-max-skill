@@ -71,6 +71,12 @@ const Store = {
   inList(list, id) {
     return this.state.lists[list].includes(id);
   },
+
+  /* Note un titre sans effet de bord sur les listes (feedback "déjà vu/lu") */
+  rate(id, value) {
+    this.state.swipes[id] = value;
+    this.save();
+  },
 };
 
 const Reco = {
@@ -94,7 +100,7 @@ const Reco = {
     // Les éléments marqués "terminés" ou favoris comptent aussi comme goûts positifs
     for (const id of [...Store.state.lists.done, ...Store.state.lists.fav]) {
       const item = BY_ID[id];
-      if (!item || Store.state.swipes[id] > 0) continue;
+      if (!item || id in Store.state.swipes) continue;
       signals++;
       for (const g of item.g) genres[g] = (genres[g] || 0) + 1;
       kinds[item.k] = (kinds[item.k] || 0) + 1;

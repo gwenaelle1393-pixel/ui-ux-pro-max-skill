@@ -1,5 +1,5 @@
 /* Kult — service worker : app shell en cache, fonctionne hors-ligne */
-const CACHE = "kult-v1";
+const CACHE = "kult-v2";
 const SHELL = [
   "./",
   "index.html",

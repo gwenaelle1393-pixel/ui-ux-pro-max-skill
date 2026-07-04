@@ -23,6 +23,14 @@
 
   const fmtRating = (r) => r.toFixed(1).replace(".", ",");
 
+  /* Jaquettes : fichiers locaux, ou data-URI injectées (version single-file) */
+  const imgSrc = (id) => (window.KULT_IMG ? KULT_IMG[id] || "" : `img/${id}.jpg`);
+
+  // Image introuvable → on retire la balise, l'affiche générative reste visible
+  document.addEventListener("error", (e) => {
+    if (e.target?.classList?.contains("poster-img")) e.target.remove();
+  }, true);
+
   const haptic = (ms = 12) => {
     if (navigator.vibrate) navigator.vibrate(ms);
   };
@@ -101,12 +109,17 @@
         <div class="sheet-handle" aria-hidden="true"></div>
         <button class="sheet-close" data-close aria-label="Fermer la fiche">${icon("x")}</button>
         <div class="sheet-scroll">
-          <div class="sheet-poster">${icon(KIND_ICON[item.k])}</div>
-          <h2 id="sheet-title">${esc(item.t)}</h2>
-          <p class="poster-meta">
-            <span class="badge-rating">${icon("star")}${fmtRating(item.r)}</span>
-            <span>${metaLine(item)}</span>
-          </p>
+          <div class="sheet-head">
+            <div class="sheet-cover" style="--h:${item.h}">
+              ${icon(KIND_ICON[item.k])}
+              <img class="poster-img" src="${imgSrc(item.id)}" alt="Jaquette de ${esc(item.t)}" />
+            </div>
+            <div class="sheet-headings">
+              <h2 id="sheet-title">${esc(item.t)}</h2>
+              <p class="poster-meta"><span class="badge-rating">${icon("star")}${fmtRating(item.r)}</span></p>
+              <p class="poster-meta">${metaLine(item)}</p>
+            </div>
+          </div>
           <div class="poster-genres">${item.g.map((g) => `<span class="tag">${esc(g)}</span>`).join("")}</div>
           <p class="sheet-desc">${esc(item.d)}</p>
           <div class="sheet-actions">
@@ -141,7 +154,7 @@
       if (on) Store.removeFrom(kind, item.id);
       else Store.addTo(kind, item.id);
       btn.setAttribute("aria-pressed", String(!on));
-      const labels = { todo: "À découvrir", fav: "Favoris", done: "Terminés" };
+      const labels = { todo: "À découvrir", fav: "Favoris", done: "Vus / Lus" };
       toast(on ? `Retiré de « ${labels[kind]} »` : `Ajouté à « ${labels[kind]} »`);
       if (routes.current === "listes") renderLists.refresh?.();
     });
@@ -179,6 +192,7 @@
           <span class="badge-rating">${icon("star")}${fmtRating(item.r)}</span>
         </div>
         <div class="poster-art" aria-hidden="true">${icon(KIND_ICON[item.k], "")}</div>
+        <img class="poster-img" src="${imgSrc(item.id)}" alt="" />
         <div class="poster-bottom">
           ${matchBadge ? `<span class="badge-match">${icon("sparkles")}Recommandé pour toi</span>` : ""}
           <h2 class="poster-title">${esc(item.t)}</h2>
@@ -188,6 +202,7 @@
         <span class="stamp stamp-like" aria-hidden="true">LIKE</span>
         <span class="stamp stamp-nope" aria-hidden="true">PASSE</span>
         <span class="stamp stamp-super" aria-hidden="true">COUP DE CŒUR</span>
+        <span class="stamp stamp-seen" aria-hidden="true">${item.k === "livre" ? "DÉJÀ LU" : "DÉJÀ VU"}</span>
       </article>`;
   }
 
@@ -196,6 +211,7 @@
       <button class="mini-card" data-open="${item.id}" aria-label="${esc(item.t)}, ${KIND_LABEL[item.k]}, note ${fmtRating(item.r)} sur 10">
         <span class="mini-poster" style="--h:${item.h}">
           <span class="mini-art" aria-hidden="true">${icon(KIND_ICON[item.k], "")}</span>
+          <img class="poster-img" src="${imgSrc(item.id)}" alt="" loading="lazy" />
           <span class="mini-title">${esc(item.t)}</span>
           <span class="mini-sub">${icon(KIND_ICON[item.k])}${KIND_LABEL[item.k]} · ${item.y}</span>
         </span>
@@ -229,11 +245,11 @@
         <div class="deck-actions">
           <button class="act act-undo" id="act-undo" aria-label="Annuler le dernier swipe" disabled>${icon("undo")}</button>
           <button class="act act-nope" id="act-nope" aria-label="Passer">${icon("x")}</button>
+          <button class="act act-seen" id="act-seen" aria-label="Déjà vu ou lu">${icon("eye")}</button>
           <button class="act act-super" id="act-super" aria-label="Coup de cœur">${icon("star")}</button>
           <button class="act act-like" id="act-like" aria-label="J'aime, ajouter à ma liste">${icon("heart")}</button>
-          <button class="act act-info" id="act-info" aria-label="Voir la fiche détaillée">${icon("info")}</button>
         </div>
-        <p class="deck-hint">Glisse la carte, ou utilise les boutons · flèches ← → ↑ au clavier</p>
+        <p class="deck-hint">Touche la carte pour la fiche · glisse ↓ si déjà vu ou lu</p>
       </div>`;
 
     view.querySelector(".chips").addEventListener("click", (e) => {
@@ -248,9 +264,7 @@
     document.getElementById("act-like").addEventListener("click", () => swipeTop(1));
     document.getElementById("act-super").addEventListener("click", () => swipeTop(2));
     document.getElementById("act-undo").addEventListener("click", undoSwipe);
-    document.getElementById("act-info").addEventListener("click", () => {
-      if (deckState.queue[0]) openSheet(deckState.queue[0]);
-    });
+    document.getElementById("act-seen").addEventListener("click", () => markSeen());
 
     renderStack();
 
@@ -284,6 +298,11 @@
       card.style.zIndex = String(3 - i);
       card.dataset.id = item.id;
       card.innerHTML = posterCard(item, i === 0 && Reco.isStrongMatch(item.id, deckState.info));
+      if (i === 0) {
+        card.setAttribute("role", "button");
+        card.setAttribute("tabindex", "0");
+        card.setAttribute("aria-label", `${item.t} — toucher pour la fiche détaillée`);
+      }
       deck.appendChild(card);
     });
     attachDrag(deck.firstElementChild);
@@ -291,7 +310,7 @@
   }
 
   function updateDeckButtons(hasCards) {
-    for (const id of ["act-nope", "act-like", "act-super", "act-info"]) {
+    for (const id of ["act-nope", "act-like", "act-super", "act-seen"]) {
       const b = document.getElementById(id);
       if (b) b.disabled = !hasCards;
     }
@@ -302,17 +321,30 @@
   /* Geste de swipe (pointer events) */
   function attachDrag(card) {
     if (!card) return;
-    let startX = 0, startY = 0, dx = 0, dy = 0, dragging = false;
+    let startX = 0, startY = 0, dx = 0, dy = 0, dragging = false, maxMove = 0;
 
     const stamps = {
       like: card.querySelector(".stamp-like"),
       nope: card.querySelector(".stamp-nope"),
       super: card.querySelector(".stamp-super"),
+      seen: card.querySelector(".stamp-seen"),
     };
+
+    card.addEventListener("click", () => {
+      if (maxMove > 8 || deckState.busy) return;
+      if (deckState.queue[0]) openSheet(deckState.queue[0]);
+    });
+    card.addEventListener("keydown", (e) => {
+      if ((e.key === "Enter" || e.key === " ") && deckState.queue[0]) {
+        e.preventDefault();
+        openSheet(deckState.queue[0]);
+      }
+    });
 
     card.addEventListener("pointerdown", (e) => {
       if (deckState.busy || e.button > 0) return;
       dragging = true;
+      maxMove = 0;
       startX = e.clientX;
       startY = e.clientY;
       card.setPointerCapture(e.pointerId);
@@ -323,11 +355,14 @@
       if (!dragging) return;
       dx = e.clientX - startX;
       dy = e.clientY - startY;
+      maxMove = Math.max(maxMove, Math.hypot(dx, dy));
       card.style.transform = `translate(${dx}px, ${dy}px) rotate(${dx * 0.045}deg)`;
       const isSuper = dy < -70 && Math.abs(dx) < 60;
-      stamps.like.style.opacity = isSuper ? 0 : Math.min(1, Math.max(0, dx / 80));
-      stamps.nope.style.opacity = isSuper ? 0 : Math.min(1, Math.max(0, -dx / 80));
+      const isSeen = dy > 70 && Math.abs(dx) < 60;
+      stamps.like.style.opacity = isSuper || isSeen ? 0 : Math.min(1, Math.max(0, dx / 80));
+      stamps.nope.style.opacity = isSuper || isSeen ? 0 : Math.min(1, Math.max(0, -dx / 80));
       stamps.super.style.opacity = Math.min(1, Math.max(0, isSuper ? -dy / 130 : 0));
+      stamps.seen.style.opacity = Math.min(1, Math.max(0, isSeen ? dy / 130 : 0));
     });
 
     const release = () => {
@@ -336,7 +371,9 @@
       card.classList.remove("dragging");
       const th = Math.min(window.innerWidth * 0.28, 130);
       const isSuper = dy < -th * 1.1 && Math.abs(dx) < 70;
+      const isSeen = dy > th * 1.1 && Math.abs(dx) < 70;
       if (isSuper) swipeTop(2, card);
+      else if (isSeen) markSeen(card);
       else if (dx > th) swipeTop(1, card);
       else if (dx < -th) swipeTop(-1, card);
       else {
@@ -356,7 +393,7 @@
     haptic(value === 2 ? 24 : 12);
 
     Store.swipe(item.id, value);
-    deckState.history.push(item);
+    deckState.history.push({ item });
     deckState.queue.shift();
 
     const strong = value > 0 && Reco.isStrongMatch(item.id, deckState.info);
@@ -384,13 +421,74 @@
   }
 
   function undoSwipe() {
-    const item = deckState.history.pop();
-    if (!item) return;
+    const entry = deckState.history.pop();
+    if (!entry) return;
+    const item = entry.item;
     haptic();
-    Store.unswipe(item.id);
+    if (entry.seen) {
+      Store.removeFrom("done", item.id);
+      delete Store.state.swipes[item.id];
+      Store.save();
+    } else {
+      Store.unswipe(item.id);
+    }
     deckState.queue.unshift(item);
-    toast(`Swipe annulé : « ${item.t} »`);
+    toast(`Annulé : « ${item.t} »`);
     renderStack();
+  }
+
+  /* Déjà vu / lu : alimente les recommandations, avec feedback optionnel */
+  function markSeen(cardEl) {
+    const item = deckState.queue[0];
+    if (!item || deckState.busy) return;
+    deckState.busy = true;
+    haptic(16);
+    Store.addTo("done", item.id);
+    deckState.history.push({ item, seen: true });
+    deckState.queue.shift();
+
+    const deck = document.getElementById("deck");
+    const card = cardEl || deck?.firstElementChild;
+    const finish = () => {
+      deckState.busy = false;
+      renderStack();
+      feedbackToast(item);
+    };
+    if (!card || reducedMotion.matches) { finish(); return; }
+    const stamp = card.querySelector(".stamp-seen");
+    if (stamp) stamp.style.opacity = 1;
+    card.style.transform = "";
+    card.classList.add("fly-down");
+    let done = false;
+    const once = () => { if (!done) { done = true; finish(); } };
+    card.addEventListener("transitionend", once, { once: true });
+    setTimeout(once, 380);
+  }
+
+  function feedbackToast(item) {
+    document.querySelector(".toast")?.remove();
+    clearTimeout(toastTimer);
+    const t = document.createElement("div");
+    t.className = "toast ask";
+    t.innerHTML = `${icon("eye")}<span>Tu as aimé « ${esc(item.t)} » ?</span>
+      <button class="toast-btn yes">Oui !</button>
+      <button class="toast-btn no">Pas trop</button>`;
+    t.querySelector(".yes").addEventListener("click", () => {
+      Store.rate(item.id, 2);
+      t.remove();
+      toast("Noté ! Tes recos s'affinent", { match: true });
+    });
+    t.querySelector(".no").addEventListener("click", () => {
+      Store.rate(item.id, -1);
+      t.remove();
+      toast("Noté, on évitera ce style");
+    });
+    document.body.appendChild(t);
+    announce(`${item.t} marqué comme ${item.k === "livre" ? "lu" : "vu"}`);
+    toastTimer = setTimeout(() => {
+      t.classList.add("hide");
+      setTimeout(() => t.remove(), 250);
+    }, 7000);
   }
 
   /* Clavier : flèches sur la vue Découvrir */
@@ -400,6 +498,7 @@
     if (e.key === "ArrowRight") swipeTop(1);
     else if (e.key === "ArrowLeft") swipeTop(-1);
     else if (e.key === "ArrowUp") { e.preventDefault(); swipeTop(2); }
+    else if (e.key === "ArrowDown") { e.preventDefault(); markSeen(); }
   });
 
   function showOnboarding() {
@@ -413,6 +512,7 @@
           <div class="tip"><span class="tip-icon like">${icon("heart")}</span><span>Glisse à <strong>droite</strong> pour ajouter à ta liste « À découvrir »</span></div>
           <div class="tip"><span class="tip-icon nope">${icon("x")}</span><span>Glisse à <strong>gauche</strong> pour passer</span></div>
           <div class="tip"><span class="tip-icon super">${icon("star")}</span><span>Glisse vers le <strong>haut</strong> pour un coup de cœur</span></div>
+          <div class="tip"><span class="tip-icon seen">${icon("eye")}</span><span>Glisse vers le <strong>bas</strong> si tu l'as <strong>déjà vu ou lu</strong> — tes recos en tiennent compte</span></div>
         </div>
         <button class="btn btn-primary" id="ob-go">C'est parti</button>
       </div>`;
@@ -560,7 +660,7 @@
       <div class="segmented" role="group" aria-label="Choisir une liste">
         <button data-tab="todo" aria-pressed="${listsTab === "todo"}">À découvrir</button>
         <button data-tab="fav" aria-pressed="${listsTab === "fav"}">Favoris</button>
-        <button data-tab="done" aria-pressed="${listsTab === "done"}">Terminés</button>
+        <button data-tab="done" aria-pressed="${listsTab === "done"}">Vus · Lus</button>
       </div>
       <div id="list-rows"></div>`;
 
@@ -586,7 +686,7 @@
       const msgs = {
         todo: ["Rien à découvrir pour l'instant", "Swipe à droite dans « Découvrir » pour remplir ta liste."],
         fav: ["Pas encore de favoris", "Swipe vers le haut ou touche l'étoile sur une fiche pour marquer un coup de cœur."],
-        done: ["Rien de terminé", "Marque un titre comme vu ou lu depuis sa fiche ou ta liste."],
+        done: ["Rien de vu ou lu pour l'instant", "Glisse une carte vers le bas dans « Découvrir », ou marque un titre depuis sa fiche."],
       };
       box.innerHTML = `
         <div class="empty-state">
@@ -606,6 +706,7 @@
         <div class="row" style="--h:${item.h}">
           <button class="row-poster" data-open="${item.id}" aria-label="Voir la fiche de ${esc(item.t)}" style="--h:${item.h}">
             ${icon(KIND_ICON[item.k])}
+            <img class="poster-img" src="${imgSrc(item.id)}" alt="" loading="lazy" />
           </button>
           <button class="row-body" data-open="${item.id}">
             <p class="row-title">${esc(item.t)}</p>
@@ -636,7 +737,7 @@
         if (Store.inList("done", id)) Store.removeFrom("done", id);
         else {
           Store.addTo("done", id);
-          toast(`« ${BY_ID[id].t} » marqué comme terminé`);
+          toast(`« ${BY_ID[id].t} » marqué comme ${BY_ID[id].k === "livre" ? "lu" : "vu"}`);
         }
         renderListRows();
       } else if (remove) {
@@ -666,10 +767,10 @@
     const kindsPos = Object.entries(p.kinds).filter(([, w]) => w > 0);
     const kindTotal = kindsPos.reduce((s, [, w]) => s + w, 0);
 
-    let summary = "Swipe encore quelques titres pour que je cerne tes goûts !";
+    let summary = "Swipe encore quelques titres pour que je cerne tes goûts ! Astuce : glisse vers le bas les titres que tu as déjà vus ou lus, ils comptent aussi.";
     if (p.signals >= 3 && topGenres.length >= 2) {
       const bestKind = kindsPos.sort((a, b) => b[1] - a[1])[0]?.[0];
-      summary = `Tu es plutôt <strong>${esc(topGenres[0][0])}</strong> et <strong>${esc(topGenres[1][0])}</strong>, team <strong>${KIND_PLURAL[bestKind]}</strong>. Tes recommandations sont ajustées en conséquence.`;
+      summary = `Tu es plutôt <strong>${esc(topGenres[0][0])}</strong> et <strong>${esc(topGenres[1][0])}</strong>, team <strong>${KIND_PLURAL[bestKind]}</strong>. Tes swipes et tes titres vus ou lus ajustent tes recommandations en continu.`;
     }
 
     view.innerHTML = `
@@ -686,7 +787,7 @@
         <div class="stat-tile"><div class="stat-value">${swipeCount}</div><div class="stat-label">Swipes</div></div>
         <div class="stat-tile"><div class="stat-value">${likeCount}</div><div class="stat-label">Likes</div></div>
         <div class="stat-tile"><div class="stat-value">${Store.state.lists.fav.length}</div><div class="stat-label">Favoris</div></div>
-        <div class="stat-tile"><div class="stat-value">${Store.state.lists.done.length}</div><div class="stat-label">Terminés</div></div>
+        <div class="stat-tile"><div class="stat-value">${Store.state.lists.done.length}</div><div class="stat-label">Vus / Lus</div></div>
       </div>
 
       <p class="taste-summary">${summary}</p>
