@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Dently — Trouvez et réservez votre dentiste</title>
+<meta name="description" content="Dently, la plateforme de réservation de rendez-vous dentaires : trouvez le bon spécialiste près de chez vous et réservez en quelques secondes.">
+<meta name="theme-color" content="#0EA5E9">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;600;700;800&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   DENTLY — Design tokens
+   Source: ui-ux-pro-max (Dental Practice + Booking & Appointment App)
+   Style: Soft UI Evolution + Minimalism + Accessible & Ethical
+   Typography: Medical Clean (Figtree / Noto Sans)
+   ========================================================= */
+:root{
+  --primary:#0EA5E9;
+  --primary-dark:#0284C7;
+  --primary-on:#FFFFFF;
+  --secondary:#38BDF8;
+  --accent:#F59E0B;
+  --accent-on:#3A2400;
+  --available:#10B981;
+  --available-bg:#ECFDF5;
+  --booked:#94A3B8;
+  --urgent:#DC2626;
+  --urgent-bg:#FEF2F2;
+  --background:#F0F9FF;
+  --surface:#FFFFFF;
+  --foreground:#0C4A6E;
+  --muted:#E4F2FA;
+  --muted-foreground:#64748B;
+  --border:#D6EBF7;
+  --ring:#0EA5E9;
+  --radius-lg:24px;
+  --radius-card:18px;
+  --radius-btn:14px;
+  --radius-pill:999px;
+  --shadow-card:0 8px 24px -8px rgba(12,74,110,0.12), 0 2px 6px rgba(12,74,110,0.06);
+  --shadow-float:0 12px 32px -6px rgba(14,165,233,0.28);
+  --safe-top:env(safe-area-inset-top,0px);
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  font-family:'Noto Sans',-apple-system,sans-serif;
+  background:#0B2A3B;
+  color:var(--foreground);
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  padding:32px 12px;
+}
+h1,h2,h3,h4,.heading{font-family:'Figtree',sans-serif;}
+button{font-family:inherit;}
+img,svg{display:block;}
+a{color:inherit;}
+::selection{background:var(--secondary);color:var(--foreground);}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:0.01ms !important;transition-duration:0.01ms !important;}
+}
+
+/* Phone shell */
+.device{
+  position:relative;
+  width:100%;
+  max-width:396px;
+  height:844px;
+  max-height:calc(100vh - 64px);
+  background:var(--background);
+  border-radius:44px;
+  overflow:hidden;
+  box-shadow:0 40px 80px -20px rgba(0,0,0,0.55), 0 0 0 10px #12222c, 0 0 0 12px #1c3644;
+  isolation:isolate;
+}
+.notch{
+  position:absolute;top:8px;left:50%;transform:translateX(-50%);
+  width:120px;height:26px;background:#0B2A3B;border-radius:var(--radius-pill);
+  z-index:50;
+}
+.statusbar{
+  position:absolute;top:0;left:0;right:0;height:calc(46px + var(--safe-top));
+  padding:calc(14px + var(--safe-top)) 26px 0;
+  display:flex;justify-content:space-between;align-items:flex-start;
+  font-size:0.8rem;font-weight:700;color:var(--foreground);
+  z-index:40;pointer-events:none;
+}
+.statusbar .icons{display:flex;gap:5px;align-items:center;}
+
+/* App root */
+.app{position:absolute;inset:0;overflow:hidden;}
+
+/* Screens */
+.screen{
+  position:absolute;inset:0;
+  background:var(--background);
+  display:flex;flex-direction:column;
+  opacity:0;pointer-events:none;
+  transform:translateX(16px);
+  transition:opacity .28s ease, transform .28s ease;
+}
+.screen.active{opacity:1;pointer-events:auto;transform:translateX(0);z-index:5;}
+.screen.leaving{transform:translateX(-16px);}
+.screen-scroll{
+  flex:1;overflow-y:auto;overscroll-behavior:contain;
+  padding-bottom:110px;
+  scrollbar-width:none;
+}
+.screen-scroll::-webkit-scrollbar{display:none;}
+.screen-top-pad{height:calc(52px + var(--safe-top));}
+
+/* Top bars */
+.topbar{
+  display:flex;align-items:center;gap:12px;
+  padding:calc(58px + var(--safe-top)) 20px 14px;
+  background:var(--background);
+}
+.topbar h1{font-size:1.15rem;font-weight:800;color:var(--foreground);}
+.iconbtn{
+  width:40px;height:40px;border-radius:var(--radius-pill);
+  background:var(--surface);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--foreground);cursor:pointer;flex-shrink:0;
+  transition:transform .15s ease, background .15s ease;
+}
+.iconbtn:active{transform:scale(0.92);background:var(--muted);}
+.iconbtn svg{width:20px;height:20px;}
+.topbar .spacer{flex:1;}
+
+/* Buttons */
+.btn{
+  appearance:none;border:none;cursor:pointer;
+  font-family:'Figtree',sans-serif;font-weight:700;font-size:0.95rem;
+  border-radius:var(--radius-btn);
+  padding:15px 20px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:transform .12s ease, box-shadow .12s ease, background .15s ease;
+  touch-action:manipulation;
+}
+.btn:active{transform:scale(0.97);}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--primary-on);box-shadow:var(--shadow-float);}
+.btn-primary:disabled{background:var(--booked);box-shadow:none;opacity:.6;cursor:not-allowed;}
+.btn-primary:disabled:active{transform:none;}
+.btn-secondary{background:var(--surface);color:var(--primary-dark);border:1.5px solid var(--border);}
+.btn-block{width:100%;}
+.btn-sm{padding:9px 16px;font-size:0.82rem;border-radius:var(--radius-pill);}
+.btn:focus-visible, .iconbtn:focus-visible, .chip:focus-visible, .tab-item:focus-visible, a:focus-visible{
+  outline:3px solid var(--primary-dark);outline-offset:2px;
+}
+
+/* Cards */
+.card{
+  background:var(--surface);border-radius:var(--radius-card);
+  box-shadow:var(--shadow-card);
+  border:1px solid rgba(214,235,247,0.7);
+}
+
+/* Chips */
+.chip-row{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:2px 2px 6px;}
+.chip-row::-webkit-scrollbar{display:none;}
+.chip{
+  flex-shrink:0;border:1.5px solid var(--border);background:var(--surface);
+  color:var(--foreground);font-size:0.82rem;font-weight:600;
+  padding:9px 16px;border-radius:var(--radius-pill);cursor:pointer;
+  display:flex;align-items:center;gap:6px;white-space:nowrap;
+  transition:background .15s ease,color .15s ease,border-color .15s ease,transform .12s ease;
+}
+.chip:active{transform:scale(0.96);}
+.chip.selected{background:var(--foreground);border-color:var(--foreground);color:#fff;}
+.chip svg{width:16px;height:16px;flex-shrink:0;}
+
+/* Bottom tab bar */
+.tabbar{
+  position:absolute;left:0;right:0;bottom:0;z-index:30;
+  display:flex;justify-content:space-around;
+  background:rgba(255,255,255,0.92);backdrop-filter:blur(14px);
+  border-top:1px solid var(--border);
+  padding:10px 6px calc(14px + var(--safe-bottom));
+  transition:transform .25s ease;
+}
+.tabbar.hidden{transform:translateY(110%);}
+.tab-item{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+  background:none;border:none;color:var(--muted-foreground);cursor:pointer;
+  font-size:0.68rem;font-weight:700;padding:4px 2px;border-radius:12px;position:relative;
+}
+.tab-item svg{width:23px;height:23px;stroke:currentColor;fill:none;stroke-width:1.9;}
+.tab-item.active{color:var(--primary-dark);}
+.tab-item .dot{position:absolute;top:2px;right:26%;width:7px;height:7px;border-radius:50%;background:var(--urgent);border:1.5px solid #fff;}
+
+/* Stars */
+.stars{display:inline-flex;gap:2px;color:var(--accent);}
+.stars svg{width:14px;height:14px;fill:currentColor;}
+
+/* Avatar */
+.avatar{
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:'Figtree',sans-serif;font-weight:800;color:#fff;flex-shrink:0;
+  background:linear-gradient(135deg,var(--av-a,#0EA5E9),var(--av-b,#0284C7));
+}
+
+/* Badges */
+.badge{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:0.68rem;font-weight:700;padding:3px 8px;border-radius:var(--radius-pill);
+}
+.badge-available{background:var(--available-bg);color:#047857;}
+.badge-sector{background:var(--muted);color:var(--primary-dark);}
+.badge svg{width:11px;height:11px;}
+
+/* Utility */
+.row{display:flex;align-items:center;}
+.between{justify-content:space-between;}
+.col{display:flex;flex-direction:column;}
+.muted{color:var(--muted-foreground);}
+.mt-4{margin-top:4px;}.mt-6{margin-top:6px;}.mt-8{margin-top:8px;}.mt-12{margin-top:12px;}
+.mt-16{margin-top:16px;}.mt-20{margin-top:20px;}.mt-24{margin-top:24px;}
+.px-20{padding-left:20px;padding-right:20px;}
+.section-title{font-size:1.02rem;font-weight:800;color:var(--foreground);}
+.link{color:var(--primary-dark);font-weight:700;font-size:0.85rem;cursor:pointer;}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+.skip-link{position:absolute;top:-60px;left:8px;background:#000;color:#fff;padding:10px 14px;border-radius:8px;z-index:999;transition:top .2s;}
+.skip-link:focus{top:8px;}
+</style>
+</head>
+<body>
+
+<a href="#main-app" class="skip-link">Aller au contenu principal</a>
+
+<!-- ============ SVG SPRITE (icônes réutilisables) ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5M5.5 10v9a1 1 0 0 0 1 1H10v-6h4v6h3.5a1 1 0 0 0 1-1v-9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 9.5h17M8 3v4M16 3v4M8 14h2M8 17h2M14 14h2M14 17h2" stroke-linecap="round"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8A2.5 2.5 0 0 1 17.5 16H10l-4.5 4v-4H6.5A2.5 2.5 0 0 1 4 13.5z" stroke-linejoin="round"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8.2" r="3.6"/><path d="M4.5 20c1-4 4-6 7.5-6s6.5 2 7.5 6" stroke-linecap="round"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.3-4.3" stroke-linecap="round"/></symbol>
+<symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4" stroke-linecap="round"/></symbol>
+<symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 5 8 12l7 7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-7.2 7-12a7 7 0 1 0-14 0c0 4.8 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9L12 17l-5.2 2.8 1-5.9-4.3-4.2 5.9-.8Z" stroke-linejoin="round"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6Z" stroke-linejoin="round"/><path d="m9 12 2 2 4-4.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="6" width="12" height="12" rx="2.5"/><path d="M15 10.2 20.5 7v10l-5.5-3.2Z" stroke-linejoin="round"/></symbol>
+<symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3 5 13.5h5.5L11 21l8-11h-6Z" stroke-linejoin="round"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 10a6 6 0 1 1 12 0c0 4 1.4 5.4 2 6H4c.6-.6 2-2 2-6Z" stroke-linejoin="round"/><path d="M10 19.5a2 2 0 0 0 4 0" stroke-linecap="round"/></symbol>
+<symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.3 2.6 2.6L16 9.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-tooth" viewBox="0 0 24 24"><path d="M12 3.5c-2.3 0-3.4 1.2-4.6 1.2-1.7 0-3.4-1-3.4 2.4 0 2.7 1 4 1.3 7.4.2 2.4.9 5 2.4 5 1.7 0 1.4-4.3 3-4.3s1.4 4.3 3.1 4.3c1.6 0 2.2-2.7 2.4-5.1.3-3.3 1.3-4.6 1.3-7.3 0-3.4-1.7-2.4-3.4-2.4-1.2 0-2.3-1.2-4.1-1.2Z" stroke-linejoin="round"/></symbol>
+<symbol id="i-braces" viewBox="0 0 24 24"><path d="M4 8h16M4 8c0 4 1 9 3 11M20 8c0 4-1 9-3 11M7 8v3M10.3 8v3M13.7 8v3M17 8v3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-child" viewBox="0 0 24 24"><circle cx="12" cy="7" r="2.6"/><path d="M6 20v-3c0-2.8 2.7-5 6-5s6 2.2 6 5v3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9.3" cy="6.6" r=".4" fill="currentColor" stroke="none"/><circle cx="14.7" cy="6.6" r=".4" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-implant" viewBox="0 0 24 24"><path d="M9 3.5h6l1 5-2.3 1v10a1.7 1.7 0 0 1-3.4 0v-10L8 8.5Z" stroke-linejoin="round"/><path d="M9.5 6.5h5" stroke-linecap="round"/></symbol>
+<symbol id="i-gum" viewBox="0 0 24 24"><path d="M4 8c1.5-2 3-3 5-3s3 1.5 4 1.5S15 5 17 5s3.5 1 3.5 3-1 3-1.5 5c-.4 1.7-1 3.5-3 3.5s-2-2-3.5-2-1.8 2-3.5 2-2.7-1.8-3.1-3.5C5.4 11 4 10 4 8Z" stroke-linejoin="round"/></symbol>
+<symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.8 2.8M15.2 15.2 18 18M18 6l-2.8 2.8M8.8 15.2 6 18" stroke-linecap="round"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></symbol>
+<symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5.5a1.5 1.5 0 0 1-1.5-1.5v-15A1.5 1.5 0 0 1 5.5 3H9" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 16l4-4-4-4M20 12H9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M3 10h18M7 14.5h4" stroke-linecap="round"/></symbol>
+<symbol id="i-family" viewBox="0 0 24 24"><circle cx="8" cy="8" r="2.6"/><circle cx="16.3" cy="8" r="2"/><path d="M3.5 20v-1.5c0-2.5 2-4.3 4.5-4.3s4.5 1.8 4.5 4.3V20M14.5 20v-1c0-2.2-1.7-4-4-4.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3.8a7 7 0 0 0-2-1.2L14 3h-4l-.6 2.5a7 7 0 0 0-2 1.2l-2.3-.8-2 3.4 2 1.5A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.5 2 3.4 2.3-.8a7 7 0 0 0 2 1.2L10 21h4l.6-2.5a7 7 0 0 0 2-1.2l2.3.8 2-3.4-2-1.5c.1-.4.1-.8.1-1.2Z" stroke-linejoin="round"/></symbol>
+<symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3.5h7l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V5A1.5 1.5 0 0 1 7 3.5Z" stroke-linejoin="round"/><path d="M14 3.5V8h4M9 12h6M9 15.5h6" stroke-linecap="round"/></symbol>
+<symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" stroke-linecap="round"/></symbol>
+</defs>
+</svg>
+<!-- icon defaults -->
+<style>svg use{fill:none;stroke:currentColor;stroke-width:1.9;}</style>
+
+<div class="device" id="main-app">
+  <div class="notch" aria-hidden="true"></div>
+  <div class="statusbar" aria-hidden="true">
+    <span>9:41</span>
+    <span class="icons">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M2 17h2v4H2zM7 13h2v8H7zM12 9h2v12h-2zM17 5h2v16h-2z"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="8" width="18" height="8" rx="2.5"/><path d="M22 10.5v3" stroke-linecap="round"/></svg>
+    </span>
+  </div>
+
+  <div class="app" role="application" aria-label="Application Dently">
+
+    <!-- ============ SCREEN: ONBOARDING ============ -->
+    <section class="screen active" id="screen-onboarding" aria-label="Bienvenue">
+      <div class="screen-scroll" style="padding:0;display:flex;flex-direction:column;">
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:calc(60px + var(--safe-top)) 32px 0;background:linear-gradient(180deg,#E0F5FF 0%,var(--background) 65%);">
+          <!-- Hero illustration -->
+          <svg width="230" height="200" viewBox="0 0 230 200" aria-hidden="true">
+            <ellipse cx="115" cy="182" rx="86" ry="12" fill="#0C4A6E" opacity="0.08"/>
+            <circle cx="115" cy="88" r="82" fill="#DCF3FF"/>
+            <circle cx="168" cy="35" r="10" fill="#FDE68A"/>
+            <circle cx="34" cy="120" r="7" fill="#7DD3FC"/>
+            <!-- dental chair -->
+            <rect x="55" y="118" width="120" height="14" rx="7" fill="#0284C7"/>
+            <rect x="60" y="130" width="14" height="34" rx="5" fill="#0C4A6E"/>
+            <rect x="150" y="130" width="14" height="34" rx="5" fill="#0C4A6E"/>
+            <rect x="95" y="70" width="60" height="52" rx="14" fill="#38BDF8"/>
+            <!-- patient -->
+            <circle cx="118" cy="70" r="17" fill="#FFD9B3"/>
+            <path d="M103 66c0-10 7-17 15-17s15 7 15 17" fill="#0C4A6E"/>
+            <rect x="98" y="86" width="42" height="34" rx="12" fill="#0EA5E9"/>
+            <!-- dentist -->
+            <g transform="translate(150,40)">
+              <circle cx="18" cy="18" r="15" fill="#FFE3C4"/>
+              <path d="M4 15c0-9 6-15 14-15s14 6 14 15" fill="#F8FAFC"/>
+              <rect x="0" y="30" width="36" height="30" rx="10" fill="#F8FAFC" stroke="#BAE6FD" stroke-width="2"/>
+              <circle cx="18" cy="46" r="4" fill="#38BDF8"/>
+            </g>
+            <!-- speech bubble with tooth+check -->
+            <g transform="translate(20,20)">
+              <rect x="0" y="0" width="52" height="42" rx="14" fill="#FFFFFF" stroke="#BAE6FD" stroke-width="2"/>
+              <path d="M18 30 L10 42 L26 34 Z" fill="#FFFFFF" stroke="#BAE6FD" stroke-width="2"/>
+              <use href="#i-check-circle" x="14" y="9" width="24" height="24" style="stroke:#10B981;stroke-width:2.2;"/>
+            </g>
+          </svg>
+          <h1 class="heading" style="font-size:1.7rem;font-weight:800;color:var(--foreground);text-align:center;margin-top:18px;">Le bon dentiste,<br>au bon moment</h1>
+          <p class="muted" style="text-align:center;font-size:0.92rem;line-height:1.5;margin-top:10px;max-width:280px;">Trouvez un spécialiste dentaire près de chez vous et réservez votre rendez-vous en moins d'une minute.</p>
+        </div>
+        <div class="px-20" style="padding-bottom:calc(28px + var(--safe-bottom));padding-top:20px;">
+          <div class="row" style="justify-content:center;gap:6px;margin-bottom:20px;" aria-hidden="true">
+            <span style="width:22px;height:6px;border-radius:3px;background:var(--primary);"></span>
+            <span style="width:6px;height:6px;border-radius:3px;background:var(--border);"></span>
+            <span style="width:6px;height:6px;border-radius:3px;background:var(--border);"></span>
+          </div>
+          <button class="btn btn-primary btn-block" onclick="goto('screen-home')">
+            Commencer
+            <svg width="18" height="18" viewBox="0 0 24 24"><use href="#i-chevron-right" style="stroke:#fff;stroke-width:2.4;"/></svg>
+          </button>
+          <p class="muted" style="text-align:center;font-size:0.8rem;margin-top:14px;">Déjà inscrit ? <span class="link" onclick="goto('screen-home')">Se connecter</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SCREEN: HOME ============ -->
+    <section class="screen" id="screen-home" aria-label="Accueil">
+      <div class="screen-scroll">
+        <div class="screen-top-pad"></div>
+        <div class="px-20" style="padding-top:14px;">
+          <div class="row between">
+            <div>
+              <p class="muted" style="font-size:0.78rem;">Bonjour Camille 👋</p>
+              <h1 class="heading" style="font-size:1.3rem;font-weight:800;">Trouvez votre dentiste</h1>
+            </div>
+            <button class="iconbtn" aria-label="Notifications" onclick="goto('screen-notifications')" style="position:relative;">
+              <svg width="20" height="20"><use href="#i-bell"/></svg>
+              <span style="position:absolute;top:6px;right:7px;width:8px;height:8px;border-radius:50%;background:var(--urgent);border:2px solid var(--surface);"></span>
+            </button>
+          </div>
+
+          <!-- Search bar -->
+          <button class="card row" style="width:100%;margin-top:16px;padding:14px 16px;gap:10px;border:1.5px solid var(--border);cursor:pointer;" onclick="goto('screen-results')">
+            <svg width="19" height="19" style="color:var(--muted-foreground);flex-shrink:0;"><use href="#i-search"/></svg>
+            <span class="muted" style="font-size:0.9rem;">Spécialité, nom du praticien...</span>
+          </button>
+          <button class="row" style="margin-top:10px;gap:6px;background:none;border:none;color:var(--primary-dark);font-weight:600;font-size:0.82rem;cursor:pointer;" onclick="goto('screen-results')">
+            <svg width="15" height="15"><use href="#i-pin" stroke-width="2"/></svg>
+            Paris 15e — à moins de 3 km
+          </button>
+
+          <!-- Urgency banner -->
+          <button class="card row" style="width:100%;margin-top:18px;padding:14px 16px;gap:12px;background:linear-gradient(120deg,#FEF2F2,#FFF7ED);border-color:#FCA5A5;cursor:pointer;" onclick="goto('screen-results')">
+            <div style="width:42px;height:42px;border-radius:12px;background:#FEE2E2;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="21" height="21" style="color:var(--urgent);"><use href="#i-bolt" stroke-width="2"/></svg>
+            </div>
+            <div style="text-align:left;flex:1;">
+              <p style="font-weight:700;font-size:0.87rem;color:#991B1B;">Urgence dentaire ?</p>
+              <p class="muted" style="font-size:0.78rem;">Créneaux disponibles aujourd'hui</p>
+            </div>
+            <svg width="17" height="17" style="color:#991B1B;"><use href="#i-chevron-right"/></svg>
+          </button>
+
+          <!-- Specialties -->
+          <div class="row between mt-24" style="align-items:baseline;">
+            <h2 class="section-title">Spécialités</h2>
+            <span class="link" onclick="goto('screen-results')">Tout voir</span>
+          </div>
+          <div id="specialty-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px;"></div>
+
+          <!-- Nearby dentists -->
+          <div class="row between mt-24" style="align-items:baseline;">
+            <h2 class="section-title">Près de chez vous</h2>
+            <span class="link" onclick="goto('screen-results')">Tout voir</span>
+          </div>
+          <div id="home-dentist-list" class="col" style="gap:12px;margin-top:12px;"></div>
+        </div>
+      </div>
+      <nav class="tabbar" aria-label="Navigation principale"></nav>
+    </section>
+
+    <!-- ============ SCREEN: RESULTS ============ -->
+    <section class="screen" id="screen-results" aria-label="Résultats de recherche">
+      <div class="topbar">
+        <button class="iconbtn" aria-label="Retour" onclick="back()"><svg width="20" height="20"><use href="#i-chevron-left"/></svg></button>
+        <h1 id="results-title">Résultats</h1>
+        <div class="spacer"></div>
+        <button class="iconbtn" aria-label="Filtrer"><svg width="18" height="18"><use href="#i-filter"/></svg></button>
+      </div>
+      <div class="screen-scroll" style="padding-top:0;">
+        <div class="px-20">
+          <div class="chip-row" id="filter-chips"></div>
+          <p class="muted" id="results-count" style="font-size:0.82rem;margin:10px 0 4px;"></p>
+          <div id="results-list" class="col" style="gap:12px;margin-top:8px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SCREEN: DENTIST PROFILE ============ -->
+    <section class="screen" id="screen-profile-detail" aria-label="Profil du praticien">
+      <div class="screen-scroll" style="padding-top:0;">
+        <div style="position:relative;height:150px;background:linear-gradient(135deg,var(--primary),#075985);">
+          <button class="iconbtn" aria-label="Retour" style="position:absolute;top:calc(16px + var(--safe-top));left:16px;background:rgba(255,255,255,0.92);" onclick="back()">
+            <svg width="20" height="20"><use href="#i-chevron-left"/></svg>
+          </button>
+          <button class="iconbtn" aria-label="Partager" style="position:absolute;top:calc(16px + var(--safe-top));right:16px;background:rgba(255,255,255,0.92);">
+            <svg width="18" height="18"><use href="#i-chat"/></svg>
+          </button>
+        </div>
+        <div class="px-20" style="margin-top:-46px;position:relative;">
+          <div id="pd-avatar" class="avatar" style="width:84px;height:84px;font-size:1.9rem;border:4px solid var(--surface);box-shadow:var(--shadow-card);"></div>
+          <div style="margin-top:12px;">
+            <div class="row between" style="align-items:flex-start;">
+              <div>
+                <h1 class="heading" id="pd-name" style="font-size:1.25rem;font-weight:800;"></h1>
+                <p class="muted" id="pd-specialty" style="font-size:0.88rem;margin-top:2px;"></p>
+              </div>
+              <div class="row" style="gap:4px;background:var(--muted);padding:6px 10px;border-radius:var(--radius-pill);flex-shrink:0;">
+                <svg width="15" height="15" style="color:var(--accent);"><use href="#i-star" style="fill:currentColor;stroke:none;"/></svg>
+                <span style="font-weight:800;font-size:0.85rem;" id="pd-rating"></span>
+              </div>
+            </div>
+            <div class="row" id="pd-badges" style="gap:6px;margin-top:10px;flex-wrap:wrap;"></div>
+
+            <div class="card row between mt-16" style="padding:14px 16px;">
+              <div class="row" style="gap:10px;">
+                <svg width="18" height="18" style="color:var(--primary-dark);"><use href="#i-pin"/></svg>
+                <span style="font-size:0.85rem;" id="pd-address"></span>
+              </div>
+              <span class="link" style="font-size:0.78rem;">Itinéraire</span>
+            </div>
+
+            <div class="row" style="gap:16px;margin-top:20px;border-bottom:1.5px solid var(--border);">
+              <button class="tab-link active" data-tab="infos" onclick="switchProfileTab('infos')" style="background:none;border:none;font-weight:700;font-size:0.86rem;padding:0 0 10px;cursor:pointer;color:var(--primary-dark);border-bottom:2.5px solid var(--primary-dark);">Infos</button>
+              <button class="tab-link" data-tab="avis" onclick="switchProfileTab('avis')" style="background:none;border:none;font-weight:700;font-size:0.86rem;padding:0 0 10px;cursor:pointer;color:var(--muted-foreground);border-bottom:2.5px solid transparent;">Avis (128)</button>
+              <button class="tab-link" data-tab="tarifs" onclick="switchProfileTab('tarifs')" style="background:none;border:none;font-weight:700;font-size:0.86rem;padding:0 0 10px;cursor:pointer;color:var(--muted-foreground);border-bottom:2.5px solid transparent;">Tarifs</button>
+            </div>
+
+            <div id="pane-infos" class="mt-16">
+              <h2 class="section-title" style="font-size:0.9rem;">À propos</h2>
+              <p class="muted" style="font-size:0.85rem;line-height:1.55;margin-top:6px;" id="pd-bio"></p>
+              <h2 class="section-title mt-20" style="font-size:0.9rem;">Prochaines disponibilités</h2>
+              <div class="chip-row mt-8" id="pd-slots-preview"></div>
+            </div>
+            <div id="pane-avis" class="mt-16" style="display:none;">
+              <div id="reviews-list" class="col" style="gap:12px;"></div>
+            </div>
+            <div id="pane-tarifs" class="mt-16" style="display:none;">
+              <div id="tarifs-list" class="col" style="gap:0;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="px-20" style="padding:14px 20px calc(18px + var(--safe-bottom));background:var(--surface);border-top:1px solid var(--border);box-shadow:0 -8px 24px rgba(12,74,110,0.06);">
+        <button class="btn btn-primary btn-block" onclick="goto('screen-booking');renderBookingScreen();">
+          <svg width="18" height="18"><use href="#i-calendar" style="stroke:#fff;stroke-width:2;"/></svg>
+          Prendre rendez-vous
+        </button>
+      </div>
+    </section>
+
+    <!-- ============ SCREEN: BOOKING ============ -->
+    <section class="screen" id="screen-booking" aria-label="Prise de rendez-vous">
+      <div class="topbar">
+        <button class="iconbtn" aria-label="Retour" onclick="back()"><svg width="20" height="20"><use href="#i-chevron-left"/></svg></button>
+        <h1>Nouveau rendez-vous</h1>
+      </div>
+      <div class="screen-scroll" style="padding-top:0;">
+        <div class="px-20">
+          <div class="card row" style="padding:12px 14px;gap:10px;">
+            <div id="bk-avatar" class="avatar" style="width:44px;height:44px;font-size:0.95rem;"></div>
+            <div>
+              <p style="font-weight:700;font-size:0.88rem;" id="bk-name"></p>
+              <p class="muted" style="font-size:0.78rem;" id="bk-specialty"></p>
+            </div>
+          </div>
+
+          <h2 class="section-title mt-24">Motif de la consultation</h2>
+          <div class="chip-row mt-8" id="reason-chips"></div>
+
+          <h2 class="section-title mt-24">Choisissez une date</h2>
+          <div class="chip-row mt-8" id="date-chips"></div>
+
+          <h2 class="section-title mt-20">Créneaux disponibles</h2>
+          <div id="slot-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px;"></div>
+
+          <h2 class="section-title mt-24">Pour qui ?</h2>
+          <div class="chip-row mt-8" id="patient-chips"></div>
+
+          <div class="card mt-24" style="padding:14px 16px;background:var(--muted);border:none;">
+            <div class="row" style="gap:8px;">
+              <svg width="16" height="16" style="color:var(--primary-dark);flex-shrink:0;margin-top:1px;"><use href="#i-shield"/></svg>
+              <p style="font-size:0.78rem;line-height:1.5;color:var(--foreground);">Ce praticien est conventionné secteur 1. Votre rendez-vous est remboursé aux conditions habituelles de l'Assurance Maladie.</p>
+            </div>
+          </div>
+          <div style="height:16px;"></div>
+        </div>
+      </div>
+      <div class="px-20" style="padding:14px 20px calc(18px + var(--safe-bottom));background:var(--surface);border-top:1px solid var(--border);">
+        <div class="row between" style="margin-bottom:10px;font-size:0.82rem;" id="booking-summary-line">
+          <span class="muted">Sélectionnez un créneau</span>
+        </div>
+        <button class="btn btn-primary btn-block" id="confirm-booking-btn" disabled onclick="confirmBooking()">Confirmer le rendez-vous</button>
+      </div>
+    </section>
+
+    <!-- ============ SCREEN: CONFIRMATION ============ -->
+    <section class="screen" id="screen-confirmation" aria-label="Confirmation de rendez-vous">
+      <div class="screen-scroll" style="padding-top:0;">
+        <div class="px-20" style="padding-top:calc(70px + var(--safe-top));display:flex;flex-direction:column;align-items:center;text-align:center;">
+          <svg width="150" height="120" viewBox="0 0 150 120" aria-hidden="true">
+            <circle cx="75" cy="58" r="52" fill="#ECFDF5"/>
+            <circle cx="122" cy="24" r="7" fill="#FDE68A"/>
+            <circle cx="20" cy="80" r="5" fill="#7DD3FC"/>
+            <g transform="translate(38,20)">
+              <path d="M18 0c-3.4 0-5.1 1.8-6.9 1.8-2.5 0-5.1-1.5-5.1 3.6 0 4 1.5 6 2 11.1.3 3.6 1.3 7.5 3.6 7.5 2.5 0 2.1-6.5 4.6-6.5s2.1 6.5 4.7 6.5c2.4 0 3.3-4.1 3.6-7.7.4-5 2-6.9 2-11 0-5.1-2.5-3.6-5.1-3.6-1.8 0-3.4-1.8-6.1-1.8Z" fill="#F0F9FF" stroke="#10B981" stroke-width="1.5"/>
+            </g>
+            <circle cx="98" cy="70" r="24" fill="#10B981"/>
+            <path d="m88 70 7 7 12-14" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+          <h1 class="heading" style="font-size:1.35rem;font-weight:800;margin-top:8px;">Rendez-vous confirmé !</h1>
+          <p class="muted" style="font-size:0.88rem;margin-top:6px;max-width:260px;">Un e-mail de confirmation vient de vous être envoyé.</p>
+
+          <div class="card" style="width:100%;margin-top:24px;padding:18px;text-align:left;">
+            <div class="row" style="gap:12px;">
+              <div id="cf-avatar" class="avatar" style="width:48px;height:48px;font-size:1rem;"></div>
+              <div>
+                <p style="font-weight:700;font-size:0.9rem;" id="cf-name"></p>
+                <p class="muted" style="font-size:0.78rem;" id="cf-specialty"></p>
+              </div>
+            </div>
+            <div style="height:1px;background:var(--border);margin:14px 0;"></div>
+            <div class="col" style="gap:10px;">
+              <div class="row" style="gap:10px;"><svg width="17" height="17" style="color:var(--primary-dark);"><use href="#i-calendar"/></svg><span style="font-size:0.85rem;" id="cf-date"></span></div>
+              <div class="row" style="gap:10px;"><svg width="17" height="17" style="color:var(--primary-dark);"><use href="#i-clock"/></svg><span style="font-size:0.85rem;" id="cf-time"></span></div>
+              <div class="row" style="gap:10px;"><svg width="17" height="17" style="color:var(--primary-dark);"><use href="#i-pin"/></svg><span style="font-size:0.85rem;" id="cf-address"></span></div>
+            </div>
+          </div>
+
+          <button class="card row between" style="width:100%;margin-top:14px;padding:14px 16px;cursor:pointer;">
+            <span class="row" style="gap:10px;font-size:0.85rem;font-weight:600;"><svg width="17" height="17" style="color:var(--primary-dark);"><use href="#i-bell"/></svg>Rappel 24h avant</span>
+            <span id="reminder-toggle" data-on="true" style="width:42px;height:24px;border-radius:12px;background:var(--primary);position:relative;transition:background .2s;">
+              <span style="position:absolute;top:2px;left:20px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,0.3);"></span>
+            </span>
+          </button>
+
+          <div class="col" style="width:100%;gap:10px;margin-top:24px;">
+            <button class="btn btn-primary btn-block" onclick="goto('screen-appointments');refreshAppointments();">Voir mes rendez-vous</button>
+            <button class="btn btn-secondary btn-block" onclick="goto('screen-home')">Retour à l'accueil</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SCREEN: APPOINTMENTS ============ -->
+    <section class="screen" id="screen-appointments" aria-label="Mes rendez-vous">
+      <div class="screen-scroll">
+        <div class="screen-top-pad"></div>
+        <div class="px-20" style="padding-top:14px;">
+          <h1 class="heading" style="font-size:1.3rem;font-weight:800;">Mes rendez-vous</h1>
+          <div class="row" style="gap:8px;margin-top:16px;background:var(--muted);padding:4px;border-radius:var(--radius-pill);">
+            <button class="btn-sm" id="appt-tab-upcoming" style="flex:1;background:var(--surface);color:var(--foreground);box-shadow:0 2px 6px rgba(12,74,110,0.1);" onclick="switchApptTab('upcoming')">À venir</button>
+            <button class="btn-sm" id="appt-tab-past" style="flex:1;background:none;color:var(--muted-foreground);" onclick="switchApptTab('past')">Passés</button>
+          </div>
+          <div id="appointments-list" class="col" style="gap:12px;margin-top:18px;"></div>
+        </div>
+      </div>
+      <nav class="tabbar" aria-label="Navigation principale"></nav>
+    </section>
+
+    <!-- ============ SCREEN: NOTIFICATIONS ============ -->
+    <section class="screen" id="screen-notifications" aria-label="Notifications">
+      <div class="topbar">
+        <button class="iconbtn" aria-label="Retour" onclick="back()"><svg width="20" height="20"><use href="#i-chevron-left"/></svg></button>
+        <h1>Notifications</h1>
+      </div>
+      <div class="screen-scroll" style="padding-top:0;">
+        <div class="px-20 col" style="gap:10px;" id="notifications-list"></div>
+      </div>
+    </section>
+
+    <!-- ============ SCREEN: PROFILE ============ -->
+    <section class="screen" id="screen-account" aria-label="Mon profil">
+      <div class="screen-scroll">
+        <div class="screen-top-pad"></div>
+        <div class="px-20" style="padding-top:14px;">
+          <div class="row" style="gap:14px;">
+            <div class="avatar" style="width:64px;height:64px;font-size:1.4rem;--av-a:#0EA5E9;--av-b:#0284C7;">CM</div>
+            <div>
+              <h1 class="heading" style="font-size:1.15rem;font-weight:800;">Camille Marchand</h1>
+              <p class="muted" style="font-size:0.82rem;">camille.marchand@email.fr</p>
+            </div>
+          </div>
+
+          <div class="card mt-24" style="padding:16px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border:none;color:#fff;">
+            <div class="row between">
+              <span class="row" style="gap:8px;font-size:0.82rem;font-weight:700;"><svg width="16" height="16"><use href="#i-card" style="stroke:#fff;"/></svg>Carte Vitale</span>
+              <span class="badge" style="background:rgba(255,255,255,0.25);color:#fff;">Vérifiée</span>
+            </div>
+            <p style="font-family:'Figtree',sans-serif;letter-spacing:2px;font-weight:700;margin-top:14px;font-size:1rem;">1 88 05 75 108 234 56</p>
+            <p style="font-size:0.75rem;margin-top:6px;opacity:0.85;">Mutuelle : Harmonie Santé — Active</p>
+          </div>
+
+          <h2 class="section-title mt-24">Profils liés</h2>
+          <div class="col" style="gap:10px;margin-top:10px;" id="family-list"></div>
+          <button class="row" style="gap:8px;margin-top:10px;background:none;border:1.5px dashed var(--border);width:100%;padding:12px;border-radius:var(--radius-btn);color:var(--primary-dark);font-weight:700;font-size:0.85rem;cursor:pointer;justify-content:center;">
+            <svg width="16" height="16"><use href="#i-plus"/></svg> Ajouter un proche
+          </button>
+
+          <h2 class="section-title mt-24">Paramètres</h2>
+          <div class="card mt-10" style="overflow:hidden;">
+            <div id="settings-list"></div>
+          </div>
+
+          <button class="row" style="gap:8px;margin-top:18px;margin-bottom:24px;background:none;border:none;color:var(--urgent);font-weight:700;font-size:0.85rem;cursor:pointer;">
+            <svg width="17" height="17"><use href="#i-logout"/></svg> Se déconnecter
+          </button>
+        </div>
+      </div>
+      <nav class="tabbar" aria-label="Navigation principale"></nav>
+    </section>
+
+  </div>
+</div>
+
+<script>
+/* ============ DATA ============ */
+const specialties = [
+  {id:'general', name:'Généraliste', icon:'i-tooth'},
+  {id:'ortho', name:'Orthodontiste', icon:'i-braces'},
+  {id:'pedo', name:'Pédodontiste', icon:'i-child'},
+  {id:'chirurgien', name:'Chirurgien-dentiste', icon:'i-implant'},
+  {id:'parodontiste', name:'Parodontiste', icon:'i-gum'},
+  {id:'esthetique', name:'Esthétique dentaire', icon:'i-sparkle'},
+  {id:'urgence', name:'Urgences', icon:'i-bolt'},
+  {id:'teleconsult', name:'Téléconsultation', icon:'i-video'},
+];
+
+const dentists = [
+  {id:1, name:'Dr. Sophie Lambert', specialty:'Chirurgien-dentiste', rating:4.9, reviews:128, address:'12 rue de Vaugirard, Paris 15e', distance:'0.4 km', next:'Auj. 16:30', sector:true, tele:false, initials:'SL', colors:['#0EA5E9','#0284C7'], bio:"Chirurgien-dentiste diplômée depuis 12 ans, spécialisée dans les soins conservateurs et l'implantologie. Cabinet moderne et équipe bienveillante."},
+  {id:2, name:'Dr. Karim Haddad', specialty:'Orthodontiste', rating:4.8, reviews:94, address:'5 avenue Félix Faure, Paris 15e', distance:'0.7 km', next:'Demain 09:00', sector:true, tele:false, initials:'KH', colors:['#38BDF8','#0EA5E9'], bio:"Orthodontiste expert en gouttières invisibles et appareils dentaires pour enfants et adultes. Suivi personnalisé tout au long du traitement."},
+  {id:3, name:'Dr. Léa Fontaine', specialty:'Pédodontiste', rating:5.0, reviews:76, address:'28 rue Lecourbe, Paris 15e', distance:'1.1 km', next:'Auj. 18:00', sector:false, tele:false, initials:'LF', colors:['#F59E0B','#EA580C'], bio:"Spécialiste des soins dentaires pour les tout-petits. Approche douce et ludique pour dédramatiser la visite chez le dentiste."},
+  {id:4, name:'Dr. Antoine Rousseau', specialty:'Parodontiste', rating:4.7, reviews:61, address:'3 place du Commerce, Paris 15e', distance:'1.3 km', next:'Ven. 14:15', sector:true, tele:false, initials:'AR', colors:['#10B981','#047857'], bio:"Prise en charge des maladies des gencives et de l'os. Techniques mini-invasives et suivi rigoureux de la santé parodontale."},
+  {id:5, name:'Dr. Manon Girard', specialty:'Esthétique dentaire', rating:4.9, reviews:112, address:'44 rue du Théâtre, Paris 15e', distance:'1.6 km', next:'Auj. 17:45', sector:false, tele:true, initials:'MG', colors:['#EC4899','#BE185D'], bio:"Blanchiment, facettes et sourire harmonieux : Dr Girard conçoit avec vous le sourire qui vous ressemble."},
+  {id:6, name:'Dr. Yanis Belkacem', specialty:'Généraliste', rating:4.6, reviews:203, address:'9 rue Balard, Paris 15e', distance:'1.9 km', next:'Auj. 15:00', sector:true, tele:true, initials:'YB', colors:['#0EA5E9','#075985'], bio:"Dentiste généraliste pour toute la famille : contrôles, détartrages, soins courants dans une ambiance rassurante."},
+];
+
+const reasons = ['Contrôle', 'Douleur', 'Détartrage', 'Devis', 'Urgence', 'Suivi traitement'];
+const familyMembers = [
+  {name:'Camille Marchand', role:'Vous', initials:'CM', colors:['#0EA5E9','#0284C7']},
+  {name:'Lucas Marchand', role:'Fils · 8 ans', initials:'LM', colors:['#F59E0B','#EA580C']},
+];
+const settingsItems = [
+  {icon:'i-doc', label:'Mes documents médicaux'},
+  {icon:'i-shield', label:'Assurance & mutuelle'},
+  {icon:'i-bell', label:'Notifications'},
+  {icon:'i-settings', label:'Préférences du compte'},
+];
+
+let appointments = [
+  {id:100, dentistId:2, date:'Mer. 8 juillet', time:'09:00', reason:'Contrôle annuel', status:'upcoming'},
+  {id:101, dentistId:6, date:'Lun. 12 mai', time:'11:30', reason:'Détartrage', status:'past'},
+];
+
+let bookingState = {dentist:null, reason:null, date:null, slot:null, patient:familyMembers[0].name};
+
+/* ============ NAV ============ */
+const history = ['screen-onboarding'];
+function goto(id){
+  const cur = document.querySelector('.screen.active');
+  if(cur) cur.classList.remove('active');
+  const next = document.getElementById(id);
+  next.classList.add('active');
+  history.push(id);
+  updateTabbar(id);
+  next.scrollTop = 0;
+  const scroller = next.querySelector('.screen-scroll');
+  if(scroller) scroller.scrollTop = 0;
+}
+function back(){
+  if(history.length < 2) return;
+  history.pop();
+  const prev = history[history.length-1];
+  document.querySelector('.screen.active').classList.remove('active');
+  document.getElementById(prev).classList.add('active');
+  updateTabbar(prev);
+}
+const mainTabs = ['screen-home','screen-appointments','screen-account'];
+function updateTabbar(id){
+  document.querySelectorAll('.tabbar').forEach(bar=>{
+    bar.classList.toggle('hidden', !mainTabs.includes(id));
+    if(mainTabs.includes(id)) renderTabbar(bar, id);
+  });
+}
+function tabNav(id){
+  // reset stack to just this tab root to keep the back button predictable
+  history.length = 0; history.push(id);
+  document.querySelector('.screen.active').classList.remove('active');
+  document.getElementById(id).classList.add('active');
+  updateTabbar(id);
+}
+function renderTabbar(bar, activeId){
+  const tabs = [
+    {id:'screen-home', label:'Accueil', icon:'i-home'},
+    {id:'screen-appointments', label:'Mes RDV', icon:'i-calendar', dot:true},
+    {id:'screen-account', label:'Profil', icon:'i-user'},
+  ];
+  bar.innerHTML = tabs.map(t=>`
+    <button class="tab-item ${t.id===activeId?'active':''}" onclick="tabNav('${t.id}')" aria-label="${t.label}" aria-current="${t.id===activeId?'page':'false'}">
+      <svg><use href="#${t.icon}"/></svg>
+      ${t.label}
+      ${t.dot && appointments.some(a=>a.status==='upcoming') ? '<span class="dot"></span>' : ''}
+    </button>`).join('');
+}
+
+/* ============ RENDER HELPERS ============ */
+function starIcons(rating){
+  let s='';
+  for(let i=1;i<=5;i++){
+    const filled = i<=Math.round(rating);
+    s += `<svg viewBox="0 0 24 24"><use href="#i-star" style="fill:${filled?'currentColor':'none'};stroke:${filled?'none':'currentColor'};stroke-width:1.5;"/></svg>`;
+  }
+  return s;
+}
+function dentistCard(d, compact){
+  return `
+  <button class="card row" style="width:100%;padding:14px;gap:12px;cursor:pointer;text-align:left;" onclick="openDentist(${d.id})">
+    <div class="avatar" style="width:56px;height:56px;font-size:1.1rem;--av-a:${d.colors[0]};--av-b:${d.colors[1]};flex-shrink:0;">${d.initials}</div>
+    <div style="flex:1;min-width:0;">
+      <div class="row between">
+        <p style="font-weight:700;font-size:0.9rem;">${d.name}</p>
+      </div>
+      <p class="muted" style="font-size:0.78rem;">${d.specialty}</p>
+      <div class="row" style="gap:8px;margin-top:6px;flex-wrap:wrap;">
+        <span class="row" style="gap:3px;"><span class="stars">${starIcons(d.rating)}</span><span style="font-size:0.75rem;font-weight:700;">${d.rating}</span></span>
+        <span class="muted" style="font-size:0.75rem;">· ${d.distance}</span>
+      </div>
+      <div class="row" style="gap:6px;margin-top:8px;flex-wrap:wrap;">
+        <span class="badge badge-available"><svg><use href="#i-clock"/></svg>${d.next}</span>
+        ${d.sector?'<span class="badge badge-sector"><svg><use href="#i-shield"/></svg>Secteur 1</span>':''}
+        ${d.tele?'<span class="badge badge-sector"><svg><use href="#i-video"/></svg>Télé</span>':''}
+      </div>
+    </div>
+  </button>`;
+}
+function renderSpecialtyGrid(){
+  document.getElementById('specialty-grid').innerHTML = specialties.slice(0,8).map(s=>`
+    <button onclick="filterBySpecialty('${s.name}')" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;">
+      <span style="width:52px;height:52px;border-radius:16px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--primary-dark);box-shadow:var(--shadow-card);">
+        <svg width="24" height="24"><use href="#${s.icon}"/></svg>
+      </span>
+      <span style="font-size:0.68rem;font-weight:600;color:var(--foreground);text-align:center;line-height:1.2;">${s.name}</span>
+    </button>`).join('');
+}
+function renderHomeList(){
+  document.getElementById('home-dentist-list').innerHTML = dentists.slice(0,3).map(d=>dentistCard(d)).join('');
+}
+let currentSpecialtyFilter = null;
+function filterBySpecialty(name){
+  currentSpecialtyFilter = name;
+  goto('screen-results');
+  renderResults();
+}
+function renderFilterChips(){
+  const chips = ['Tous', ...specialties.map(s=>s.name)];
+  document.getElementById('filter-chips').innerHTML = chips.map(c=>`
+    <button class="chip ${((currentSpecialtyFilter===c)||(c==='Tous'&&!currentSpecialtyFilter))?'selected':''}" onclick="setFilter('${c}')">${c}</button>`).join('');
+}
+function setFilter(c){ currentSpecialtyFilter = (c==='Tous')?null:c; renderResults(); }
+function renderResults(){
+  renderFilterChips();
+  const list = currentSpecialtyFilter ? dentists.filter(d=>d.specialty===currentSpecialtyFilter) : dentists;
+  document.getElementById('results-title').textContent = currentSpecialtyFilter || 'Tous les praticiens';
+  document.getElementById('results-count').textContent = `${list.length} praticien${list.length>1?'s':''} disponible${list.length>1?'s':''} près de Paris 15e`;
+  document.getElementById('results-list').innerHTML = list.map(d=>dentistCard(d)).join('') || emptyState('search','Aucun résultat','Essayez une autre spécialité ou élargissez votre zone de recherche.');
+}
+function emptyState(type, title, text){
+  return `<div class="col" style="align-items:center;text-align:center;padding:40px 20px;">
+    <svg width="140" height="110" viewBox="0 0 140 110" aria-hidden="true">
+      <ellipse cx="70" cy="95" rx="46" ry="8" fill="#0C4A6E" opacity="0.06"/>
+      <rect x="24" y="20" width="92" height="66" rx="12" fill="#E4F2FA"/>
+      <rect x="24" y="20" width="92" height="18" rx="12" fill="#BAE6FD"/>
+      <circle cx="42" cy="29" r="3" fill="#0284C7"/><circle cx="52" cy="29" r="3" fill="#0284C7"/>
+      <circle cx="70" cy="60" r="17" fill="#FFFFFF" stroke="#0EA5E9" stroke-width="2.5"/>
+      <path d="M70 52c-1.6 0-2.4.9-3.3.9-1.2 0-2.4-.7-2.4 1.7 0 1.9.7 2.9.9 5.3.2 1.7.6 3.6 1.7 3.6s1-3.1 2.2-3.1 1 3.1 2.2 3.1c1.1 0 1.5-1.9 1.7-3.6.2-2.4.9-3.4.9-5.3 0-2.4-1.2-1.7-2.4-1.7-.8 0-1.6-.9-2.9-.9Z" fill="#0EA5E9"/>
+      <circle cx="98" cy="70" r="13" fill="#F0F9FF" stroke="#94A3B8" stroke-width="2.2"/>
+      <path d="m106 78 8 8" stroke="#94A3B8" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+    <p style="font-weight:700;margin-top:10px;">${title}</p>
+    <p class="muted" style="font-size:0.82rem;margin-top:4px;max-width:220px;">${text}</p>
+  </div>`;
+}
+
+/* ---- Dentist profile ---- */
+let currentDentist = null;
+function openDentist(id){
+  currentDentist = dentists.find(d=>d.id===id);
+  const d = currentDentist;
+  document.getElementById('pd-avatar').textContent = d.initials;
+  document.getElementById('pd-avatar').style.setProperty('--av-a', d.colors[0]);
+  document.getElementById('pd-avatar').style.setProperty('--av-b', d.colors[1]);
+  document.getElementById('pd-name').textContent = d.name;
+  document.getElementById('pd-specialty').textContent = d.specialty;
+  document.getElementById('pd-rating').textContent = `${d.rating} (${d.reviews})`;
+  document.getElementById('pd-address').textContent = d.address;
+  document.getElementById('pd-bio').textContent = d.bio;
+  document.getElementById('pd-badges').innerHTML = `
+    ${d.sector?'<span class="badge badge-sector"><svg><use href="#i-shield"/></svg>Conventionné secteur 1</span>':'<span class="badge badge-sector"><svg><use href="#i-shield"/></svg>Secteur 2</span>'}
+    ${d.tele?'<span class="badge badge-sector"><svg><use href="#i-video"/></svg>Téléconsultation</span>':''}
+    <span class="badge badge-available"><svg><use href="#i-check-circle"/></svg>Carte Vitale acceptée</span>`;
+  document.getElementById('pd-slots-preview').innerHTML = ['09:00','11:30','14:15','16:45'].map(t=>`<span class="chip" style="cursor:default;">${t}</span>`).join('');
+  document.getElementById('reviews-list').innerHTML = sampleReviews.map(r=>`
+    <div class="card" style="padding:14px;">
+      <div class="row between">
+        <span class="row" style="gap:8px;"><span class="avatar" style="width:32px;height:32px;font-size:0.72rem;--av-a:${r.color};--av-b:${r.color};">${r.initials}</span><span style="font-weight:700;font-size:0.85rem;">${r.name}</span></span>
+        <span class="stars">${starIcons(r.rating)}</span>
+      </div>
+      <p style="font-size:0.82rem;margin-top:8px;line-height:1.5;color:var(--foreground);">${r.text}</p>
+    </div>`).join('');
+  document.getElementById('tarifs-list').innerHTML = [
+    ['Consultation de contrôle','25 €'],['Détartrage','43 €'],['Soin carie (1 face)','48 €'],['Extraction simple','33 €'],
+  ].map(([label,price],i)=>`<div class="row between" style="padding:12px 0;${i>0?'border-top:1px solid var(--border);':''}"><span style="font-size:0.85rem;">${label}</span><span style="font-weight:700;font-size:0.85rem;">${price}</span></div>`).join('');
+  switchProfileTab('infos');
+  bookingState = {dentist:d, reason:null, date:null, slot:null, patient:familyMembers[0].name};
+  goto('screen-profile-detail');
+}
+const sampleReviews = [
+  {name:'Julie R.', initials:'JR', color:'#0EA5E9', rating:5, text:"Prise en charge rapide et rassurante, je recommande vivement ce praticien pour les enfants comme pour les adultes."},
+  {name:'Marc D.', initials:'MD', color:'#F59E0B', rating:5, text:"Cabinet moderne, ponctualité parfaite et explications très claires sur le traitement."},
+  {name:'Fatou S.', initials:'FS', color:'#10B981', rating:4, text:"Très satisfaite du suivi, juste un peu d'attente en salle d'attente ce jour-là."},
+];
+function switchProfileTab(tab){
+  document.querySelectorAll('.tab-link').forEach(el=>{
+    const active = el.dataset.tab===tab;
+    el.style.color = active? 'var(--primary-dark)':'var(--muted-foreground)';
+    el.style.borderBottomColor = active? 'var(--primary-dark)':'transparent';
+  });
+  ['infos','avis','tarifs'].forEach(t=>document.getElementById('pane-'+t).style.display = t===tab?'block':'none');
+}
+
+/* ---- Booking ---- */
+function renderBookingScreen(){
+  const d = bookingState.dentist;
+  document.getElementById('bk-avatar').textContent = d.initials;
+  document.getElementById('bk-avatar').style.setProperty('--av-a', d.colors[0]);
+  document.getElementById('bk-avatar').style.setProperty('--av-b', d.colors[1]);
+  document.getElementById('bk-name').textContent = d.name;
+  document.getElementById('bk-specialty').textContent = d.specialty;
+
+  document.getElementById('reason-chips').innerHTML = reasons.map(r=>`<button class="chip" data-reason="${r}" onclick="selectReason('${r}')">${r}</button>`).join('');
+
+  const days = ['Lun 6','Mar 7','Mer 8','Jeu 9','Ven 10','Sam 11'];
+  document.getElementById('date-chips').innerHTML = days.map((day,i)=>`
+    <button class="chip" data-date="${day}" onclick="selectDate('${day}')" style="flex-direction:column;padding:10px 16px;gap:2px;">
+      <span style="font-size:0.65rem;text-transform:uppercase;opacity:0.7;">${day.split(' ')[0]}</span>
+      <span style="font-weight:800;font-size:0.95rem;">${day.split(' ')[1]}</span>
+    </button>`).join('');
+
+  document.getElementById('patient-chips').innerHTML = familyMembers.map(f=>`
+    <button class="chip ${f.name===bookingState.patient?'selected':''}" onclick="selectPatient('${f.name}')">${f.name} ${f.role==='Vous'?'(Vous)':''}</button>`).join('');
+
+  selectDate(days[2]);
+  updateBookingSummary();
+}
+function selectReason(r){
+  bookingState.reason = r;
+  document.querySelectorAll('#reason-chips .chip').forEach(c=>c.classList.toggle('selected', c.dataset.reason===r));
+  updateBookingSummary();
+}
+const slotsByDate = {
+  default: ['09:00','09:30','10:15','11:00','14:00','14:30','15:15','16:00','16:45'],
+};
+function selectDate(day){
+  bookingState.date = day; bookingState.slot = null;
+  document.querySelectorAll('#date-chips .chip').forEach(c=>c.classList.toggle('selected', c.dataset.date===day));
+  const slots = slotsByDate.default;
+  document.getElementById('slot-grid').innerHTML = slots.map((s,i)=>{
+    const taken = (i===2 || i===6);
+    return `<button class="chip" ${taken?'disabled':''} data-slot="${s}" onclick="selectSlot('${s}')" style="justify-content:center;${taken?'opacity:0.35;cursor:not-allowed;text-decoration:line-through;':''}">${s}</button>`;
+  }).join('');
+  updateBookingSummary();
+}
+function selectSlot(s){
+  bookingState.slot = s;
+  document.querySelectorAll('#slot-grid .chip').forEach(c=>c.classList.toggle('selected', c.dataset.slot===s));
+  updateBookingSummary();
+}
+function selectPatient(name){
+  bookingState.patient = name;
+  document.querySelectorAll('#patient-chips .chip').forEach(c=>c.classList.toggle('selected', c.textContent.trim().startsWith(name)));
+  updateBookingSummary();
+}
+function updateBookingSummary(){
+  const ok = bookingState.date && bookingState.slot;
+  const line = document.getElementById('booking-summary-line');
+  const btn = document.getElementById('confirm-booking-btn');
+  if(ok){
+    line.innerHTML = `<span style="font-weight:700;">${bookingState.date} à ${bookingState.slot}</span><span class="muted">${bookingState.reason||'Motif libre'}</span>`;
+    btn.disabled = false;
+  } else {
+    line.innerHTML = `<span class="muted">Sélectionnez une date et un créneau</span>`;
+    btn.disabled = true;
+  }
+}
+function confirmBooking(){
+  const d = bookingState.dentist;
+  appointments.unshift({id:Date.now(), dentistId:d.id, date:'Ven. 10 juillet', time:bookingState.slot, reason:bookingState.reason||'Consultation', status:'upcoming'});
+  document.getElementById('cf-avatar').textContent = d.initials;
+  document.getElementById('cf-avatar').style.setProperty('--av-a', d.colors[0]);
+  document.getElementById('cf-avatar').style.setProperty('--av-b', d.colors[1]);
+  document.getElementById('cf-name').textContent = d.name;
+  document.getElementById('cf-specialty').textContent = d.specialty;
+  document.getElementById('cf-date').textContent = 'Vendredi 10 juillet 2026';
+  document.getElementById('cf-time').textContent = bookingState.slot + ' · ' + (bookingState.reason||'Consultation');
+  document.getElementById('cf-address').textContent = d.address;
+  goto('screen-confirmation');
+}
+document.getElementById('reminder-toggle').addEventListener('click', function(){
+  const on = this.dataset.on === 'true';
+  this.dataset.on = (!on).toString();
+  this.style.background = on ? '#94A3B8' : 'var(--primary)';
+  this.firstElementChild.style.left = on ? '2px' : '20px';
+});
+
+/* ---- Appointments ---- */
+let apptTab = 'upcoming';
+function switchApptTab(tab){
+  apptTab = tab;
+  document.getElementById('appt-tab-upcoming').style.background = tab==='upcoming' ? 'var(--surface)' : 'none';
+  document.getElementById('appt-tab-upcoming').style.color = tab==='upcoming' ? 'var(--foreground)' : 'var(--muted-foreground)';
+  document.getElementById('appt-tab-upcoming').style.boxShadow = tab==='upcoming' ? '0 2px 6px rgba(12,74,110,0.1)' : 'none';
+  document.getElementById('appt-tab-past').style.background = tab==='past' ? 'var(--surface)' : 'none';
+  document.getElementById('appt-tab-past').style.color = tab==='past' ? 'var(--foreground)' : 'var(--muted-foreground)';
+  document.getElementById('appt-tab-past').style.boxShadow = tab==='past' ? '0 2px 6px rgba(12,74,110,0.1)' : 'none';
+  refreshAppointments();
+}
+function refreshAppointments(){
+  const list = appointments.filter(a=>a.status===apptTab);
+  document.getElementById('appointments-list').innerHTML = list.map(a=>{
+    const d = dentists.find(x=>x.id===a.dentistId);
+    return `
+    <div class="card" style="padding:14px;">
+      <div class="row between">
+        <span class="row" style="gap:10px;">
+          <span class="avatar" style="width:42px;height:42px;font-size:0.85rem;--av-a:${d.colors[0]};--av-b:${d.colors[1]};">${d.initials}</span>
+          <span><p style="font-weight:700;font-size:0.87rem;">${d.name}</p><p class="muted" style="font-size:0.76rem;">${d.specialty}</p></span>
+        </span>
+        ${a.status==='upcoming'?'<span class="badge badge-available">Confirmé</span>':'<span class="badge badge-sector">Terminé</span>'}
+      </div>
+      <div style="height:1px;background:var(--border);margin:12px 0;"></div>
+      <div class="row between">
+        <span class="row muted" style="gap:6px;font-size:0.8rem;"><svg width="15" height="15"><use href="#i-calendar"/></svg>${a.date} · ${a.time}</span>
+      </div>
+      ${a.status==='upcoming'?`<div class="row" style="gap:8px;margin-top:12px;">
+        <button class="btn btn-secondary btn-sm" style="flex:1;">Reporter</button>
+        <button class="btn btn-sm" style="flex:1;background:var(--urgent-bg);color:var(--urgent);" onclick="cancelAppt(${a.id})">Annuler</button>
+      </div>`:`<div class="row" style="gap:8px;margin-top:12px;"><button class="btn btn-secondary btn-sm" style="flex:1;" onclick="openDentist(${d.id})">Reprendre RDV</button></div>`}
+    </div>`;
+  }).join('') || emptyState('calendar','Aucun rendez-vous', apptTab==='upcoming' ? "Vous n'avez pas de rendez-vous à venir. Trouvez un dentiste dès maintenant." : "Votre historique de rendez-vous passés apparaîtra ici.");
+}
+function cancelAppt(id){
+  appointments = appointments.filter(a=>a.id!==id);
+  refreshAppointments();
+  renderTabbar(document.querySelector('#screen-appointments .tabbar'), 'screen-appointments');
+}
+
+/* ---- Notifications ---- */
+function renderNotifications(){
+  const notifs = [
+    {icon:'i-bell', title:'Rappel de rendez-vous', text:'Dr. Karim Haddad — demain à 09:00', time:'Il y a 2h'},
+    {icon:'i-check-circle', title:'Rendez-vous confirmé', text:'Votre créneau du 10 juillet est confirmé', time:'Hier'},
+    {icon:'i-doc', title:'Nouveau document disponible', text:'Compte-rendu de consultation ajouté', time:'Il y a 3 jours'},
+  ];
+  document.getElementById('notifications-list').innerHTML = notifs.map(n=>`
+    <div class="card row" style="padding:14px;gap:12px;">
+      <span style="width:38px;height:38px;border-radius:12px;background:var(--muted);display:flex;align-items:center;justify-content:center;color:var(--primary-dark);flex-shrink:0;"><svg width="18" height="18"><use href="#${n.icon}"/></svg></span>
+      <div><p style="font-weight:700;font-size:0.85rem;">${n.title}</p><p class="muted" style="font-size:0.78rem;margin-top:2px;">${n.text}</p><p class="muted" style="font-size:0.7rem;margin-top:4px;">${n.time}</p></div>
+    </div>`).join('');
+}
+
+/* ---- Account ---- */
+function renderAccount(){
+  document.getElementById('family-list').innerHTML = familyMembers.map(f=>`
+    <div class="card row between" style="padding:12px 14px;">
+      <span class="row" style="gap:10px;"><span class="avatar" style="width:38px;height:38px;font-size:0.8rem;--av-a:${f.colors[0]};--av-b:${f.colors[1]};">${f.initials}</span><span><p style="font-weight:700;font-size:0.85rem;">${f.name}</p><p class="muted" style="font-size:0.75rem;">${f.role}</p></span></span>
+      <svg width="16" height="16" style="color:var(--muted-foreground);"><use href="#i-chevron-right"/></svg>
+    </div>`).join('');
+  document.getElementById('settings-list').innerHTML = settingsItems.map((s,i)=>`
+    <button class="row between" style="width:100%;padding:14px 16px;background:none;border:none;cursor:pointer;${i>0?'border-top:1px solid var(--border);':''}">
+      <span class="row" style="gap:10px;color:var(--foreground);font-size:0.85rem;font-weight:600;"><svg width="17" height="17" style="color:var(--primary-dark);"><use href="#${s.icon}"/></svg>${s.label}</span>
+      <svg width="16" height="16" style="color:var(--muted-foreground);"><use href="#i-chevron-right"/></svg>
+    </button>`).join('');
+}
+
+/* ============ INIT ============ */
+renderSpecialtyGrid();
+renderHomeList();
+renderResults();
+renderNotifications();
+renderAccount();
+refreshAppointments();
+updateTabbar('screen-onboarding');
+</script>
+</body>
+</html>
